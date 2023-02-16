@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"   
+  xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2"   
+  
+
+  IgnorableNamespaces="uap mp uap3 desktop4 iot2">
+
+  <Identity
+    Name="Project.Radon"
+    Publisher="CN=ItzBluebxrry • NoobNotFound • Pdawg"
+    Version="1.4.10.0" />
+
+  <mp:PhoneIdentity PhoneProductId="62b3ecf5-f123-4873-9bfb-b6d325b51f33" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>Radon Browser Dev</DisplayName>
+    <PublisherDisplayName>ItzBluebxrry - Pdawg - NoobNotFound</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Project_Radon.App"
+	  desktop4:SupportsMultipleInstances="true"   
+      iot2:SupportsMultipleInstances="true">
+      <uap:VisualElements
+        DisplayName="Radon Browser Dev"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="An experimental UWP web browser powered by WebView2 with integrated Windows 11 design system" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="Radon Dev">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="#121212"/>
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="radon">
+            <uap:DisplayName>Project Radon</uap:DisplayName>
+            <uap:Logo>Project Radon.png</uap:Logo>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <uap3:Capability Name="backgroundMediaPlayback"/>
+    <uap:Capability Name="voipCall"/>
+    <DeviceCapability Name="webcam"/> 
+  </Capabilities>
+</Package>

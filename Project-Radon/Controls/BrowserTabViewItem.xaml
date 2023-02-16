@@ -1,0 +1,17 @@
+﻿<winui:TabViewItem
+    x:Class="Project_Radon.Controls.BrowserTabViewItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project_Radon.Controls"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource TabViewItemStyle}"
+    Padding="0,0,0,6"
+    Background="Transparent"
+    Content="{x:Bind TabContent,Mode=OneWay}" HorizontalAlignment="Center"
+    mc:Ignorable="d" HorizontalContentAlignment="Center">
+    <winui:TabViewItem.Header>
+        <TextBlock Text="{x:Bind TabHeader,Mode=OneWay}" ToolTipService.ToolTip="{x:Bind TabHeader,Mode=OneWay}" TextTrimming="CharacterEllipsis"/>
+    </winui:TabViewItem.Header>
+</winui:TabViewItem>

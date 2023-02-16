@@ -1,0 +1,496 @@
+﻿<Page x:Class="Yttrium_browser.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:controls="using:Project_Radon.Controls"
+      winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
+      x:Name="MainWindow"
+      DataContext="BrowserTabViewModel">
+    <Page.KeyboardAccelerators>
+        <KeyboardAccelerator Key="T" Modifiers="Control" Invoked="NewTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="W" Modifiers="Control" Invoked="CloseSelectedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number1" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number2" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number3" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number4" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number5" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number6" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number7" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number8" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number9" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="LeftButton" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="RightButton" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+    </Page.KeyboardAccelerators>
+    <Page.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="Transparent"  />
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid x:Name="BasicGrid">
+        <Grid.Background>
+            <ImageBrush x:Name="appthemebackground" ImageSource="ms-appx:///wallpapers/10.png" Opacity="0.2"/>
+        </Grid.Background>
+        <Grid>
+    <Grid x:Name="BaseGrid" SizeChanged="BaseGrid_SizeChanged">
+        <Grid x:Name="TitleBarGrid"
+              Grid.Row="0"
+              Canvas.ZIndex="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" x:Name="navbuttonbar" MinWidth="143" MaxWidth="400"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition x:Name="righttitlebarpadding" Width="*" MinWidth="143" MaxWidth="300"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="DefaultBarUI" Height="38"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- titlebar drag area -->
+            <Border x:Name="DragArea"
+                    Loaded="DragArea_Loaded"
+                    Background="Transparent"
+                    Canvas.ZIndex="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Grid.RowSpan="2" />
+
+            <!-- refresh and home buttons -->
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="5,0,0,0"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Canvas.ZIndex="1">
+                        <winui:DropDownButton x:Name="tabactions_button" Margin="5,2,0,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="HomeButton_Click"
+                        Padding="7.2" ToolTipService.ToolTip="Tab actions" CornerRadius="3">
+                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xeb41;"
+                              FontSize="16" />
+                            <winui:DropDownButton.Flyout>
+                                <MenuFlyout ShouldConstrainToRootBounds="True">
+                                   
+                                    <MenuFlyoutItem Text="New tab" Width="250" x:Name="tabaction_newtab" Click="addtab_button_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xe737;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="New window (in development)" Width="250" IsEnabled="False">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xe78b;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="Inline mode (experimental)" Width="250" x:Name="tabaction_inline" Click="tabaction_inline_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xf26b;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="System titlebar" Width="250" x:Name="tabaction_titlebar" Click="tabaction_titlebar_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xe967;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="Snip tab (in development)" Width="250" IsEnabled="False">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xe931;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="Web grabber (in development)" Width="250" IsEnabled="False">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xe8ac;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="Generate QR code" Width="250" IsEnabled="False">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xed14;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="Developer Tools" Width="250" x:Name="tabactions_devtools" Click="tabactions_devtools_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xec7a;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem x:Name="ChangeThemeButton" Text="Change theme" Click="ChangeThemeButton_Click" Width="250">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xe771;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+
+
+                                    <!--<Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" Margin="0,0,0,0">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <FontIcon Glyph="&#xf7ed;" FontSize="16"/>
+                                                            <TextBlock Margin="10,0,0,0" Text="New tab"/>
+                                                        </StackPanel>
+                                                    </Button>-->
+
+
+                                </MenuFlyout>
+                            </winui:DropDownButton.Flyout>
+                        </winui:DropDownButton>
+                        <Grid Width="8"/>
+                        <Button x:Name="BackButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="0,2,5,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Click="BackButton_Click"
+                        Padding="3,6" ToolTipService.ToolTip="Back">
+
+                            <FontIcon Glyph="&#xe973;" FontSize="20" FontFamily="Segoe Fluent Icons"/>
+                </Button>
+                <Button x:Name="ForwardButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="0,2,5,0"
+                        Click="ForwardButton_Click"
+                        Padding="3,6" ToolTipService.ToolTip="Forward">
+                            <FontIcon Glyph="&#xe974;"
+                              FontSize="20" FontFamily="segoe fluent icons" />
+                </Button>
+                
+                
+                <Button x:Name="HomeButton"
+                        Background="Transparent" Visibility="Collapsed"
+                        BorderThickness="0"
+                        Click="HomeButton_Click" Margin="0,0,5,0"
+                        Padding="8.5" ToolTipService.ToolTip="Start page">
+                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe80f;"
+                              FontSize="16" />
+                </Button>
+                <Button x:Name="NavOverflowButton"
+                        Background="Transparent" Visibility="Collapsed"
+                        BorderThickness="0"
+                        Click="HomeButton_Click"
+                        Padding="8.5" ToolTipService.ToolTip="Navigation options">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe70d;"
+                              FontSize="16" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Width="150" Text="Forward" Icon="Forward" Click="ForwardButton_Click"/>
+                            <MenuFlyoutItem Width="150" Text="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
+                            <MenuFlyoutItem Width="150" Text="Stop loading" Icon="Document"/>
+                            <MenuFlyoutItem Width="150" Text="Start page" Icon="Home" Click="HomeButton_Click"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+                
+            </StackPanel>
+
+            <!-- SSL certification icon-->
+            <Button x:Name="SSLButton"
+                    VerticalAlignment="Center"
+                    Grid.Column="1" CornerRadius="4"
+                    Margin="8,2,0,0"
+                    BorderThickness="0"
+                    Canvas.ZIndex="1"
+                    Padding="6.9"
+                    Grid.Row="0" Background="Transparent"
+                    ToolTipService.ToolTip="View connection information">
+                <FontIcon  x:Name="SSLIcon"
+                           Glyph="&#xea18;"
+                           FontSize="15" />
+                <Button.Flyout>
+                    <Flyout x:Name="SSLFlyout" ShouldConstrainToRootBounds="False">
+                        <StackPanel Width="340">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon  x:Name="SSLFlyoutIcon"
+                                    Glyph="&#xe705;"
+                                    FontSize="18" />
+                                <TextBlock x:Name="SSLFlyoutHeader" Style="{ThemeResource BaseTextBlockStyle}" Margin="10,0" Text="Connection informations"/>
+
+                            </StackPanel>
+                            <TextBlock x:Name="SSLFlyoutStatus" TextWrapping="WrapWholeWords" Margin="0,20,0,0" Text="Website's SSL status goes here."/>
+                            <TextBlock x:Name="SSLFlyoutStatus2" TextWrapping="WrapWholeWords" Margin="0,15,0,10" Text="Website's SSL status goes here."/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+
+            </Button>
+
+            <!-- search bar -->
+                <TextBox x:Name="SearchBar"
+                    KeyDown="SearchBar_KeyDown"
+                    VerticalAlignment="Center"
+                    Margin="43,3,45,0"
+                    BorderThickness="0"
+                    Padding="30,6,30,2"
+                    FontSize="13" Height="21" 
+                    IsSpellCheckEnabled="False"
+                    Grid.Column="1"
+                    PlaceholderText="Search the web or enter a URL"
+                    VerticalContentAlignment="Center" 
+                    GotFocus="SearchBar_GotFocus" PlaceholderForeground="{ThemeResource ContentDialogDimmingThemeBrush}"
+                    LostFocus="SearchBar_LostFocus" CharacterSpacing="1"
+                    TextAlignment="Center" FontWeight="Medium" 
+                    CornerRadius="3">
+                </TextBox>
+
+                    <Button x:Name="RefreshButton"
+                        Background="{x:Null}" Grid.Column="1" HorizontalAlignment="Right"
+                        BorderThickness="0" PointerEntered="RefreshButton_PointerEntered"
+                        Margin="0,4,48,0"
+                        Click="RefreshButton_Click"
+                        CornerRadius="1" Padding="6.5" ToolTipService.ToolTip="Reload">
+                        <FontIcon Glyph="&#xe72c;"
+                              FontSize="13" FontFamily="segoe fluent icons"/>
+                    </Button>
+                    <Button x:Name="StopRefreshButton"
+                        Background="Transparent" Grid.Column="1"
+                        BorderThickness="0" HorizontalAlignment="Right"
+                        Margin="0,4,48,0"
+                        Visibility="Collapsed"
+                        Click="StopRefreshButton_Click"
+                        Padding="6" CornerRadius="1" ToolTipService.ToolTip="Stop navigation">
+                        <FontIcon Glyph="&#xe711;" FontSize="15"
+                                  FontFamily="Segoe fluent icons"/>
+                    </Button>
+
+                    
+            <BitmapIcon x:Name="faviconicon" Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Margin="50,0,0,0"/>
+
+            <!-- settings flyout -->
+            <!--<Button x:Name="MenuButton" BorderBrush="Transparent"
+                    Grid.Column="1" HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="Transparent" CornerRadius="12"
+                    BorderThickness="0"
+                    Margin="0,0,-10,0"
+                    Grid.Row="0" Width="56"
+                    >
+                        <winui:PersonPicture ProfilePicture="ms-appx:///accountpictures/clippy.png" Width="28" BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1"/>
+                        <Button.Flyout>
+                    <Flyout ShouldConstrainToRootBounds="False">
+                        <StackPanel Width="180">
+                            <StackPanel Name="menuheader">
+                                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" BorderBrush="Transparent" Background="Transparent" Margin="0,0,0,10">
+                                            <StackPanel Orientation="Horizontal">
+                                                <PersonPicture ProfilePicture="ms-appx:///accountpictures/clippy.png" Width="45"/>
+                                                <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" FontSize="15" Text="Radon User"/>
+                                                    <TextBlock Text="Local account" FontSize="12"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Button>
+                                        <Border BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}" Opacity="0.3" Margin="10,5,10,10" BorderThickness="1"/>
+
+                                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" Margin="0,0,0,0" IsEnabled="False">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE734;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="Favorites"/>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button x:Name="HistoryButton" Click="HistoryButton_Click" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE81C;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="History"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" x:Name="downloadbutton" Click="downloadbutton_Click" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE896;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="Downloads"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" x:Name="fullscreenbutton" Click="fullscreenbutton_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE740;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="Fullscreen (beta)"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" x:Name="printbutton" Click="printbutton_Click" IsEnabled="False">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE749;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="Print"/>
+                                    </StackPanel>
+                                </Button>
+                                        <Slider x:Name="ZoomSlider" ValueChanged="ZoomSlider_ValueChanged"/>
+                                        <Border BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}" Opacity="0.3" Margin="10,10" BorderThickness="1"/>
+                                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" IsEnabled="False">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE90F;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="More tools" />
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="SettingsPageButton" Click="SettingsPageButton_Click" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE713;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="Settings (beta)"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="ChangeThemeButton" Click="ChangeThemeButton_Click" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left">
+                                            <Button.Flyout>
+                                                <Flyout>
+                                                    <TextBlock Text="Hello"/>
+                                                </Flyout>
+                                            </Button.Flyout>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xe771;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="Change theme (beta)"/>
+                                    </StackPanel>
+                                </Button>
+                                        <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch"
+                                        x:Name="aboutbutton" Click="AboutMenuItem_Click" HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE946;" FontSize="15"/>
+                                        <TextBlock Margin="10,0,0,0" Text="About"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+
+                
+
+            </Button>-->
+                    
+            <winui:TabView
+                TabItemsSource="{x:Bind CurrentTabs}"
+                Grid.Row="1"
+                Grid.ColumnSpan="4"
+                TabWidthMode="Equal"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Stretch"
+                x:Name="BrowserTabs" 
+                Margin="0,-3,0,0"
+               IsAddTabButtonVisible="False"
+                TabCloseRequested="BrowserTabs_TabCloseRequested"
+                SelectionChanged="BrowserTabs_SelectionChanged"
+                AddTabButtonClick="BrowserTabs_AddTabButtonClick"
+                >
+                        <winui:TabView.TabStripHeader>
+                        <Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="8,0,0,0">
+                                    <!--TODO: The button should add a new tab -->
+                                    
+
+                                    <Grid x:Name="compacttitlebar_rightpadding" Width="40" Visibility="Collapsed"/>
+                                    <winui:TeachingTip IsOpen="False" x:Name="addtabtip" Target="{x:Bind addtab_button}" Title="Didn't see anything?"
+                                                   >
+                                        <winui:TeachingTip.IconSource>
+                                            <winui:SymbolIconSource Symbol="Repair"/>
+                                        </winui:TeachingTip.IconSource>
+                                        <StackPanel>
+
+                                            <TextBlock Text="There have been reports that tabs aren't displaying the page." TextWrapping="WrapWholeWords"/>
+                                            <TextBlock Text="To fix this, go to any other open tabs and go back to the tab you're currently on." Margin="0,10,0,0" TextWrapping="WrapWholeWords"/>
+                                            <Button HorizontalAlignment="Stretch" Content="Got it!" Margin="0,20,0,0" Click="Button_Click_1"/>
+                                        </StackPanel>
+                                    </winui:TeachingTip>
+                                </StackPanel>
+                                <Grid x:Name="tabaction">
+                                    
+                                </Grid>
+                            <Grid x:Name="compactuibar" Visibility="Collapsed" Margin="45,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition x:Name="compactnavbar" MinWidth="100" Width="*"/>
+                                    <ColumnDefinition x:Name="compactsearchbar" Width="999*" MaxWidth="400"/>
+                                </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                        <Button x:Name="CompactBackButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="12,5,10,5"
+                        Click="BackButton_Click"
+                        Padding="6" ToolTipService.ToolTip="Back">
+                             <FontIcon Glyph="&#xe760;" FontSize="20" FontFamily="Segoe Fluent Icons"/>
+                        </Button>
+                        <Button x:Name="CompactNavOverflowButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="HomeButton_Click"
+                        Padding="8.5" ToolTipService.ToolTip="Navigation options">
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe712;"
+                              FontSize="18" />
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Width="150" Text="Forward" Icon="Forward" Click="ForwardButton_Click"/>
+                                            <MenuFlyoutItem Width="150" Text="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
+                                            <MenuFlyoutItem Width="150" Text="Stop loading" Icon="Document"/>
+                                            <MenuFlyoutItem Width="150" Text="Start page" Icon="Home" Click="HomeButton_Click"/>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
+                                
+                                <!--TODO: The button should add a new tab -->
+                            <Button Style="{ThemeResource PaneToggleButtonStyle}"  VerticalAlignment="Center" Width="48" Visibility="Collapsed">
+                                <Button.Flyout>
+                                    <Flyout/>
+                                </Button.Flyout>
+                            </Button>
+                            </StackPanel>
+                                <AutoSuggestBox x:Name="CompactSearchBar"
+                         KeyDown="CompactSearchBar_KeyDown"
+                         VerticalAlignment="Center"
+                         Margin="13,0,15,0"
+                         BorderThickness="0"
+                         Padding="36,6,6,0"
+                        HorizontalAlignment="Stretch"
+                        FontWeight="SemiBold"
+                         Grid.Column="1"
+                         PlaceholderText="Search the web or enter a URL"
+                         Height="25"
+                         VerticalContentAlignment="Center" 
+                         GotFocus="SearchBar_GotFocus"
+                         CornerRadius="8" />
+                                <winui:ProgressBar x:Name="compactloadingbar" VerticalAlignment="Bottom" Margin="21,0,23,5" IsIndeterminate="True"/>
+                            </Grid>
+                        </Grid>
+                        </winui:TabView.TabStripHeader>
+                        <winui:TabView.TabStripFooter>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button CornerRadius="3" x:Name="addtab_button" BorderBrush="{x:Null}" Width="auto" Click="addtab_button_Click" Background="Transparent" HorizontalAlignment="Right">
+                                <FontIcon Glyph="&#xe710;" FontSize="16"/>
+                            </Button>
+                            <Button BorderBrush="{x:Null}" Width="40" Background="Transparent" HorizontalAlignment="Right">
+                                <FontIcon Glyph="&#xe7c4;" FontSize="16"/>
+                            </Button>
+                            </StackPanel>
+                        </winui:TabView.TabStripFooter>
+
+
+            </winui:TabView>
+                    <winui:ProgressBar x:Name="loadingbar" Grid.ColumnSpan="4" VerticalAlignment="Top" Grid.Row="0" Visibility="Visible" IsIndeterminate="True"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Popup x:Name="ThemePopup" IsOpen="False" HorizontalAlignment="Center">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PopupThemeTransition />
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+
+            <StackPanel Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" Padding="10" HorizontalAlignment="Center" CornerRadius="8">
+                <TextBlock HorizontalAlignment="Center" Text="Pick a theme:" Style="{ThemeResource SubtitleTextBlockStyle}" TextAlignment="Center"/>
+                <ComboBox x:Name="ThemePickerComboBox" Width="300" Margin="0,10,0,0" SelectionChanged="ThemePickerComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Unknown"/>
+                    <ComboBoxItem Content="Forest"/>
+                    <ComboBoxItem Content="Candy"/>
+                    <ComboBoxItem Content="Midnight"/>
+                    <ComboBoxItem Content="Azure"/>
+                    <ComboBoxItem Content="Maple"/>
+                    <ComboBoxItem Content="Unknown1"/>
+                    <ComboBoxItem Content="Rainbow"/>
+                    <ComboBoxItem Content="Deep Blue"/>
+                    <ComboBoxItem Content="Sweet"/>
+                    <ComboBoxItem Content="Dreamy"/>
+                </ComboBox>
+                <Button Style="{ThemeResource AccentButtonStyle}" Margin="0,20,0,0" Content="Done" HorizontalAlignment="Stretch" x:Name="ThemePopupDoneButton" Click="ThemePopupDoneButton_Click"/>
+            </StackPanel>
+        </Popup>
+    </Grid>
+</Page>
