@@ -1,4 +1,4 @@
-# Project Radon
+# ![safari](https://user-images.githubusercontent.com/6630660/219523079-eb6de626-9a50-47e5-85af-e6f2a8eccbf5.png)  Project Radon
 
 Project Radon is an experimental UWP web browser powered by WebView2, with integrated Windows 11 design system.
 
