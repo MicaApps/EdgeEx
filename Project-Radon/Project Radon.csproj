@@ -403,6 +403,7 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <None Include="Project Radon_TemporaryKey.pfx" />
     <None Include="Screenshots\readme.md" />
   </ItemGroup>
   <ItemGroup>
