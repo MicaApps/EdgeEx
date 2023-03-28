@@ -43,22 +43,22 @@ meaning this cef window will cover anything that overlapps with the xaml content
 ### Webview2 (Xaml inherited member omitted)
 |Api|Necessary|Implement in Cef|
 |--|--|--|
-`bool CanGoBack{get;}                                                                `|*|*
-`void GoBack()                                                                       `|*|*
-`bool CanGoForward{get;}                                                             `|*|*
-`void GoForward()                                                                    `|*|*
-`Windows.UI.Color DefaultBackgroundColor{get;}                                       `|*|*
-`Windows.Foundation.Uri Source{get;set;}                                             `|*|*
-`void NavigateToString(String htmlContent)                                           `|*|*
-`void Close()                                                                        `|*|*
+`bool CanGoBack{get;}`|*|*
+`void GoBack()`|*|*
+`bool CanGoForward{get;}`|*|*
+`void GoForward()`|*|*
+`Windows.UI.Color DefaultBackgroundColor{get;}`|*|*
+`Windows.Foundation.Uri Source{get;set;}`|*|*
+`void NavigateToString(String htmlContent)`|*|*
+`void Close()`|*|*
 `Windows.Foundation.IAsyncOperation<String> ExecuteScriptAsync(String javascriptCode)`|*|*
 
 |Events|Necessary|Implemented in Cef|
 |--|--|--|
-`CoreProcessFailed      `|
+`CoreProcessFailed`|
 `CoreWebView2Initialized`|
-`NavigationStarting     `|
-`WebMessageReceived     `|*
+`NavigationStarting`|
+`WebMessageReceived`|*
 
 ### Core Layer
 ### CoreWebView2
