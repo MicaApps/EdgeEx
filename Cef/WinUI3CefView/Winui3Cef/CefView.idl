@@ -1,0 +1,16 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace Winui3Cef
+{
+    [default_interface]
+    runtimeclass CefView : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        CefView();
+
+        void CanLoad();
+        
+        event Windows.Foundation.EventHandler<String> WebMessageReceived;
+        void ExecuteScript(String script);
+    }
+}
