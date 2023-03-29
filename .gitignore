@@ -4,3 +4,25 @@ cef_binary_110.0.31+g46651e0+chromium-110.0.5481.179_windows64/
 Generated Files/
 packages/
 x64/
+/Cef/WinUI3CefView/Winui3Cef/locales
+/Cef/WinUI3CefView/Winui3Cef/Resources
+/Cef/WinUI3CefView/Winui3Cef/cefclient.exe
+/Cef/WinUI3CefView/Winui3Cef/cefclient.exp
+/Cef/WinUI3CefView/Winui3Cef/cefclient.lib
+/Cef/WinUI3CefView/Winui3Cef/cefclient.pdb
+/Cef/WinUI3CefView/Winui3Cef/chrome_100_percent.pak
+/Cef/WinUI3CefView/Winui3Cef/chrome_200_percent.pak
+/Cef/WinUI3CefView/Winui3Cef/chrome_elf.dll
+/Cef/WinUI3CefView/Winui3Cef/console.log
+/Cef/WinUI3CefView/Winui3Cef/d3dcompiler_47.dll
+/Cef/WinUI3CefView/Winui3Cef/debug.log
+/Cef/WinUI3CefView/Winui3Cef/icudtl.dat
+/Cef/WinUI3CefView/Winui3Cef/libcef.dll
+/Cef/WinUI3CefView/Winui3Cef/libEGL.dll
+/Cef/WinUI3CefView/Winui3Cef/libGLESv2.dll
+/Cef/WinUI3CefView/Winui3Cef/resources.pak
+/Cef/WinUI3CefView/Winui3Cef/snapshot_blob.bin
+/Cef/WinUI3CefView/Winui3Cef/v8_context_snapshot.bin
+/Cef/WinUI3CefView/Winui3Cef/vk_swiftshader.dll
+/Cef/WinUI3CefView/Winui3Cef/vk_swiftshader_icd.json
+/Cef/WinUI3CefView/Winui3Cef/vulkan-1.dll
