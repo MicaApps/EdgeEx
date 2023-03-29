@@ -142,6 +142,12 @@ xcopy /Y /e "$(ProjectDir)..\..\CefBase\cef_binary_110.0.31+g46651e0+chromium-11
     <Content Include="libGLESv2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="v8_context_snapshot.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="vk_swiftshader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CefView.xaml.h">
