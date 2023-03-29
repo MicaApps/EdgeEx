@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Winui3Cef", "Winui3Cef.vcxproj", "{BE02DAB3-8516-4DDD-B68A-5DEB1790DB5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0C44AA24-4CB3-4721-923C-51C125077AA7} = {0C44AA24-4CB3-4721-923C-51C125077AA7}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Winui3CefCore", "..\Winui3CefCore\Winui3CefCore.vcxproj", "{0C44AA24-4CB3-4721-923C-51C125077AA7}"
 EndProject
