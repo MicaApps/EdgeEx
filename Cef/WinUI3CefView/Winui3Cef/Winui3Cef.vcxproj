@@ -99,8 +99,8 @@
       </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xcopy /Y /e /I $(ProjectDir)..\..\CefBase\cef_binary_110.0.31+g46651e0+chromium-110.0.5481.179_windows64\Resources $(ProjectDir)Resources
-      xcopy /Y /e $(ProjectDir)..\..\CefBase\cef_binary_110.0.31+g46651e0+chromium-110.0.5481.179_windows64\build\tests\cefclient\Debug $(ProjectDir)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xcopy /Y /e /I "$(ProjectDir)..\..\CefBase\cef_binary_110.0.31+g46651e0+chromium-110.0.5481.179_windows64\Resources" $(ProjectDir)Resources
+xcopy /Y /e "$(ProjectDir)..\..\CefBase\cef_binary_110.0.31+g46651e0+chromium-110.0.5481.179_windows64\build\tests\cefclient\Debug" $(ProjectDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
