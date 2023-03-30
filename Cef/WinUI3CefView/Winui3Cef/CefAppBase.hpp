@@ -30,5 +30,5 @@ public:
 		return ProcessType::Other;
 	}
 
-	DISALLOW_COPY_AND_ASSIGN(WinUICefAppBase);
+	IMPLEMENT_REFCOUNTING(WinUICefAppBase);
 };

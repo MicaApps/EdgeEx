@@ -16,9 +16,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <local:CefView x:Name="CefView" Grid.Column="0" WebMessageReceived="CefView_WebMessageReceived"/>
-        <Button Grid.Column="1" x:Name="myButton" Click="myButton_Click" HorizontalAlignment="Center">
-            Click Me
-        </Button>
+        <local:CefView x:Name="CefView" Grid.Column="0"/>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="200" x:Name="urlText"/>
+                <Button x:Name="NavigateButton" Click="NavigateButton_Click">Go</Button>
+            </StackPanel>
+
+            <Button x:Name="GoForwardButton" Click="GoForwardButton_Click">Forward</Button>
+            <Button x:Name="GoBackwardButton" Click="GoBackwardButton_Click">Backward</Button>
+            <Button x:Name="ExecuteScriptButton" Click="ExecuteScriptButton_Click">ExecuteScript</Button>
+        </StackPanel>
     </Grid>
 </Window>

@@ -16,21 +16,40 @@ namespace winrt::Winui3Cef::implementation
     {
         CefView();
 
+        bool CanGoBack();
+        void GoBack();
+
+        bool CanGoForward();
+        void GoForward();
+
+        winrt::Windows::UI::Color DefaultBackgroundColor();
+        
+        winrt::Windows::Foundation::Uri Source();
+        void Source(winrt::Windows::Foundation::Uri value);
+
+        void NavigateToString(winrt::hstring htmlContent);
+        void Close();
+
+        winrt::Windows::Foundation::IAsyncOperation<winrt::hstring> ExecuteScriptAsync(winrt::hstring javascriptCode);
+
+
+
         void UserControl_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e);
 
-        void CanLoad();
+        //void CanLoad();
 
-        winrt::event_token WebMessageReceived(Windows::Foundation::EventHandler<winrt::hstring> const& handler);
-        void WebMessageReceived(winrt::event_token const& token) noexcept;
+        //winrt::event_token WebMessageReceived(Windows::Foundation::EventHandler<winrt::hstring> const& handler);
+        //void WebMessageReceived(winrt::event_token const& token) noexcept;
 
-        void ExecuteScript(winrt::hstring script);
+        //void ExecuteScript(winrt::hstring script);
     private:
         winrt::event<Windows::Foundation::EventHandler<winrt::hstring>> m_webMessageReceivedEvent;
         HWND m_cefHwnd;
         HRGN toHRGN(winrt::Windows::Foundation::Size size);
         winrt::Windows::Foundation::Point getOrigin();
-    public:
         void createBrowser();
+    public:
+
         void UserControl_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         winrt::Windows::Foundation::Size m_size{};
         BrowserClient* m_client{};

@@ -29,6 +29,21 @@
 - You should have a good understanding in one of C++, C#, UWP, WinUI3, Cef frameworks. （你应该至少在C++、C#、UWP、WinUI3、Cef框架中至少熟悉一样）
 
 ## Current Issues Listing（当前踩坑列表）
+### Cef related
+- To successfully run `WinUI3Cef` project, check into the `Cef\Winui3Cef\x64\Debug\Winui3Cef\Appx` folder, and these files and folders should be present
+```
+locales\
+Resources\
+chrome_100_percent.pak
+chrome_200_percent.pak
+icudtl.dat
+libEGL.dll
+libGLESv2.dll
+resources.pak
+v8_context_snapshot.bin
+vk_swiftshader.dll
+Winui3CefCore.exe
+```
 ### WinUI2 related （WinUI2 UWP相关）
 ### WinUI3 related（WinUI3相关）
 - Current Cef window was created using child window which has a higher z-order in the window structure, 

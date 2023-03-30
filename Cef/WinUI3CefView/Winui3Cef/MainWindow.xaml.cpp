@@ -19,21 +19,32 @@ namespace winrt::Winui3Cef::implementation
     {
         InitializeComponent();
     }
-
-    void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
-    {
-        CefView().ExecuteScript(LR"(alert('Execute script in cef');)");
-    }
 }
 
 
-void winrt::Winui3Cef::implementation::MainWindow::CefView_TemperatureIsBelowFreezing(winrt::Windows::Foundation::IInspectable const& sender, float e)
+void winrt::Winui3Cef::implementation::MainWindow::NavigateButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 {
-    OutputDebugString(L"Event!!!!!!!!!!!!!!!!!!!!!");
+    CefView().Source(winrt::Windows::Foundation::Uri{ urlText().Text() });
 }
 
 
-void winrt::Winui3Cef::implementation::MainWindow::CefView_WebMessageReceived(winrt::Windows::Foundation::IInspectable const& sender, winrt::hstring const& e)
+void winrt::Winui3Cef::implementation::MainWindow::GoForwardButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 {
-    OutputDebugString(e.data());
+    if (CefView().CanGoForward())
+        CefView().GoForward();
+}
+
+
+void winrt::Winui3Cef::implementation::MainWindow::GoBackwardButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+{
+    if (CefView().CanGoBack())
+        CefView().GoBack();
+}
+
+
+void winrt::Winui3Cef::implementation::MainWindow::ExecuteScriptButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+{
+    CefView().ExecuteScriptAsync(
+        L"alert('execute script')"
+    );
 }

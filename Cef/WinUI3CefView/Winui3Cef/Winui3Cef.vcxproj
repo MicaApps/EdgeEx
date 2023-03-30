@@ -162,6 +162,7 @@ xcopy /Y /e "$(ProjectDir)..\..\CefBase\cef_binary_110.0.31+g46651e0+chromium-11
     <ClInclude Include="MainWindow.xaml.h">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -172,6 +173,7 @@ xcopy /Y /e "$(ProjectDir)..\..\CefBase\cef_binary_110.0.31+g46651e0+chromium-11
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BrowserApp.ixx" />
+    <ClCompile Include="Utils.cpp" />
     <ClInclude Include="CefAppBase.hpp">
       <FileType>Document</FileType>
     </ClInclude>

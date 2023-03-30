@@ -8,9 +8,22 @@ namespace Winui3Cef
     {
         CefView();
 
-        void CanLoad();
-        
-        event Windows.Foundation.EventHandler<String> WebMessageReceived;
-        void ExecuteScript(String script);
+        /*Webview2 methods*/
+        Boolean CanGoBack{ get; };
+        void GoBack();
+
+        Boolean CanGoForward{ get; };
+        void GoForward();
+
+        Windows.UI.Color DefaultBackgroundColor{ get; };
+        Windows.Foundation.Uri Source{ get; set; };
+        void NavigateToString(String htmlContent);
+        void Close();
+        Windows.Foundation.IAsyncOperation<String> ExecuteScriptAsync(String javascriptCode);
+
+        //void CanLoad();
+        //
+        //event Windows.Foundation.EventHandler<String> WebMessageReceived;
+        //void ExecuteScript(String script);
     }
 }

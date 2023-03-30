@@ -10,13 +10,10 @@ namespace winrt::Winui3Cef::implementation
     struct MainWindow : MainWindowT<MainWindow>
     {
         MainWindow();
-
-        int32_t MyProperty();
-        void MyProperty(int32_t value);
-
-        void myButton_Click(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
-        void CefView_TemperatureIsBelowFreezing(winrt::Windows::Foundation::IInspectable const& sender, float e);
-        void CefView_WebMessageReceived(winrt::Windows::Foundation::IInspectable const& sender, winrt::hstring const& e);
+        void NavigateButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void GoForwardButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void GoBackwardButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void ExecuteScriptButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 
