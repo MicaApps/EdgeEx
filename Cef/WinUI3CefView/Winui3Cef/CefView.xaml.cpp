@@ -179,16 +179,21 @@ namespace winrt::Winui3Cef::implementation
             auto handle = m_client->m_host->GetWindowHandle();
             //SetWindowPos(m_cefHwnd, NULL, getOrigin().X, getOrigin().Y, m_size.Width, m_size.Height, 0);
             SetWindowPos(handle, NULL, getOrigin().X, getOrigin().Y, m_size.Width, m_size.Height, SWP_NOOWNERZORDER);
-
+            SetWindowPos(m_cefHwnd, NULL, getOrigin().X, getOrigin().Y, m_size.Width, m_size.Height, SWP_NOOWNERZORDER);
         }
-        std::thread{
-            [this] {
-                std::this_thread::sleep_for(std::chrono::seconds{1});
-                //SetWindowPos(GetHwnd(Global::s_window), 0, 0, 0, 0, 0, SWP_NOSIZE);
-                SetWindowPos(m_cefHwnd, NULL, 0, 0, 0, 0, SWP_NOSIZE);
-                m_webMessageReceivedEvent(*this, L"some text");
-            }
-        }.detach();
+
+        if (m_isInit)
+        {
+            std::thread{
+                [this] {
+                    std::this_thread::sleep_for(std::chrono::seconds{1});
+                    //SetWindowPos(GetHwnd(Global::s_window), 0, 0, 0, 0, 0, SWP_NOSIZE);
+                    SetWindowPos(m_cefHwnd, NULL, 0, 0, 0, 0, SWP_NOSIZE);
+                    m_webMessageReceivedEvent(*this, L"some text");
+                }
+            }.detach();
+        }
+        m_isInit = false;
     }
 
     //void CefView::CanLoad()

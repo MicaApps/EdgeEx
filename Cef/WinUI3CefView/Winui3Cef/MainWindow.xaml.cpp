@@ -39,6 +39,7 @@ void winrt::Winui3Cef::implementation::MainWindow::GoBackwardButton_Click(winrt:
 {
     if (CefView().CanGoBack())
         CefView().GoBack();
+    OutputDebugString(CefView().Source().ToString().data());
 }
 
 

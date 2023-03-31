@@ -45,6 +45,7 @@ namespace winrt::Winui3Cef::implementation
     private:
         winrt::event<Windows::Foundation::EventHandler<winrt::hstring>> m_webMessageReceivedEvent;
         HWND m_cefHwnd;
+        bool m_isInit = true;
         HRGN toHRGN(winrt::Windows::Foundation::Size size);
         winrt::Windows::Foundation::Point getOrigin();
         void createBrowser();
