@@ -1,0 +1,36 @@
+﻿<UserControl
+    x:Class="Webbrowser_winui3.Views.ListDetailsDetailControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Webbrowser_winui3.Models"
+    mc:Ignorable="d">
+    <Grid
+        x:Name="ForegroundElement"
+        HorizontalAlignment="Stretch">
+        <StackPanel HorizontalAlignment="Left">
+            <ListView  x:Name="lv_historydetail" 
+                       x:DefaultBindMode="OneWay"
+                        RelativePanel.AlignTopWithPanel="True"
+                        Margin="{StaticResource XXSmallTopMargin}"
+                        RelativePanel.RightOf="itemHero" >
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:DataType="models:WebModel">
+                        <StackPanel  Orientation="Vertical" Margin="0,10,0,10">
+                            <TextBlock Text="{x:Bind Title,Mode=OneWay}" TextWrapping="Wrap" FontSize="30" FontWeight="Bold"/>
+                            <TextBlock Text="{x:Bind Url,Mode=OneWay}" TextWrapping="Wrap"  FontSize="14" FontWeight="Normal"/>
+                            <TextBlock Text="{x:Bind Date,Mode=OneWay}" TextWrapping="Wrap"  FontSize="14" FontWeight="Normal"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Button  Content="&#xE72D;"  FontFamily="Segoe MDL2 Assets" Tag="{x:Bind Url,Mode=OneWay}" Margin="0,0,10,0" Click="ButtonOpen_Click"/>
+                                <Button  Content="&#xE16F;"  FontFamily="Segoe MDL2 Assets" Tag="{x:Bind Url,Mode=OneWay}" Margin="0,0,10,0" Click="ButtonCopyUrl_Click"/>
+                                <Button  Content="&#xE10F;"  FontFamily="Segoe MDL2 Assets" Tag="{x:Bind Url,Mode=OneWay}" Margin="0,0,10,0" Click="ButtonAddToHome_Click"/>
+                                <Button  Content="&#xE10A;"  FontFamily="Segoe MDL2 Assets" Tag="{x:Bind Url,Mode=OneWay}" Margin="0,0,10,0" Click="ButtonDelete_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,164 @@
+﻿<Page
+    x:Class="Webbrowser_winui3.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Webbrowser_winui3.Models"
+    xmlns:xaml="using:Microsoft.UI.Xaml"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Height="40"
+                VerticalAlignment="Top"
+                Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="&#xE112;"
+                        FontFamily="Segoe MDL2 Assets" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="&#xE111;"
+                        FontFamily="Segoe MDL2 Assets" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="&#xE149;"
+                        FontFamily="Segoe MDL2 Assets" />
+                </StackPanel>
+                <TextBox
+                    x:Name="tb_url"
+                    Grid.Column="1"
+                    Height="30"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    x:FieldModifier="public"
+                    GotFocus="{x:Bind listDetailsViewModel.tb_url_GotFocus}"
+                    KeyUp="{x:Bind listDetailsViewModel.tb_url_KeyUp}"
+                    Text="app://settings/" />
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="GobnClick"
+                        Content="&#xE111;"
+                        FontFamily="Segoe MDL2 Assets" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="{x:Bind listDetailsViewModel.ButtonAddToHome_Click}"
+                        Content="&#xE10F;"
+                        FontFamily="Segoe MDL2 Assets"
+                        Tag="{x:Bind tb_url.Text, Mode=OneWay}" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="&#xE113;"
+                        FontFamily="Segoe MDL2 Assets" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="{x:Bind listDetailsViewModel.FavButton_Click}"
+                        Content="&#xE1CE;"
+                        FontFamily="Segoe MDL2 Assets" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="{x:Bind listDetailsViewModel.HisButton_Click}"
+                        Content="&#xE1A2;"
+                        FontFamily="Segoe MDL2 Assets" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="&#xE118;"
+                        FontFamily="Segoe MDL2 Assets" />
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="{x:Bind listDetailsViewModel.MoreButton_Click}"
+                        Content="&#xE115;"
+                        FontFamily="Segoe MDL2 Assets" />
+                </StackPanel>
+            </Grid>
+            <ScrollViewer Grid.Row="1">
+                <StackPanel Margin="10">
+                    <TextBlock
+                        x:Uid="Settings_Personalization"
+                        Margin="0,5"
+                        FontSize="16"
+                        FontWeight="Bold" />
+                    <ComboBox
+                        x:Uid="Cbb_Theme"
+                        Margin="0,5"
+                        SelectedIndex="{x:Bind settingViewModel.ComboBox_SelectIndex, Mode=OneWay}"
+                        SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem x:Uid="Settings_Theme_Default" />
+                        <ComboBoxItem x:Uid="Settings_Theme_Light" />
+                        <ComboBoxItem x:Uid="Settings_Theme_Dark" />
+                    </ComboBox>
+                    <TextBlock
+                        x:Uid="Settings_Engine"
+                        Margin="0,5"
+                        FontSize="16"
+                        FontWeight="Bold" />
+                    <ComboBox
+                        x:Name="cbb_engine"
+                        x:Uid="Cbb_Engine"
+                        Margin="0,5"
+                        SelectedIndex="{x:Bind settingViewModel.ComboBox_EngineSelectIndex, Mode=OneWay}"
+                        SelectionChanged="SeachEngineSeleChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:EngineModel">
+                                <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock
+                        x:Uid="Settings_history"
+                        Margin="0,5"
+                        FontSize="16"
+                        FontWeight="Bold" />
+                    <Button
+                        x:Uid="ClearHistory"
+                        Margin="0,5"
+                        Click="bnClearHistoryClick" />
+                    <CheckBox
+                        x:Uid="BingBack"
+                        Margin="0,5"
+                        Click="CheckBox_Click"
+                        IsChecked="{x:Bind settingViewModel.IsBingCbChecked, Mode=OneWay}" />
+                    <CheckBox
+                        x:Uid="IsAcrylic"
+                        Margin="0,5"
+                        Click="CheckBox1_Click"
+                        IsChecked="{x:Bind settingViewModel.IsAcrylic, Mode=OneWay}" />
+                    <TextBlock
+                        x:Uid="Settings_About"
+                        Margin="0,5"
+                        FontSize="16"
+                        FontWeight="Bold" />
+                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind settingViewModel.VersionDescription, Mode=OneWay}" />
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="Author:KS STUDIO" />
+                        <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
+                        <HyperlinkButton x:Uid="SettingsPage_GithubLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </ScrollViewer>
+</Page>
