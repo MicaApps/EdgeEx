@@ -4,9 +4,17 @@ Project Radon is an experimental UWP web browser powered by WebView2, with integ
 
 This project's purpose is to aim for a minimal and fast browsing experience at no hassle. As for me, this is a great opportunity to get development experience, since I'm still learning development basics.
 
-## Sponsor this project
+## Design File
+https://www.figma.com/file/PqKdpNK8MLsskXQJvwuN0z/UI?type=design&node-id=119%3A10710&t=imojtcyJVEN7QUSP-1
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D8I7WNI)
+![image](https://github.com/DiskTools/EdgeEx/assets/6630660/9175d892-15e6-4ce6-a4e4-4542c261bb4a)
+
+## Environment
+Visual Studio 2022
+C++ Desktop Development
+C# Desktop Development
+Universal Windows Development
+Windows SDK 19041
 
 
 
