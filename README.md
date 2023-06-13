@@ -10,11 +10,11 @@ https://www.figma.com/file/PqKdpNK8MLsskXQJvwuN0z/UI?type=design&node-id=119%3A1
 ![image](https://github.com/DiskTools/EdgeEx/assets/6630660/9175d892-15e6-4ce6-a4e4-4542c261bb4a)
 
 ## Environment
-Visual Studio 2022
-C++ Desktop Development
-C# Desktop Development
-Universal Windows Development
-Windows SDK 19041
+- Visual Studio 2022
+- C++ Desktop Development
+- C# Desktop Development
+- Universal Windows Development
+- Windows SDK 19041
 
 
 
