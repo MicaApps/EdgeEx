@@ -1,4 +1,4 @@
-# EdgeEx
+# ![image](https://github.com/DiskTools/EdgeEx/assets/6630660/51019e70-cd5d-4f67-bfd5-a30aa6d183a7) EdgeEx
 - UWP Edge, reborn
 - UWP Edge重生
 
