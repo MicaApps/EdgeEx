@@ -1,4 +1,4 @@
-# ![safari](https://user-images.githubusercontent.com/6630660/219523079-eb6de626-9a50-47e5-85af-e6f2a8eccbf5.png)  EdgeEx
+# ![Frame 6_64w](https://github.com/DiskTools/EdgeEx/assets/6630660/97623f5d-d436-4a71-98e2-4ee2db522934)  EdgeEx
 
 EdgeEx is an experimental UWP web browser powered by WebView2, with integrated Windows 11 design system.
 
