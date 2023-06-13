@@ -213,6 +213,7 @@
 
             <!-- search bar -->
                 <TextBox x:Name="SearchBar"
+                         Background="Transparent"
                     KeyDown="SearchBar_KeyDown"
                     VerticalAlignment="Center"
                     Margin="43,3,45,0"
