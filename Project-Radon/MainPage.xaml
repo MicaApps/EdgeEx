@@ -29,7 +29,7 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="BasicGrid" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        
+
         <Grid>
     <Grid x:Name="BaseGrid" SizeChanged="BaseGrid_SizeChanged">
         <Grid x:Name="TitleBarGrid"
