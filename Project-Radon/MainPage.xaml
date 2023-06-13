@@ -28,10 +28,8 @@
             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="Transparent"  />
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name="BasicGrid">
-        <Grid.Background>
-            <ImageBrush x:Name="appthemebackground" ImageSource="ms-appx:///wallpapers/10.png" Opacity="0.2"/>
-        </Grid.Background>
+    <Grid x:Name="BasicGrid" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        
         <Grid>
     <Grid x:Name="BaseGrid" SizeChanged="BaseGrid_SizeChanged">
         <Grid x:Name="TitleBarGrid"
