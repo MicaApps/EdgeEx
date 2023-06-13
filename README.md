@@ -1,13 +1,20 @@
-# ![safari](https://user-images.githubusercontent.com/6630660/219523079-eb6de626-9a50-47e5-85af-e6f2a8eccbf5.png)  Project Radon
+# ![image](https://github.com/DiskTools/EdgeEx/assets/6630660/672c9775-86d5-458c-acd5-50a3d1905b06) EdgeEx
 
-Project Radon is an experimental UWP web browser powered by WebView2, with integrated Windows 11 design system.
+EdgeEx is an experimental UWP web browser powered by WebView2, with integrated Windows 11 design system.
 
 This project's purpose is to aim for a minimal and fast browsing experience at no hassle. As for me, this is a great opportunity to get development experience, since I'm still learning development basics.
 
-## Sponsor this project
+## Design File
+https://www.figma.com/file/PqKdpNK8MLsskXQJvwuN0z/UI?type=design&node-id=119%3A10710&t=imojtcyJVEN7QUSP-1
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D8I7WNI)
+![image](https://github.com/DiskTools/EdgeEx/assets/6630660/55be17b4-cb99-4aae-bbe5-f76a4daedd31)
 
+## Environment
+- Visual Studio 2022
+- C++ Desktop Development
+- C# Desktop Development
+- Universal Windows Development
+- Windows SDK 19041
 
 
 ## Switch to another file
