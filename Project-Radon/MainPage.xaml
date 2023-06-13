@@ -370,6 +370,8 @@
                 TabCloseRequested="BrowserTabs_TabCloseRequested"
                 SelectionChanged="BrowserTabs_SelectionChanged"
                 AddTabButtonClick="BrowserTabs_AddTabButtonClick"
+                AllowDrop="True" Drop="BrowserTabs_Drop" DragEnter="BrowserTabs_DragEnter" CanDragTabs="True"
+                TabDragStarting="BrowserTabs_TabDragStarting" TabDroppedOutside="BrowserTabs_TabDroppedOutside"
                 >
                         <winui:TabView.TabStripHeader>
                         <Grid>

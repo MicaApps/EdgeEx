@@ -545,6 +545,36 @@ namespace Yttrium_browser
             
         }
 
+        private void BrowserTabs_TabDragStarting(TabView sender, TabViewTabDragStartingEventArgs args)
+        {
+            args.Data.RequestedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+            //temporary solution
+            args.Data.SetText(SearchBar.Text);
+        }
 
+        private void BrowserTabs_DragEnter(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+        }
+
+        private void BrowserTabs_TabDroppedOutside(TabView sender, TabViewTabDroppedOutsideEventArgs args)
+        {
+            //create a new window to show the tab if this is not the only one
+        }
+
+        private async void BrowserTabs_Drop(object sender, DragEventArgs e)
+        {
+            // need to figure out a way to transfer the tab between windows
+            // or simply just copy all the data from the original page
+            /*
+            if (!CurrentTabs.Contains(draggedTabItem))
+            {
+                CurrentTabs.Add(draggedTabItem);
+            }
+            */
+
+            //temporary solution
+            NewTabRequested(sender, await e.DataView.GetTextAsync());
+        }
     }
 }
