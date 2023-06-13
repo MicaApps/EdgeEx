@@ -1,6 +1,6 @@
 # ![safari](https://user-images.githubusercontent.com/6630660/219523079-eb6de626-9a50-47e5-85af-e6f2a8eccbf5.png)  EdgeEx
 
-Project Radon is an experimental UWP web browser powered by WebView2, with integrated Windows 11 design system.
+EdgeEx is an experimental UWP web browser powered by WebView2, with integrated Windows 11 design system.
 
 This project's purpose is to aim for a minimal and fast browsing experience at no hassle. As for me, this is a great opportunity to get development experience, since I'm still learning development basics.
 
