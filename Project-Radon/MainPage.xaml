@@ -337,7 +337,7 @@
                 >
                         <winui:TabView.TabStripHeader>
                             <Grid>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="8,0,0,0">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
                                     <!--TODO: The button should add a new tab -->
 
 
@@ -460,13 +460,13 @@
                     <Button 
                         x:Name="RefreshButton"
                         Background="{x:Null}" 
-                            Grid.Column="1"
+                        Grid.Column="1"
                         Grid.Row="1"
                         VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         BorderThickness="0" 
                         PointerEntered="RefreshButton_PointerEntered"
-                        Margin="0,4,48,0"
+                        Margin="-50,40,48,0"
                         Click="RefreshButton_Click"
                         CornerRadius="1" Padding="6.5" 
                         ToolTipService.ToolTip="Reload">
@@ -474,10 +474,10 @@
                     </Button>
                     <Button x:Name="StopRefreshButton"
                         Background="Transparent" 
-                            Grid.Column="1"
+                        Grid.Column="0"
                         BorderThickness="0" 
                             HorizontalAlignment="Right"
-                        Margin="0,4,48,0"
+                        Margin="0,40,48,0"
                         Visibility="Collapsed"
                         Click="StopRefreshButton_Click"
                         Padding="6" CornerRadius="1" ToolTipService.ToolTip="Stop navigation">
