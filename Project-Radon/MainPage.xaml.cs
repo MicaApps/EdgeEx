@@ -57,8 +57,8 @@ namespace Yttrium_browser
             Windows.Storage.StorageFolder localFolder =
                 Windows.Storage.ApplicationData.Current.LocalFolder;
 
-            string colorthemevalue = (string)localSettings.Values["appcolortheme"];
-            appthemebackground.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/", colorthemevalue, ".png" })));
+            //string colorthemevalue = (string)localSettings.Values["appcolortheme"];
+            //appthemebackground.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/", colorthemevalue, ".png" })));
 
             
 
@@ -73,15 +73,15 @@ namespace Yttrium_browser
 
         private void CoreWindow_Activated(CoreWindow sender, WindowActivatedEventArgs args)
         {
-            if (args.WindowActivationState == CoreWindowActivationState.Deactivated)
-            {
-                appthemebackground.Opacity = 0.2;
-            }
-
-            else
-            {
-                appthemebackground.Opacity = 0.4;
-            }
+            //if (args.WindowActivationState == CoreWindowActivationState.Deactivated)
+            //{
+            //    appthemebackground.Opacity = 0.2;
+            //}
+            //
+            //else
+            //{
+            //    appthemebackground.Opacity = 0.4;
+            //}
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -530,8 +530,8 @@ namespace Yttrium_browser
             Windows.Storage.StorageFolder localFolder =
                 Windows.Storage.ApplicationData.Current.LocalFolder;
 
-            appthemebackground.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/", (ThemePickerComboBox.SelectedItem as ComboBoxItem).Content.ToString(), ".png" })));
-            localSettings.Values["appcolortheme"] = (string)(ThemePickerComboBox.SelectedItem as string);
+            //appthemebackground.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/", (ThemePickerComboBox.SelectedItem as ComboBoxItem).Content.ToString(), ".png" })));
+            //localSettings.Values["appcolortheme"] = (string)(ThemePickerComboBox.SelectedItem as string);
 
         }
 
