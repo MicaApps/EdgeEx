@@ -131,24 +131,26 @@
                             </winui:DropDownButton.Flyout>
                         </winui:DropDownButton>
                         <Grid Width="8"/>
-                        <Button x:Name="BackButton"
+                        <AppBarButton x:Name="BackButton"
                         Background="Transparent"
                         BorderThickness="0"
-                        Margin="0,2,5,0" VerticalAlignment="Center" HorizontalAlignment="Center"
                         Click="BackButton_Click"
-                        Padding="3,6" ToolTipService.ToolTip="Back">
+                        ToolTipService.ToolTip="Back"
+                                      Icon="Back"
+                                      Width="40"
+                                      Height="40">
 
-                            <FontIcon Glyph="&#xe973;" FontSize="20" FontFamily="Segoe Fluent Icons"/>
-                        </Button>
-                        <Button x:Name="ForwardButton"
+                        </AppBarButton>
+                        <AppBarButton
+                        x:Name="ForwardButton"
                         Background="Transparent"
                         BorderThickness="0"
-                        Margin="0,2,5,0"
                         Click="ForwardButton_Click"
-                        Padding="3,6" ToolTipService.ToolTip="Forward">
-                            <FontIcon Glyph="&#xe974;"
-                              FontSize="20" FontFamily="segoe fluent icons" />
-                        </Button>
+                            Width="40"
+                            Height="40"
+                            ToolTipService.ToolTip="Forward" 
+                            Icon="Forward">
+                        </AppBarButton>
 
 
                         <Button x:Name="HomeButton"
