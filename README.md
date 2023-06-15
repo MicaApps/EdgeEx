@@ -1,4 +1,4 @@
-# ![image](https://github.com/DiskTools/EdgeEx/assets/6630660/672c9775-86d5-458c-acd5-50a3d1905b06) EdgeEx
+# ![Frame 6_64w](https://github.com/DiskTools/EdgeEx/assets/6630660/97623f5d-d436-4a71-98e2-4ee2db522934)  EdgeEx
 
 EdgeEx is an experimental UWP web browser powered by WebView2, with integrated Windows 11 design system.
 
@@ -7,7 +7,7 @@ This project's purpose is to aim for a minimal and fast browsing experience at n
 ## Design File
 https://www.figma.com/file/PqKdpNK8MLsskXQJvwuN0z/UI?type=design&node-id=119%3A10710&t=imojtcyJVEN7QUSP-1
 
-![image](https://github.com/DiskTools/EdgeEx/assets/6630660/55be17b4-cb99-4aae-bbe5-f76a4daedd31)
+![image](https://github.com/DiskTools/EdgeEx/assets/6630660/9175d892-15e6-4ce6-a4e4-4542c261bb4a)
 
 ## Environment
 - Visual Studio 2022
@@ -15,6 +15,7 @@ https://www.figma.com/file/PqKdpNK8MLsskXQJvwuN0z/UI?type=design&node-id=119%3A1
 - C# Desktop Development
 - Universal Windows Development
 - Windows SDK 19041
+
 
 
 ## Switch to another file
