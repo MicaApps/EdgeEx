@@ -41,7 +41,7 @@
                         <ColumnDefinition x:Name="righttitlebarpadding" Width="*" MinWidth="143" MaxWidth="300"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition x:Name="DefaultBarUI" Height="28"/>
+                        <RowDefinition x:Name="DefaultBarUI" Height="10"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -429,7 +429,7 @@
 
                     <!-- search bar -->
                     <TextBox 
-                    Margin="0 40 0 0"
+                    Margin="-40 40 0 0"
                     Grid.Row="1"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Stretch"
@@ -438,7 +438,7 @@
                     Background="Transparent"
                     KeyDown="SearchBar_KeyDown"
                     BorderThickness="0"
-                    Padding="10,6,30,2"
+                    Padding="40,6,30,2"
                     FontSize="13"
                     Height="21" 
                     IsSpellCheckEnabled="False"
