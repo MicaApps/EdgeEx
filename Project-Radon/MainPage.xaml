@@ -41,9 +41,9 @@
                 <ColumnDefinition x:Name="righttitlebarpadding" Width="*" MinWidth="143" MaxWidth="300"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition x:Name="DefaultBarUI" Height="38"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <RowDefinition x:Name="DefaultBarUI" Height="38"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
             <!-- titlebar drag area -->
             <Border x:Name="DragArea"
@@ -209,48 +209,7 @@
 
             </Button>
 
-            <!-- search bar -->
-                <TextBox x:Name="SearchBar"
-                         Background="Transparent"
-                    KeyDown="SearchBar_KeyDown"
-                    VerticalAlignment="Center"
-                    Margin="43,3,45,0"
-                    BorderThickness="0"
-                    Padding="30,6,30,2"
-                    FontSize="13" Height="21" 
-                    IsSpellCheckEnabled="False"
-                    Grid.Column="1"
-                    PlaceholderText="Search the web or enter a URL"
-                    VerticalContentAlignment="Center" 
-                    GotFocus="SearchBar_GotFocus" PlaceholderForeground="{ThemeResource ContentDialogDimmingThemeBrush}"
-                    LostFocus="SearchBar_LostFocus" CharacterSpacing="1"
-                    TextAlignment="Center" FontWeight="Medium" 
-                    CornerRadius="3">
-                </TextBox>
-
-                    <Button x:Name="RefreshButton"
-                        Background="{x:Null}" Grid.Column="1" HorizontalAlignment="Right"
-                        BorderThickness="0" PointerEntered="RefreshButton_PointerEntered"
-                        Margin="0,4,48,0"
-                        Click="RefreshButton_Click"
-                        CornerRadius="1" Padding="6.5" ToolTipService.ToolTip="Reload">
-                        <FontIcon Glyph="&#xe72c;"
-                              FontSize="13" FontFamily="segoe fluent icons"/>
-                    </Button>
-                    <Button x:Name="StopRefreshButton"
-                        Background="Transparent" Grid.Column="1"
-                        BorderThickness="0" HorizontalAlignment="Right"
-                        Margin="0,4,48,0"
-                        Visibility="Collapsed"
-                        Click="StopRefreshButton_Click"
-                        Padding="6" CornerRadius="1" ToolTipService.ToolTip="Stop navigation">
-                        <FontIcon Glyph="&#xe711;" FontSize="15"
-                                  FontFamily="Segoe fluent icons"/>
-                    </Button>
-
-                    
-            <BitmapIcon x:Name="faviconicon" Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Margin="50,0,0,0"/>
-
+            
             <!-- settings flyout -->
             <!--<Button x:Name="MenuButton" BorderBrush="Transparent"
                     Grid.Column="1" HorizontalAlignment="Right"
@@ -364,7 +323,8 @@
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Stretch"
                 x:Name="BrowserTabs" 
-                Margin="0,-3,0,0"
+                Margin="0,0,0,0"
+                Padding="0 0 0 30"
                IsAddTabButtonVisible="False"
                 TabCloseRequested="BrowserTabs_TabCloseRequested"
                 SelectionChanged="BrowserTabs_SelectionChanged"
@@ -465,6 +425,53 @@
                     <winui:ProgressBar x:Name="loadingbar" Grid.ColumnSpan="4" VerticalAlignment="Top" Grid.Row="0" Visibility="Visible" IsIndeterminate="True"/>
                 </Grid>
             </Grid>
+
+            <!-- search bar -->
+            <TextBox 
+                    
+                    x:Name="SearchBar"
+                    Background="Transparent"
+                    KeyDown="SearchBar_KeyDown"
+                    VerticalAlignment="Center"
+                    Margin="43,3,45,0"
+                    BorderThickness="0"
+                    Padding="30,6,30,2"
+                    FontSize="13" Height="21" 
+                    IsSpellCheckEnabled="False"
+                    Grid.Column="1"
+                    PlaceholderText="Search the web or enter a URL"
+                    VerticalContentAlignment="Center" 
+                    GotFocus="SearchBar_GotFocus" PlaceholderForeground="{ThemeResource ContentDialogDimmingThemeBrush}"
+                    LostFocus="SearchBar_LostFocus" CharacterSpacing="1"
+                    TextAlignment="Center" FontWeight="Medium" 
+                    CornerRadius="3"
+>
+            </TextBox>
+
+            <Button x:Name="RefreshButton"
+                        Background="{x:Null}" Grid.Column="1" HorizontalAlignment="Right"
+                        BorderThickness="0" PointerEntered="RefreshButton_PointerEntered"
+                        Margin="0,4,48,0"
+                        Click="RefreshButton_Click"
+                        CornerRadius="1" Padding="6.5" ToolTipService.ToolTip="Reload">
+                <FontIcon Glyph="&#xe72c;"
+                              FontSize="13" FontFamily="segoe fluent icons"/>
+            </Button>
+            <Button x:Name="StopRefreshButton"
+                        Background="Transparent" Grid.Column="1"
+                        BorderThickness="0" HorizontalAlignment="Right"
+                        Margin="0,4,48,0"
+                        Visibility="Collapsed"
+                        Click="StopRefreshButton_Click"
+                        Padding="6" CornerRadius="1" ToolTipService.ToolTip="Stop navigation">
+                <FontIcon Glyph="&#xe711;" FontSize="15"
+                                  FontFamily="Segoe fluent icons"/>
+            </Button>
+
+
+            <BitmapIcon x:Name="faviconicon" Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Margin="50,0,0,0"/>
+
+
         </Grid>
         <Popup x:Name="ThemePopup" IsOpen="False" HorizontalAlignment="Center">
             <Popup.ChildTransitions>
