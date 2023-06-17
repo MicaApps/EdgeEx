@@ -438,8 +438,8 @@ namespace FireBrowser
 
             FireBrowserTabViewItem newItem = new()
             {
-                Header = $"FireBrowser HomePage",
-                IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Home }
+                Header = $"New Tab",
+                IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.ViewAll }
             };
 
 

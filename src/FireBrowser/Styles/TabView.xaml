@@ -50,7 +50,7 @@
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
-            <StaticResource x:Key="TabViewBackground" ResourceKey="SystemControlBackgroundBaseLowBrush" />
+            <StaticResource x:Key="TabViewBackground" ResourceKey="SystemControlAcrylicWindowBrush" />
             <StaticResource x:Key="TabViewItemHeaderBackgroundDisabled" ResourceKey="SystemControlTransparentBrush" />
             <StaticResource x:Key="TabViewItemHeaderForeground" ResourceKey="SystemControlForegroundBaseHighBrush" />
             <StaticResource x:Key="TabViewItemHeaderForegroundPressed" ResourceKey="SystemControlForegroundBaseHighBrush" />
@@ -189,13 +189,14 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}" />
         <Setter Property="FontSize" Value="{ThemeResource TabViewItemHeaderCloseFontSize}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+        <Setter Property="CornerRadius" Value="2" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
-        <Setter Property="Width" Value="{ThemeResource TabViewItemHeaderCloseButtonWidth}" />
+        <Setter Property="Width" Value="24" />
         <Setter Property="Height" Value="{ThemeResource TabViewItemHeaderCloseButtonHeight}" />
         <Setter Property="Background" Value="{ThemeResource TabViewItemHeaderCloseButtonBackground}" />
         <Setter Property="Foreground" Value="{ThemeResource TabViewItemHeaderCloseButtonForeground}" />
         <Setter Property="FocusVisualMargin" Value="-3" />
+        <Setter Property="CornerRadius" Value="3"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -209,7 +210,7 @@
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         ContentTransitions="{TemplateBinding ContentTransitions}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="3">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -245,7 +246,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="MinHeight" Value="{ThemeResource TabViewItemMinHeight}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
+        <Setter Property="CornerRadius" Value="4" />
         <Setter Property="BorderThickness" Value="{ThemeResource TabViewItemBorderThickness}" />
         <Setter Property="BorderBrush" Value="{ThemeResource TabViewItemBorderBrush}" />
         <Setter Property="Template">
@@ -315,6 +316,7 @@
                             BorderThickness="1" />
 
                         <Grid
+                            
                             x:Name="TabContainer"
                             Grid.Column="1"
                             Padding="{ThemeResource TabViewItemHeaderPadding}"
@@ -322,7 +324,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Control.IsTemplateFocusTarget="True"
-                            CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius}"
+                            CornerRadius="4"
                             FocusVisualMargin="{TemplateBinding FocusVisualMargin}">
 
                             <Grid.ColumnDefinitions>
@@ -374,9 +376,12 @@
                                 HighContrastAdjustment="None"
                                 IsTabStop="False"
                                 IsTextScaleFactorEnabled="False"
-                                Style="{ThemeResource TabViewCloseButtonStyle}" />
+                                Style="{ThemeResource TabViewCloseButtonStyle}"
+                                CornerRadius="2"/>
                         </Grid>
 
+                        <!--下面可以该标签项目的颜色之类的-->
+                        
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -388,7 +393,10 @@
                                         <Setter Target="IconControl.Foreground" Value="{ThemeResource TabViewItemIconForegroundPointerOver}" />
                                         <Setter Target="CloseButton.Background" Value="{ThemeResource TabViewItemHeaderPointerOverCloseButtonBackground}" />
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderPointerOverCloseButtonForeground}" />
+                                        <Setter Target="CloseButton.CornerRadius" Value="2"/>
                                         <Setter Target="TabSeparator.Opacity" Value="0" />
+                                        <Setter Target="TabContainer.Margin" Value="0  2 "/>
+                                        <Setter Target="TabContainer.BorderBrush" Value="{ThemeResource TabViewItemHeaderBackgroundPointerOver}" />
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -400,6 +408,7 @@
                                         <Setter Target="CloseButton.Background" Value="{ThemeResource TabViewItemHeaderPressedCloseButtonBackground}" />
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderPressedCloseButtonForeground}" />
                                         <Setter Target="TabSeparator.Opacity" Value="0" />
+                                        <Setter Target="TabContainer.Margin" Value="0  2 "/>
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -410,16 +419,18 @@
                                         <Setter Target="LeftRadiusRenderArc.Visibility" Value="Collapsed" />
                                         <Setter Target="LeftRadiusRenderTriangle.Visibility" Value="Collapsed" />
                                         <Setter Target="TabContainer.Margin" Value="{ThemeResource TabViewSelectedItemHeaderMargin}" />
-                                        <Setter Target="TabContainer.BorderBrush" Value="{ThemeResource TabViewSelectedItemBorderBrush}" />
+                                        <Setter Target="TabContainer.BorderBrush" Value="#30FFFFFF" />
                                         <Setter Target="TabContainer.BorderThickness" Value="{ThemeResource TabViewSelectedItemBorderThickness}" />
-                                        <Setter Target="TabContainer.Background" Value="{ThemeResource TabViewItemHeaderBackgroundSelected}" />
+                                        <Setter Target="TabContainer.Background" Value="#20FFFFFF" />
                                         <Setter Target="TabContainer.Padding" Value="{ThemeResource TabViewSelectedItemHeaderPadding}" />
                                         <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundSelected}" />
                                         <Setter Target="IconControl.Foreground" Value="{ThemeResource TabViewItemIconForegroundSelected}" />
                                         <Setter Target="CloseButton.Background" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonBackground}" />
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonForeground}" />
+                                        <Setter Target="CloseButton.CornerRadius" Value="2" />
                                         <Setter Target="LayoutRoot.Background" Value="Transparent" />
                                         <Setter Target="ContentPresenter.FontWeight" Value="SemiBold" />
+                                        <Setter Target="TabContainer.Margin" Value="0  2"/>
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -430,9 +441,9 @@
                                         <Setter Target="LeftRadiusRenderArc.Visibility" Value="Collapsed" />
                                         <Setter Target="LeftRadiusRenderTriangle.Visibility" Value="Collapsed" />
                                         <Setter Target="TabContainer.Margin" Value="{ThemeResource TabViewSelectedItemHeaderMargin}" />
-                                        <Setter Target="TabContainer.BorderBrush" Value="{ThemeResource TabViewSelectedItemBorderBrush}" />
+                                        <Setter Target="TabContainer.BorderBrush" Value="#40FFFFFF" />
                                         <Setter Target="TabContainer.BorderThickness" Value="{ThemeResource TabViewSelectedItemBorderThickness}" />
-                                        <Setter Target="TabContainer.Background" Value="{ThemeResource TabViewItemHeaderBackgroundSelected}" />
+                                        <Setter Target="TabContainer.Background" Value="#30FFFFFF" />
                                         <Setter Target="TabContainer.Padding" Value="{ThemeResource TabViewSelectedItemHeaderPadding}" />
                                         <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundSelected}" />
                                         <Setter Target="IconControl.Foreground" Value="{ThemeResource TabViewItemIconForegroundSelected}" />
@@ -440,6 +451,7 @@
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonForeground}" />
                                         <Setter Target="LayoutRoot.Background" Value="Transparent" />
                                         <Setter Target="ContentPresenter.FontWeight" Value="SemiBold" />
+                                        <Setter Target="TabContainer.Margin" Value="0 2"/>
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -460,6 +472,7 @@
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonForeground}" />
                                         <Setter Target="LayoutRoot.Background" Value="Transparent" />
                                         <Setter Target="ContentPresenter.FontWeight" Value="SemiBold" />
+                                        <Setter Target="TabContainer.Margin" Value="0  4 "/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

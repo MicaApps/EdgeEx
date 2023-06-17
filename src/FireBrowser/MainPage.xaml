@@ -383,9 +383,11 @@
             PointerMoved="Tabs_PointerMoved"
             PointerReleased="Tabs_PointerReleased"
             Mode="Modern"
+            Background="{ThemeResource SystemControlAcrylicWindowBrush}"
             >
+            <!--左上角的按钮，不知道干啥的-->
             <firebrowser:FireBrowserTabView.TabStripHeader>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
                     <Button  Content="{firebrowser:FluentIcon Glyph=&#xE746;}" x:Name="VBtn" Margin="2,0,0,0" RenderTransformOrigin="0.5,0.5" Style="{ThemeResource QuietButtonStyle}">
                         <Button.RenderTransform>
                             <RotateTransform />
@@ -395,13 +397,13 @@
             </firebrowser:FireBrowserTabView.TabStripHeader>
             <firebrowser:FireBrowserTabView.TabStripFooter>
                 <!--  Needs the Background="Transparent" or else it won't work  -->
-                <StackPanel x:Name="CustomDragRegion" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <StackPanel x:Name="CustomDragRegion" Background="{ThemeResource SystemControlAcrylicWindowBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="40"/>
             </firebrowser:FireBrowserTabView.TabStripFooter>
         </firebrowser:FireBrowserTabView>
         <Grid
             x:Name="ClassicToolbar"
             Height="48"
-            Margin="0,39,0,0"
+            Margin="0,46,0,0"
             VerticalAlignment="Top" 
             Background="{ThemeResource SystemControlAcrylicWindowBrush}"
             >
@@ -411,8 +413,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-                <Button
-                    Style="{StaticResource QuietButtonStyle}"
+                <AppBarButton
+                    Width="40"
+                    Icon="Back"
                     Tag="Back"
                     x:Name="Back"              
                     Click="ToolbarButtonClick"
@@ -424,11 +427,12 @@
                             <muxc:FontIconSource Glyph="TO-DO" />
                         </muxc:AnimatedIcon.FallbackIconSource>
                     </muxc:AnimatedIcon>
-                </Button>
-                <Button
-                    Style="{StaticResource QuietButtonStyle}"
+                </AppBarButton>
+                <AppBarButton
+                    Width="40"
                     Tag="Forward"
-                    x:Name="Forward"     
+                    x:Name="Forward"  
+                    Icon="Forward"
                     x:FieldModifier="Public"
                     Click="ToolbarButtonClick"
                     >
@@ -441,33 +445,33 @@
                             <RotateTransform Angle="180" />
                         </muxc:AnimatedIcon.RenderTransform>
                     </muxc:AnimatedIcon>
-                </Button>
-                <Button                 
-                    Style="{StaticResource QuietButtonStyle}"
+                </AppBarButton>
+                <AppBarButton                 
                     Tag="Refresh"
-                    Height="32"
-                    Width="32"
+                    Icon="Refresh"
+                    Width="40"
                     x:FieldModifier="Public"
                     x:Name="RefreshBtn"      
                     IsEnabled="{x:Bind ViewModel.CanRefresh, Mode=OneWay}"
                     Click="ToolbarButtonClick" 
                     Content="{firebrowser:FluentIcon Glyph=&#xE72C;}"               
                     >
-                </Button>
-                <Button
+                </AppBarButton>
+                <AppBarButton
                    x:FieldModifier="public"
-                   Style="{StaticResource QuietButtonStyle}"
                    Tag="Home"
                    x:Name="Hmbtn"
                    Click="ToolbarButtonClick"
                    Content="{firebrowser:FluentIcon Glyph=&#xE80F;}"
+                   Width="40"
                    >
-                </Button>
+                </AppBarButton>
             </StackPanel>
             <Grid
                 Grid.Column="1"
-                Height="32"
-                Margin="4,0,4,0"
+                Height="46"
+                Margin="0,0,0,0"
+                Padding="0 6 "
                 VerticalAlignment="Center"
                 Background="{ThemeResource SystemControlAcrylicWindowBrush}">
                 <AutoSuggestBox
