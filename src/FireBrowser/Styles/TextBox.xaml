@@ -66,7 +66,18 @@
                             Margin="0"
                             DesiredCandidateWindowAlignment="BottomEdge"
                             UseSystemFocusVisuals="{TemplateBinding UseSystemFocusVisuals}"
-                            contract7Present:CornerRadius="{TemplateBinding CornerRadius}"/>
+                            contract7Present:CornerRadius="{TemplateBinding CornerRadius}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </TextBox>
 
                         <Popup x:Name="SuggestionsPopup">
                             <Border x:Name="SuggestionsContainer"

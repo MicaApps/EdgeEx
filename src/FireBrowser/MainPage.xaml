@@ -403,7 +403,7 @@
         <Grid
             x:Name="ClassicToolbar"
             Height="48"
-            Margin="0,46,0,0"
+            Margin="0,44,0,0"
             VerticalAlignment="Top" 
             Background="{ThemeResource SystemControlAcrylicWindowBrush}"
             >
@@ -413,6 +413,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                <Grid Width="10"/>
                 <AppBarButton
                     Width="40"
                     Icon="Back"
@@ -467,6 +468,9 @@
                    >
                 </AppBarButton>
             </StackPanel>
+            <Grid Grid.Column="1" Height="50" Width="auto" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                
+            </Grid>
             <Grid
                 Grid.Column="1"
                 Height="46"
