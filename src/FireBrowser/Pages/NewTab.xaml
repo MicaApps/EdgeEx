@@ -1,0 +1,179 @@
+﻿<Page
+    x:Class="FireBrowser.Pages.NewTab"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:firebrowser="using:FireBrowser.Controls"
+    xmlns:local="using:FireBrowser.Pages" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Height="Auto"
+    NavigationCacheMode="Enabled"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    >
+    
+    
+    
+    <Grid  x:Name="Grid" Background="{x:Bind local:NewTab.GetGridBackgroundAsync(ViewModel.BackgroundType), Mode=OneWay}">
+        
+        
+        
+        
+        <Grid>
+
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState>
+                        <VisualState.StateTriggers>
+                            <!-- VisualState to be triggered when the
+                             window width is >=640 effective pixels. -->
+                            <AdaptiveTrigger MinWindowWidth="640" />
+                        </VisualState.StateTriggers>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Button x:Uid="NewTabEditButton"
+                Style="{ThemeResource QuietButtonStyle}"
+                Padding="6" Margin="0,31,64,0"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Content="{firebrowser:FluentIcon Glyph=&#xE70F;}"
+                x:Name="Edit">
+                <Button.Flyout>
+                    <Flyout Placement="Bottom">
+                        <StackPanel>
+                            <ToggleSwitch x:Name="Type" Toggled="Type_Toggled">
+                                Enable Auto Fill TextBox
+                            </ToggleSwitch>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            <Button x:Uid="NewTabSettingsButton"
+                Style="{ThemeResource QuietButtonStyle}"
+                Padding="6" Margin="0,31,32,0"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Content="{firebrowser:FluentIcon Glyph=&#xE713;}"
+                x:Name="SetTab">
+                <Button.Flyout>
+                    <Flyout Placement="Bottom">
+                        <StackPanel Background="Transparent">
+                            <GridView  x:Name="GridSelect" SelectionChanged="BackgroundGridView_SelectionChanged" Background="{ThemeResource SystemControlBackgroundTransparentRevealBorderBrush}">
+                                <GridViewItem x:Name="NoneGrid" Padding="12" Tag="None" x:FieldModifier="Public">
+                                    <StackPanel>
+                                        <Image Width="100" Source="ms-appx:///Assets/Illustrations/NewTab/BackgroundNone.png"/>
+                                        <TextBlock x:Uid="NewTabBackgroundNone" d:Text="None"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                                    </StackPanel>
+                                </GridViewItem>
+                                <GridViewItem x:Name="FsGrid" Padding="12" Tag="Featured" x:FieldModifier="Public">
+                                    <StackPanel>
+                                        <Image Width="100" Source="ms-appx:///Assets/Illustrations/NewTab/BackgroundBing.png"/>
+                                        <TextBlock x:Uid="NewTabBackgroundBing"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0">
+                                        Bind Image
+                                        </TextBlock>
+                                    </StackPanel>
+                                </GridViewItem>
+                                <GridViewItem x:Name="CsGrid" Padding="12" Tag="Custom" x:FieldModifier="Public">
+                                    <StackPanel>
+                                        <Image Width="100" Source="ms-appx:///Assets/Illustrations/NewTab/BackgroundCostum.png"/>
+                                        <TextBlock x:Uid="NewTabBackgroundCostum"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0">
+                                        Custom
+                                        </TextBlock>
+                                    </StackPanel>
+                                </GridViewItem>
+                            </GridView>
+                            <TextBlock FontWeight="Bold" Text="New-Tab Background Color ( ReOpen Or Apply To Change )"/>
+                            <TextBox Margin="0,5,0,0" x:Name="NewColor" TextChanged="NewColor_TextChanged" />
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="4" x:Name="BigGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <AutoSuggestBox x:Name="NewTabSearchBox"
+                            x:Uid="SearchBar"
+                            Grid.Row="0"
+                            Height="40"                         
+                            BorderThickness="1,1,1,1"
+                            CornerRadius="5"
+                            BorderBrush="{ThemeResource SystemAltHighColor}"
+                            Background="Transparent"
+                            VerticalContentAlignment="Center"    
+                            TextChanged="NewTabSearchBox_TextChanged"
+                            PreviewKeyDown="NewTabSearchBox_PreviewKeyDown"
+                            x:FieldModifier="Public"
+                            >
+                    <AutoSuggestBox.Resources>
+                        <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="{ThemeResource SystemAltHighColor}"/>
+                        <SolidColorBrush x:Key="TextControlButtonForeground" Color="{ThemeResource SystemAltHighColor}"/>
+                    </AutoSuggestBox.Resources>
+                </AutoSuggestBox>
+                <StackPanel Grid.Row="1"
+                        Orientation="Horizontal" Spacing="4" x:Name="Igrid">
+                    <Button Click="ActionClicked" Tag="Google" CornerRadius="16" Background="Transparent" BorderThickness="1" BorderBrush="Red">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Image Source="/Assets/Logo.png" Width="16"></Image>
+                            <TextBlock Text="Google"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Click="ActionClicked" Tag="Youtube" CornerRadius="16" Background="Transparent" BorderThickness="1" BorderBrush="Red">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Image Source="/Assets/Logo.png" Width="16"></Image>
+                            <TextBlock Text="Youtube"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </Grid>
+        <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            
+        </Grid>
+
+        <!--这里用社区工具包的AdaptiveGridView控件替换-->    
+        <StackPanel HorizontalAlignment="Center" Margin="0 40 0 0">
+            <StackPanel Margin="20" Spacing="40" Orientation="Horizontal">
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+        </StackPanel>
+            <StackPanel Margin="20" Spacing="40" Orientation="Horizontal">
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+            <Image Source="/Assets/Frame 21.png" Height="72"/>
+        </StackPanel>
+            <StackPanel Margin="20" Spacing="40" Orientation="Horizontal">
+                 <Image Source="/Assets/Frame 21.png" Height="72"/>
+                 <Image Source="/Assets/Frame 21.png" Height="72"/>
+                 <Image Source="/Assets/Frame 21.png" Height="72"/>
+                 <Image Source="/Assets/Frame 21.png" Height="72"/>
+                 <Image Source="/Assets/Frame 21.png" Height="72"/>
+                 <Image Source="/Assets/Frame 21.png" Height="72"/>
+                 <Image Source="/Assets/Frame 21.png" Height="72"/>
+        </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>

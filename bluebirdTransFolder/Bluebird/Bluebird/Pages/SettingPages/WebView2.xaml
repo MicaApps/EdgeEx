@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="Bluebird.Pages.SettingPages.WebView2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bluebird.Pages.SettingPages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svsettctrl="using:SVSettingsControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    >
+
+    <StackPanel>
+        <svsettctrl:SettingsBlockControl Title="Disable Touch Scrolling" Description="This makes touchscreen possible Turn On Means No Touchscreen">
+            <svsettctrl:SettingsBlockControl.Icon>
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE815;" />
+            </svsettctrl:SettingsBlockControl.Icon>
+            <ToggleSwitch
+                x:Name="DisableTouch"
+                Loaded="DisableTouch_Loaded"
+                Toggled="DisableTouch_Toggled"/>
+        </svsettctrl:SettingsBlockControl>
+    </StackPanel>
+</Page>

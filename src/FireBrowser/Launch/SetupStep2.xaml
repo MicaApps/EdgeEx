@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="FireBrowser.Launch.SetupStep2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold">
+                Account Stuff
+            </TextBlock>
+            <labs:SettingsCard  Width="600" Margin="0,50,0,0">
+                <labs:SettingsCard.Header>
+                    FireBrowser Light Mode ( This Is Optional )
+                </labs:SettingsCard.Header>
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xEC4A;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <ToggleSwitch x:Name="LgMode" Toggled="LgMode_Toggled"/>
+            </labs:SettingsCard>
+            <labs:SettingsExpander VerticalAlignment="Top" Margin="0,2,0,0" Width="600">
+                <labs:SettingsExpander.Header>
+                    Hex Colors
+                </labs:SettingsExpander.Header>
+                <labs:SettingsExpander.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE70F;"/>
+                </labs:SettingsExpander.HeaderIcon>
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard>
+                        <labs:SettingsCard.Header>
+                            Color Toolbar
+                        </labs:SettingsCard.Header>
+                        <TextBox x:Name="tbc" Text="#000000" TextChanged="tbc_TextChanged"/>
+                    </labs:SettingsCard>
+                    <labs:SettingsCard>
+                        <labs:SettingsCard.Header>
+                            Color TabView Background
+                        </labs:SettingsCard.Header>
+                        <TextBox x:Name="tbv" Text="#000000" TextChanged="tbv_TextChanged"/>
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
+            <labs:SettingsCard  Width="600" Margin="0,5,0,0">
+                <labs:SettingsCard.Header>
+                    Microsoft Account Connect ( This Is Optional )
+                </labs:SettingsCard.Header>
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE910;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <Button x:Name="ConnectBtn" Click="ConnectBtn_Click">
+                    Connect
+                </Button>
+            </labs:SettingsCard>
+            <labs:SettingsCard IsEnabled="False" VerticalAlignment="Top" Margin="0,5,0,0" Width="600">
+                <labs:SettingsCard.Header>
+                    Username Disabled Coming Soon
+                </labs:SettingsCard.Header>
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xEE57;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <TextBox x:Name="User"/>
+            </labs:SettingsCard>
+            <Button Click="Install_Click" x:Name="Install" Margin="0,8,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                Confirm Setup
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

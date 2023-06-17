@@ -1,0 +1,115 @@
+﻿<Page
+    x:Class="FireBrowser.Pages.SettingsPages.NewTab"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    mc:Ignorable="d">
+    <StackPanel>
+        <Frame x:Name="FrameRestart" Visibility="Collapsed">
+            
+        </Frame>
+        <labs:SettingsCard VerticalAlignment="Top" Margin="0,10,0,0">
+            <labs:SettingsCard.Header>
+                Search Engine
+            </labs:SettingsCard.Header>
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE721;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <ComboBox  x:Name="SearchengineSelection" Loaded="SearchengineSelection_Loaded" SelectionChanged="SearchengineSelection_SelectionChanged">
+                <x:String>Google</x:String>
+                <x:String>Ask</x:String>
+                <x:String>Baidu</x:String>
+                <x:String>Bing</x:String>
+                <x:String>DuckDuckGo</x:String>
+                <x:String>Ecosia</x:String>
+                <x:String>Startpage</x:String>
+                <x:String>Qwant</x:String>
+                <x:String>Qwant Lite</x:String>
+                <x:String>Yahoo!</x:String>
+                <x:String>Presearch</x:String>
+            </ComboBox>
+        </labs:SettingsCard>
+        <labs:SettingsExpander VerticalAlignment="Top" Margin="0,2,0,0">
+            <labs:SettingsExpander.Header>
+                Toolbar icons
+            </labs:SettingsExpander.Header>
+            <labs:SettingsExpander.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE737;"/>
+            </labs:SettingsExpander.HeaderIcon>
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Dwbl" Toggled="Dwbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE896;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Frbl" Toggled="Frbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE728;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="FlAd" Toggled="FlAd_Toggled" />
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE734;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Hsbl" Toggled="Hsbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon  FontFamily="{StaticResource FluentIcons}" Glyph="&#xE81C;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Qrbl" Toggled="Qrbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon  FontFamily="{StaticResource FluentIcons}" Glyph="&#xED14;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Tlbl" Toggled="Tlbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE70F;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
+        <labs:SettingsExpander VerticalAlignment="Top" Margin="0,2,0,0">
+            <labs:SettingsExpander.Header>
+                Tools Menu icons
+            </labs:SettingsExpander.Header>
+            <labs:SettingsExpander.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE70F;"/>
+            </labs:SettingsExpander.HeaderIcon>
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Drbl" Toggled="Drbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE790;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Trbl" Toggled="Trbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE87E;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Read" Toggled="Read_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE736;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+                <labs:SettingsCard>
+                    <ToggleSwitch x:Name="Adbl" Toggled="Adbl_Toggled"/>
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xEA18;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
+    </StackPanel>
+</Page>

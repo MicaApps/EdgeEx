@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="FireBrowser.Pages.SettingsPages.Privacy"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    mc:Ignorable="d">
+    <StackPanel>
+        <labs:SettingsCard Header="Privacy Level" Description="See You Privacy Level Here" Margin="0,10,0,0">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xEA18;" />
+            </labs:SettingsCard.HeaderIcon>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                x:Name="TextLevel"
+                Width="85"
+                VerticalAlignment="Center"
+                Visibility="Visible">
+                Default
+                </TextBlock>
+                <Button x:Name="Confirm" Click="Confirm_Click">
+                    Confirm Changes
+                </Button>
+            </StackPanel>
+        </labs:SettingsCard>
+        <Frame x:Name="RestartFrame" Margin="0,5,0,0" Height="70" Visibility="Collapsed"/>
+        <labs:SettingsCard Header="Disable Javascript" Description="This improves your privacy by blocking trackers but it can also break a lot sites" Margin="0,5,0,0">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE943;" />
+            </labs:SettingsCard.HeaderIcon>
+            <ToggleSwitch  x:Name="DisableJavaScriptToggle" Toggled="DisableJavaScriptToggle_Toggled"/>
+        </labs:SettingsCard>
+        <labs:SettingsCard Header="Disable Genaral AutoFill" Description="This will disable autofilling in browser ( No Automaticly Fill )" Margin="0,1,0,0">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE8DA;" />
+            </labs:SettingsCard.HeaderIcon>
+            <ToggleSwitch  x:Name="DisableGenaralAutoFillToggle" Toggled="DisableGenaralAutoFillToggle_Toggled"/>
+        </labs:SettingsCard>
+        <labs:SettingsCard Header="Disable Web Messages" Description="This will disable Webmessages in browser" Margin="0,1,0,0">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xE8BD;" />
+            </labs:SettingsCard.HeaderIcon>
+            <ToggleSwitch  x:Name="DisablWebMessFillToggle" Toggled="DisablWebMessFillToggle_Toggled"/>
+        </labs:SettingsCard>
+        <labs:SettingsCard Header="Disable Save Passwords" Description="This will disable browser Auto Save Password" Margin="0,1,0,0">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xF427;" />
+            </labs:SettingsCard.HeaderIcon>
+            <ToggleSwitch  x:Name="PasswordWebMessFillToggle" Toggled="PasswordWebMessFillToggle_Toggled"/>
+        </labs:SettingsCard>
+
+        <labs:SettingsCard Header="WebSite Permissions" Description="See The Permission Of The Websites" Margin="0,10,0,0" IsEnabled="False">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="{StaticResource FluentIcons}" Glyph="&#xEA18;" />
+            </labs:SettingsCard.HeaderIcon>
+        </labs:SettingsCard>
+    </StackPanel>
+</Page>

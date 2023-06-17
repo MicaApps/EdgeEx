@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="FireBrowser.Pages.WebContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:firebrowser="using:FireBrowser.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Enabled"
+    >
+    <Page.Resources>
+        <muxc:CommandBarFlyout x:Name="Ctx" Placement="BottomEdgeAlignedLeft">
+            <AppBarButton  Click="ContextMenuItem_Click" ToolTipService.ToolTip="Back" x:Uid="Back" Tag="MenuBack" Icon="{firebrowser:FluentIcon Glyph=&#xE72B;}"/>
+            <AppBarButton  Click="ContextMenuItem_Click" ToolTipService.ToolTip="Forward" Tag="Forward" Icon="{firebrowser:FluentIcon Glyph=&#xE72A;}"/>
+            <AppBarButton  Click="ContextMenuItem_Click" ToolTipService.ToolTip="Share" Tag="Share" Icon="{firebrowser:FluentIcon Glyph=&#xE72D;}"/>
+            <AppBarButton  Click="ContextMenuItem_Click" IsEnabled="False" ToolTipService.ToolTip="Print" Tag="Print" Icon="{firebrowser:FluentIcon Glyph=&#xE749;}"/>
+            <muxc:CommandBarFlyout.SecondaryCommands>
+                <AppBarButton  Click="ContextMenuItem_Click" Label="Copy" Tag="Copy" Icon="{firebrowser:FluentIcon Glyph=&#xE8C8;}">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator 
+                        Modifiers="Control" 
+                        Key="C" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+                <AppBarButton  Click="ContextMenuItem_Click" Label="Select all" Tag="Select" Icon="{firebrowser:FluentIcon Glyph=&#xE8B3;}">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator 
+                        Modifiers="Control" 
+                        Key="A" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+                <AppBarButton Label="Open In" x:Name="OpenLinks" Visibility="Collapsed" Icon="{firebrowser:FluentIcon Glyph=&#xE8AD;}">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem IsEnabled="False" Tag="OpenInTab" Click="ContextClicked_Click" Text="Open In New Tab" Icon="{firebrowser:FluentIcon Glyph=&#xEC6C;}"/>
+                            <MenuFlyoutItem Text="Open In New Window" Click="ContextClicked_Click" Tag="OpenInWindow" Icon="{firebrowser:FluentIcon Glyph=&#xE737;}"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Label="Tools" Icon="{firebrowser:FluentIcon Glyph=&#xEC7A;}">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Read Aloud" Icon="{firebrowser:FluentIcon Glyph=&#xEFA9;}" IsEnabled="False" Tag="Read" Click="ContextClicked_Click"/>
+                            <MenuFlyoutItem Text="Create WebApp" Icon="{firebrowser:FluentIcon Glyph=&#xECAA;}" IsEnabled="False" Tag="WebApp" Click="ContextClicked_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton  Click="ContextMenuItem_Click" Label="Save" Tag="Save" Content="{firebrowser:FluentIcon Glyph=&#xE74E;}">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator 
+                        Modifiers="Control" 
+                        Key="S"
+                        />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+                <!-- Todo: add inspect and possibly a separator for these dev options-->
+                <AppBarButton  Click="ContextMenuItem_Click"  Label="View source" Tag="Source" Content="{firebrowser:FluentIcon Glyph=&#xE74C;}"/>
+                <AppBarButton Click="ContextMenuItem_Click" Label="TaskManager" Tag="Taskmgr" Content="{firebrowser:FluentIcon Glyph=&#xF259;}"/>
+            </muxc:CommandBarFlyout.SecondaryCommands>
+        </muxc:CommandBarFlyout>
+    </Page.Resources>
+    <Grid x:Name="Grid" Loaded="Grid_Loaded_1">
+        <muxc:ProgressBar muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" x:Name="Progress" Canvas.ZIndex="1" IsIndeterminate="True" Height="3" VerticalAlignment="Top"/>
+        <muxc:WebView2 
+            Margin="0,0,0,0"
+            x:Name="WebViewElement"
+            x:FieldModifier="public"
+            DragOver="WebViewElement_DragOver"
+            AllowDrop="True"
+           Drop="WebViewElement_Drop"
+            />
+    </Grid>
+</Page>

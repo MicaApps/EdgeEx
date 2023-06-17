@@ -1,0 +1,85 @@
+﻿<Page
+    x:Class="Bluebird.Pages.SettingPages.About"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svsettctrl="using:SVSettingsControl"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    Width="70"
+                    Height="70"
+                    Source="ms-appx:///Assets/Square44x44Logo.targetsize-256.png" />
+                <StackPanel>
+                    <TextBlock FontSize="30">Bluebird</TextBlock>
+                    <TextBlock FontSize="15">Your next-gen webbrowser</TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <svsettctrl:SettingsBlockControl Title="Version information" IsExpanded="True">
+                <svsettctrl:SettingsBlockControl.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE946;" />
+                </svsettctrl:SettingsBlockControl.Icon>
+                <svsettctrl:SettingsBlockControl.ExpandableContent>
+                    <StackPanel>
+                        <TextBlock x:Name="BluebirdVersion" />
+                        <TextBlock x:Name="WebView2Version" />
+                    </StackPanel>
+                </svsettctrl:SettingsBlockControl.ExpandableContent>
+            </svsettctrl:SettingsBlockControl>
+            <svsettctrl:SettingsBlockControl Title="Developers" IsExpanded="True">
+                <svsettctrl:SettingsBlockControl.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC7A;" />
+                </svsettctrl:SettingsBlockControl.Icon>
+                <svsettctrl:SettingsBlockControl.ExpandableContent>
+                    <RichTextBlock>
+                        <Paragraph>Fluid_union</Paragraph>
+                        <Paragraph>jarno9981</Paragraph>
+                        <Paragraph>Pinguin2001</Paragraph>
+                        <Paragraph>Note: This list is in alphabetical order</Paragraph>
+                        <Paragraph>
+                            Chat with us on<Hyperlink NavigateUri="bluebird:https://discord.com/invite/CWGHdGVFFV">Discord</Hyperlink>
+                            to get latest information and support</Paragraph>
+                    </RichTextBlock>
+                </svsettctrl:SettingsBlockControl.ExpandableContent>
+            </svsettctrl:SettingsBlockControl>
+            <svsettctrl:SettingsBlockControl Title="Dependencies" IsExpanded="True">
+                <svsettctrl:SettingsBlockControl.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE1D3;" />
+                </svsettctrl:SettingsBlockControl.Icon>
+                <svsettctrl:SettingsBlockControl.ExpandableContent>
+                    <RichTextBlock>
+                        <Paragraph>
+                            <Hyperlink NavigateUri="bluebird:https://github.com/microsoft/microsoft-ui-xaml">Microsoft.UI.Xaml</Hyperlink>
+                            (MIT licence)</Paragraph>
+                        <Paragraph>
+                            <Hyperlink NavigateUri="bluebird:https://github.com/JamesNK/Newtonsoft.Json">Newtonsoft.Json</Hyperlink>
+                            (MIT licence)</Paragraph>
+                        <Paragraph>
+                            <Hyperlink NavigateUri="bluebird:https://github.com/Pinguin2001/simplyread-enhanced">simplyread-enhanced</Hyperlink>
+                            (AGPL-3.0 license)</Paragraph>
+                        <Paragraph>
+                            <Hyperlink NavigateUri="bluebird:https://github.com/gus33000/SVSettingsControl">SVSettingsControl</Hyperlink>
+                            (MIT licence)</Paragraph>
+                        <Paragraph>
+                            <Hyperlink NavigateUri="bluebird:https://github.com/publicsuffix/list">The Public Suffix List</Hyperlink>
+                            (MPL-2.0 license)</Paragraph>
+                        <Paragraph>Many thanks to everyone who is distributing these libraries for free!</Paragraph>
+                    </RichTextBlock>
+                </svsettctrl:SettingsBlockControl.ExpandableContent>
+            </svsettctrl:SettingsBlockControl>
+            <svsettctrl:SettingsBlockControl Title="Other attributions" IsExpanded="True">
+                <svsettctrl:SettingsBlockControl.ExpandableContent>
+                    <RichTextBlock>
+                        <Paragraph>
+                            Icon created by<Hyperlink NavigateUri="bluebird:https://www.flaticon.com/authors/freepik">Freepik</Hyperlink>
+                        </Paragraph>
+                    </RichTextBlock>
+                </svsettctrl:SettingsBlockControl.ExpandableContent>
+            </svsettctrl:SettingsBlockControl>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

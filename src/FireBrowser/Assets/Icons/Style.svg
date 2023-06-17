@@ -1,0 +1,24 @@
+<svg width="auto" height="auto" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.9761 12.5387L4.13701 11C3.77846 11.0007 2.92536 11.0993 2.38122 11.4863C1.70106 11.9701 1.4907 12.9728 1.58273 13.595C1.66279 14.1364 1 16 1 16C1 16 4.37056 15.5551 5.00661 15.1523C5.959 14.5491 6.06114 13.169 5.9761 12.5387Z" fill="url(#paint0_radial_351_279)"/>
+<path d="M5.9761 12.5387L4.13701 11C3.77846 11.0007 2.92536 11.0993 2.38122 11.4863C1.70106 11.9701 1.4907 12.9728 1.58273 13.595C1.66279 14.1364 1 16 1 16C1 16 4.37056 15.5551 5.00661 15.1523C5.959 14.5491 6.06114 13.169 5.9761 12.5387Z" fill="url(#paint1_linear_351_279)" fill-opacity="0.2"/>
+<path d="M13.5888 0.269757C13.8766 -0.0517205 14.3558 -0.0909845 14.6894 0.179556C15.0391 0.463115 15.1029 0.983577 14.8329 1.348L6.45588 12.6534C6.15971 13.0531 5.59984 13.1169 5.22612 12.7935L4.30562 11.9971C3.93145 11.6734 3.89564 11.093 4.227 10.723L13.5888 0.269757Z" fill="url(#paint2_linear_351_279)"/>
+<path d="M13.5888 0.269757C13.8766 -0.0517205 14.3558 -0.0909845 14.6894 0.179556C15.0391 0.463115 15.1029 0.983577 14.8329 1.348L6.45588 12.6534C6.15971 13.0531 5.59984 13.1169 5.22612 12.7935L4.30562 11.9971C3.93145 11.6734 3.89564 11.093 4.227 10.723L13.5888 0.269757Z" fill="url(#paint3_radial_351_279)" fill-opacity="0.2"/>
+<defs>
+<radialGradient id="paint0_radial_351_279" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(3.16741 10.9778) rotate(86.1773) scale(5.03342 5.09935)">
+<stop stop-color="#F18C0A"/>
+<stop offset="1" stop-color="#DD5C03"/>
+</radialGradient>
+<linearGradient id="paint1_linear_351_279" x1="6.40007" y1="16" x2="4.50783" y2="15.2522" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D54802"/>
+<stop offset="1" stop-color="#E56E05"/>
+</linearGradient>
+<linearGradient id="paint2_linear_351_279" x1="15.3695" y1="0.216822" x2="4.47734" y2="12.7525" gradientUnits="userSpaceOnUse">
+<stop stop-color="#A2A2A2"/>
+<stop offset="1" stop-color="#D5D5D5"/>
+</linearGradient>
+<radialGradient id="paint3_radial_351_279" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9.94195 12.7848) rotate(61.0042) scale(7.83765 7.37996)">
+<stop stop-opacity="0.5"/>
+<stop offset="1" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

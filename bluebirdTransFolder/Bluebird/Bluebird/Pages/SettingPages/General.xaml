@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="Bluebird.Pages.SettingPages.General"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bluebird.Pages.SettingPages"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svsettctrl="using:SVSettingsControl"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Height="135" VerticalAlignment="Center">
+                <StackPanel Width="150" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <PersonPicture Margin="25,2,0,0" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Default User" Margin="35,0,35,0"/>
+                </StackPanel>
+                <Button x:Name="Addprf" Margin="0,-120,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Addprf_Click">
+                    <StackPanel>
+                        <SymbolIcon VerticalAlignment="Center" Symbol="Add"/>
+                        <TextBlock x:Name="Inameb">Add Profile</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="Syncprf" Margin="0,-120,110,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Syncprf_Click">
+                    <StackPanel>
+                        <SymbolIcon x:Name="iscon"  Visibility="Visible" VerticalAlignment="Center" Symbol="Sync"/>
+                        <TextBlock x:Name="Text" Visibility="Visible">Sync Profile</TextBlock>
+                        <ProgressRing x:Name="Progr" IsActive="False" Margin="0,2,0,1" Visibility="Collapsed"/>
+                        <ProgressBar Minimum="0" Maximum="100" x:Name="prg" Visibility="Collapsed" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Frame x:Name="FrameUpdate" VerticalAlignment="Center" Margin="0,50,0,0" Visibility="Collapsed" Height="300">
+
+            </Frame>
+            <svsettctrl:SettingsBlockControl Margin="0,20,0,0" Title="Search engine" Description="This will also change your startpage">
+                <svsettctrl:SettingsBlockControl.Icon>
+                    <SymbolIcon Symbol="Find" />
+                </svsettctrl:SettingsBlockControl.Icon>
+                <ComboBox
+                x:Name="SearchengineSelection"
+                Loaded="SearchengineSelection_Loaded"
+                SelectionChanged="SearchengineSelection_SelectionChanged">
+                    <x:String>Ask</x:String>
+                    <x:String>Baidu</x:String>
+                    <x:String>Bing</x:String>
+                    <x:String>DuckDuckGo</x:String>
+                    <x:String>Ecosia</x:String>
+                    <x:String>Google</x:String>
+                    <x:String>Startpage</x:String>
+                    <x:String>Qwant</x:String>
+                    <x:String>Qwant Lite</x:String>
+                    <x:String>Yahoo!</x:String>
+                </ComboBox>
+            </svsettctrl:SettingsBlockControl>
+            <svsettctrl:SettingsBlockControl Title="BleuBird Auto Start ( Alpha )" Description="This Will Enable Auto Start On Login Note: Expect Bugs" Loaded="SettingsBlockControl_Loaded">
+                <svsettctrl:SettingsBlockControl.Icon>
+                    <SymbolIcon Symbol="PostUpdate" />
+                </svsettctrl:SettingsBlockControl.Icon>
+                <CheckBox x:Name="AutoStart" Click="AutoStart_Click"/>
+            </svsettctrl:SettingsBlockControl>
+            <Frame Margin="0,10,0,0">
+                
+            </Frame>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

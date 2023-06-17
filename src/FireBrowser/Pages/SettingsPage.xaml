@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="FireBrowser.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d" 
+    NavigationCacheMode="Enabled"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    >
+    <!--移除右边的白色半透明遮罩，做成类似“设置”应用的样子-->
+    <Grid>
+        <muxc:NavigationView x:Name="NavView"
+                        Loaded="NavView_Loaded"
+                         ItemInvoked="NavView_ItemInvoked"
+                         BackRequested="NavView_BackRequested"
+                         IsBackButtonVisible="Collapsed"
+                         IsSettingsVisible="False">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Tag="SettingsHome" Content="Home">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Icons/Home.svg"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Design" Content="Design">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Icons/Style.svg"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Privacy" Content="Privacy">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Icons/Privacy.svg"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="NewTab"  Content="New Tab">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Icons/Tabs.svg"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Accessibility"  Content="Accessibility">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Icons/Accessibility.svg"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="About"  Content="About">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Icons/About.svg"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.MenuItems>
+            <muxc:NavigationView.AutoSuggestBox>
+                <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"/>
+            </muxc:NavigationView.AutoSuggestBox>
+            <ScrollViewer>
+                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True"
+                  NavigationFailed="ContentFrame_NavigationFailed"/>
+            </ScrollViewer>
+        </muxc:NavigationView>
+    </Grid>
+</Page>

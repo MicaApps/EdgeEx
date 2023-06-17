@@ -1,0 +1,23 @@
+﻿<ContentDialog
+    x:Class="FireBrowser.Pages.SettingsPages.MsLogin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Title="Microsoft Account Link"
+    CornerRadius="10"
+    PrimaryButtonText="Disconnect"
+    SecondaryButtonText="Connect"
+    CacheMode="BitmapCache"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    x:Name="msdialog" Height="Auto" Width="Auto" >
+
+    <Grid Height="475" Width="400">
+        <Border CornerRadius="1" BorderBrush="Red" BorderThickness="1">
+            <muxc:WebView2 CacheMode="BitmapCache" x:Name="WebApp"/>
+        </Border>
+    </Grid>
+</ContentDialog>

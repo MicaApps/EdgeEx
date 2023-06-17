@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
+  xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2" 
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:a="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  IgnorableNamespaces="uap mp uap3 desktop4 iot2 a">
+
+  <Identity
+    Name="57443TechFireX.30017BED6DE0B"
+    Publisher="CN=787233D4-4D29-47D2-B29A-AD3E99C44FE7"
+    Version="0.1.9.0" />
+
+	
+  <mp:PhoneIdentity PhoneProductId="8c234b88-a1c9-420c-8c0f-9136a2a6e13a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>FireBrowser-Alpha</DisplayName>
+    <PublisherDisplayName>Bluebird Devs</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="FireBrowser.App"
+	  desktop4:SupportsMultipleInstances="true"
+      iot2:SupportsMultipleInstances="true">
+      <uap:VisualElements
+        DisplayName="FireBrowser-Alpha"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="FireBrowser"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" a:Optional="true"/>
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badgeAndTileText"/>
+      </uap:VisualElements>
+		
+		<Extensions>
+			<uap5:Extension
+		Category="windows.startupTask"
+		Executable="FireBrowser.exe"
+		EntryPoint="FireBrowser.App">
+				<uap5:StartupTask
+				  TaskId="FireBrowserStartUp"
+				  Enabled="true"
+				  DisplayName="FireBrowser" />
+			</uap5:Extension>
+			<uap:Extension Category="windows.protocol">
+				<uap:Protocol Name="http">
+					<uap:Logo>Assets\logo.png</uap:Logo>
+					<uap:DisplayName>FireBrowser</uap:DisplayName>
+				</uap:Protocol>
+			</uap:Extension>
+			<uap:Extension Category="windows.protocol">
+				<uap:Protocol Name="https">
+					<uap:Logo>Assets\logo.png</uap:Logo>
+					<uap:DisplayName>FireBrowser</uap:DisplayName>
+				</uap:Protocol>
+			</uap:Extension>
+			<uap:Extension Category="windows.protocol">
+				<uap:Protocol Name="firebrowser">
+					<uap:DisplayName>FireBrowser internal protocol</uap:DisplayName>
+					<uap:Logo>Assets\logo.png</uap:Logo>
+				</uap:Protocol>
+			</uap:Extension>
+			<Extension Category="windows.backgroundTasks" EntryPoint="BackgroundMedia" >
+				<BackgroundTasks>
+					<Task Type="audio"/>
+				</BackgroundTasks>
+			</Extension>
+			<uap:Extension Category="windows.fileTypeAssociation">
+				<uap:FileTypeAssociation Name="pdf">
+					<uap:SupportedFileTypes>
+						<uap:FileType ContentType="application/pdf">.pdf</uap:FileType>
+					</uap:SupportedFileTypes>
+					<uap:DisplayName>FireBrowser Pdf</uap:DisplayName>
+					<uap:Logo>Assets\FileIcons\LogoPdfFile.png</uap:Logo>
+				</uap:FileTypeAssociation>
+			</uap:Extension>
+			<uap:Extension Category="windows.fileTypeAssociation">
+				<uap:FileTypeAssociation Name="firebrowser-extensible-markup-language">
+					<uap:SupportedFileTypes>
+						<uap:FileType ContentType="application/xml">.xml</uap:FileType>
+					</uap:SupportedFileTypes>
+					<uap:DisplayName>FireBrowser Xml Disabled</uap:DisplayName>
+					<uap:Logo>Assets\FileIcons\LogoXmlFile.png</uap:Logo>
+				</uap:FileTypeAssociation>
+			</uap:Extension>
+		</Extensions>		
+    </Application>
+  </Applications>
+
+  <Capabilities>
+	  <Capability Name="privateNetworkClientServer"/>
+	  <uap3:Capability Name="backgroundMediaPlayback"/>
+	  <uap:Capability Name="userAccountInformation"/>
+      <Capability Name="internetClientServer"/>
+	  <DeviceCapability Name="microphone"/>
+	  <DeviceCapability Name="location"/>
+	  <DeviceCapability Name="webcam"/>
+	  <DeviceCapability Name="bluetooth"/>
+  </Capabilities>
+</Package>

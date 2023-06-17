@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="Bluebird.Pages.NewTabPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bluebird.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Image
+                    Width="48"
+                    Height="48"
+                    Source="ms-appx:///Assets/Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+                <TextBlock VerticalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}">Bluebird</TextBlock>
+            </StackPanel>
+            <StackPanel Margin="0,20,0,0">
+                <TextBox
+                    Width="400"
+                    KeyDown="TextBox_KeyDown"
+                    Loaded="TextBox_Loaded"
+                    PlaceholderText="Type here to search" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

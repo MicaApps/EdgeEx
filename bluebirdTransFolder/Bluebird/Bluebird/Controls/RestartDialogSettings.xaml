@@ -1,0 +1,25 @@
+﻿<UserControl
+    x:Class="Bluebird.Controls.RestartDialogSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bluebird.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svsettctrl="using:SVSettingsControl"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <svsettctrl:SettingsBlockControl
+            x:Name="RestartDialog"
+            Title="Restart app to apply changes"
+            Margin="0,5,0,0"
+            Description="Your settings will apply after app restart">
+            <svsettctrl:SettingsBlockControl.Icon>
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE149;" />
+            </svsettctrl:SettingsBlockControl.Icon>
+            <Button x:Name="RestartBtn" Click="RestartBtn_Click">
+                Restart
+            </Button>
+        </svsettctrl:SettingsBlockControl>
+    </StackPanel>
+</UserControl>

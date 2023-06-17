@@ -1,0 +1,724 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsAboutCredits.Description" xml:space="preserve">
+    <value>People who worked on this app</value>
+  </data>
+  <data name="SettingsAboutCredits.Header" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="SettingsAboutLinkDiscord.Description" xml:space="preserve">
+    <value>Join our Discord server to talk with the devs and community</value>
+  </data>
+  <data name="SettingsAboutLinkDiscord.Header" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="SettingsAboutLinkDonate.Description" xml:space="preserve">
+    <value>Donate to support the developement of this app</value>
+  </data>
+  <data name="SettingsAboutLinkDonate.Header" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="SettingsAboutLinkGitHub.Description" xml:space="preserve">
+    <value>View the code of this app and contribute</value>
+  </data>
+  <data name="SettingsAboutLinkGitHub.Header" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="SettingsAboutLinkTwitter.Description" xml:space="preserve">
+    <value>Follow our Twitter for updates on the app and more</value>
+  </data>
+  <data name="SettingsAboutLinkTwitter.Header" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="FirstLaunchWelcomeText" xml:space="preserve">
+    <value>Welcome to FireBrowser, {0}!</value>
+    <comment>{0} is the name of the user account</comment>
+  </data>
+  <data name="FirstLaunchWelcomeTextFallback" xml:space="preserve">
+    <value>Welcome to FireBrowser!</value>
+    <comment>Used if the user doesn't allow to access their Windows account data</comment>
+  </data>
+  <data name="CloseWithOpenTabsDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CloseWithOpenTabsDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Close all</value>
+  </data>
+  <data name="CloseWithOpenTabsDialog.Title" xml:space="preserve">
+    <value>Do you want to close all tabs?</value>
+  </data>
+  <data name="CreateFocusListDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateFocusListDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CreateFocusListDialog.Title" xml:space="preserve">
+    <value>Create a new list</value>
+  </data>
+  <data name="DefaultUserName" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="DontAskAgainCheckbox.Content" xml:space="preserve">
+    <value>Don't ask again</value>
+  </data>
+  <data name="CollectionBarVisibilityAlways.Content" xml:space="preserve">
+    <value>Always</value>
+  </data>
+  <data name="CollectionBarVisibilityNever.Content" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="CollectionBarVisibilityHomeOnly.Content" xml:space="preserve">
+    <value>Home page only</value>
+  </data>
+  <data name="FlyoutNewTabShortcut" xml:space="preserve">
+    <value>New tab</value>
+  </data>
+  <data name="FocusStartButton.Content" xml:space="preserve">
+    <value>Start focusing</value>
+  </data>
+  <data name="TimelineNavItemTimeline.Content" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="NewTabBackgroundBing.Text" xml:space="preserve">
+    <value>Bing Image</value>
+  </data>
+  <data name="NewTabBackgroundCustom.Text" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="NewTabBackgroundNone.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NewTabEditPinsShortcut.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="NewTabHeader" xml:space="preserve">
+    <value>New tab</value>
+  </data>
+  <data name="NewTabIncognitoTitle.Text" xml:space="preserve">
+    <value>You're browsing in Incognito mode</value>
+  </data>
+  <data name="NewTabLayoutClassic.Text" xml:space="preserve">
+    <value>Classic</value>
+  </data>
+  <data name="NewTabLayoutProductive.Text" xml:space="preserve">
+    <value>Productive</value>
+  </data>
+  <data name="NewTabLayoutSimple.Text" xml:space="preserve">
+    <value>Simple</value>
+  </data>
+  <data name="NewTabSettingsButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Customize your New Tab page</value>
+  </data>
+  <data name="NewTabSettingsFlyoutSectionTitleBackground.Text" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="NewTabSettingsFlyoutSectionTitleLayout.Text" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="PermissionDialogTitleSingle" xml:space="preserve">
+    <value>{0} wants to access your {1}</value>
+    <comment>0 is the website and 1 is the item (for example camera)</comment>
+  </data>
+  <data name="PermissionsCamera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="SettingsPrivacyClearData.Description" xml:space="preserve">
+    <value>Choose the data you want to get deleted. You can not reverse this action.</value>
+  </data>
+  <data name="SettingsPrivacyClearData.Header" xml:space="preserve">
+    <value>Clear data</value>
+  </data>
+  <data name="SettingsPrivacySearch.Header" xml:space="preserve">
+    <value>Change the search engine</value>
+  </data>
+  <data name="SettingsPrivacyCustomSearchTextBox.PlaceholderText" xml:space="preserve">
+    <value>Custom search engine URL, usually ends with /search?q=</value>
+    <comment>Do not translate the /search at the end.</comment>
+  </data>
+  <data name="SettingsLook.Content" xml:space="preserve">
+    <value>Look</value>
+    <comment>To-Do comment</comment>
+  </data>
+  <data name="SpecialThanksNote.Text" xml:space="preserve">
+    <value>Special thanks to Ahmed Walid, Nero Cui, Leah Lundqvist, FireCube and you.</value>
+  </data>
+  <data name="ToolbarAutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>Search or type an address</value>
+  </data>
+  <data name="ToolbarMoreButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Quick actions and more (Alt+F)</value>
+  </data>
+  <data name="ToolbarButtonBack.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Go back (Alt + arrow left)</value>
+  </data>
+  <data name="AppName.Text" xml:space="preserve">
+    <value>FireBrowser</value>
+  </data>
+  <data name="BetaSettingsPrivacyHistoryFormat.Description" xml:space="preserve">
+    <value>Choose how the history data should be stored</value>
+  </data>
+  <data name="BetaSettingsPrivacyHistoryFormat.Header" xml:space="preserve">
+    <value>History format</value>
+  </data>
+  <data name="BetaSettingsPrivacyHistoryFormatCustom.Description" xml:space="preserve">
+    <value>Allows for sync and more stable</value>
+  </data>
+  <data name="BetaSettingsPrivacyHistoryFormatCustom.Header" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="BetaSettingsPrivacyHistoryFormatEdge.Description" xml:space="preserve">
+    <value>Faster and uses less space</value>
+  </data>
+  <data name="BetaSettingsPrivacyHistoryFormatEdge.Header" xml:space="preserve">
+    <value>Edge</value>
+  </data>
+  <data name="FirstLaunchFinishedNotification.Subtitle" xml:space="preserve">
+    <value>Explore features and open settings in order to customize more options.</value>
+  </data>
+  <data name="FirstLaunchFinishedNotification.Title" xml:space="preserve">
+    <value>You're all on your own!</value>
+  </data>
+  <data name="FlyoutEditShortcut.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="FlyoutOtherShortcut.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Other options</value>
+  </data>
+  <data name="FlyoutSettingsShortcut.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="FocusingBanner" xml:space="preserve">
+    <value>Enjoying this feature? Try out {0} to get this feature in other browsers!</value>
+    <comment>{0} is the product name</comment>
+  </data>
+  <data name="FullscreenNotification" xml:space="preserve">
+    <value>Press {0} to leave full screen mode</value>
+    <comment>{0} is where it should say "Esc"</comment>
+  </data>
+  <data name="SettingsAboutTranslators.Description" xml:space="preserve">
+    <value>People who helped with translating this app into your language</value>
+  </data>
+  <data name="SettingsAboutTranslators.Header" xml:space="preserve">
+    <value>Translators</value>
+  </data>
+  <data name="SettingsPrivacyClearDataAutofill" xml:space="preserve">
+    <value>Autofill</value>
+  </data>
+  <data name="SettingsPrivacyClearDataCache" xml:space="preserve">
+    <value>Cache</value>
+  </data>
+  <data name="SettingsPrivacyClearDataCollections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="SettingsPrivacyClearDataCookies" xml:space="preserve">
+    <value>Cookies and other data</value>
+  </data>
+  <data name="SettingsPrivacyClearDataHistory" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="SettingsPrivacyClearDataOther" xml:space="preserve">
+    <value>Everything else (such as focus lists, themes, and extensions)</value>
+  </data>
+  <data name="SettingsPrivacyClearDataOtherProfiles" xml:space="preserve">
+    <value>Other profiles</value>
+  </data>
+  <data name="SettingsPrivacyClearDataSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsPrivacySuggestions.Description" xml:space="preserve">
+    <value>Uploads the text you type in the address bar in order to let you find things faster.</value>
+  </data>
+  <data name="SettingsPrivacySuggestions.Header" xml:space="preserve">
+    <value>Autocomplete search</value>
+  </data>
+  <data name="TabMenuClose.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="TabMenuCloseOther.Text" xml:space="preserve">
+    <value>Close other tabs</value>
+  </data>
+  <data name="TabMenuCloseRight.Text" xml:space="preserve">
+    <value>Close tabs to the right</value>
+  </data>
+  <data name="TabMenuDuplicate.Text" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="TabMenuGroup.Text" xml:space="preserve">
+    <value>Add tab to a new group</value>
+  </data>
+  <data name="TabMenuMute.Text" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="TabMenuPin.Text" xml:space="preserve">
+    <value>Pin</value>
+  </data>
+  <data name="TabMenuSend.Text" xml:space="preserve">
+    <value>Send to another device</value>
+  </data>
+  <data name="TabMenuSleep.Text" xml:space="preserve">
+    <value>Sleep</value>
+  </data>
+  <data name="TabMenuSnap.Text" xml:space="preserve">
+    <value>Snap to the side</value>
+  </data>
+  <data name="ToolbarButtonForward.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Go forward (Alt + arrow right)</value>
+  </data>
+  <data name="ToolbarButtonRefresh.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refresh (Ctrl + R, F5, right click for more options)</value>
+    <comment>To-Do: rewrite this</comment>
+  </data>
+  <data name="NotesAreaPage.Content" xml:space="preserve">
+    <value>Full page</value>
+  </data>
+  <data name="NotesAreaScreen.Content" xml:space="preserve">
+    <value>Screen area</value>
+  </data>
+  <data name="SearchBar.PlaceholderText" xml:space="preserve">
+    <value>Search or enter an address here</value>
+  </data>
+  <data name="SplitBrowsingDropTitle.Text" xml:space="preserve">
+    <value>Drop a tab here to open here</value>
+  </data>
+  <data name="SplitBrowsingEmptyTitle.Text" xml:space="preserve">
+    <value>Drop a tab or open a new one</value>
+  </data>
+  <data name="SplitBrowsingTutorialDescription" xml:space="preserve">
+    <value>Once you enter split browsing, you can drop a tab or press the {0} and {1} keys at the same time to display another page next to the currently shown one.
+
+You can use the dividers shown between the views to manage and resize them as needed.</value>
+    <comment>{0} and {1} are the shortcut keys (probably Ctrl and some other key)</comment>
+  </data>
+  <data name="SplitBrowsingTutorialTitle.Text" xml:space="preserve">
+    <value>Split your screen for effortless multitasking</value>
+  </data>
+  <data name="SettingsStyleWebsiteAccent" xml:space="preserve">
+    <value>Make browser theme match website color</value>
+  </data>
+  <data name="TimelineNavItemApps.Content" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="TimelineNavItemCollections.Content" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="TimelineNavItemDownloads.Content" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="TimelineNavItemHistory.Content" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="TimelineNavItemWorkspaces.Content" xml:space="preserve">
+    <value>Workspaces</value>
+  </data>
+  <data name="ToolbarButtonHome.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Home page</value>
+  </data>
+  <data name="WebAppInstallButton" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="WebAppInstallDescription" xml:space="preserve">
+    <value>This site can get installed as an app. It will open in its own window and appear in your start menu.</value>
+  </data>
+  <data name="WebAppInstallDev" xml:space="preserve">
+    <value>Made by: {0}</value>
+    <comment>{0} is the website developer</comment>
+  </data>
+  <data name="WebAppInstallLater" xml:space="preserve">
+    <value>Not now</value>
+  </data>
+  <data name="WebAppInstallTitle" xml:space="preserve">
+    <value>Install {0}?</value>
+    <comment>{0} is the app name</comment>
+  </data>
+  <data name="FlyoutCompactOverlayShortcut" xml:space="preserve">
+    <value>Compact overlay</value>
+  </data>
+  <data name="FlyoutDevToolsShortcut" xml:space="preserve">
+    <value>Dev tools</value>
+  </data>
+  <data name="FlyoutFindShortcut" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="FlyoutFocusShortcut" xml:space="preserve">
+    <value>Focus</value>
+  </data>
+  <data name="FlyoutFullscreenShortcut" xml:space="preserve">
+    <value>Full screen</value>
+  </data>
+  <data name="FlyoutIncognitoShortcut" xml:space="preserve">
+    <value>Incognito</value>
+  </data>
+  <data name="FlyoutNewWindowShortcut" xml:space="preserve">
+    <value>New window</value>
+  </data>
+  <data name="FlyoutNoteShortcut" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="FlyoutPrintShortcut" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="FlyoutReadAloudShortcut" xml:space="preserve">
+    <value>Read aloud</value>
+  </data>
+  <data name="FlyoutReadingModeShortcut" xml:space="preserve">
+    <value>Reading mode</value>
+  </data>
+  <data name="FlyoutSaveShortcut" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="FlyoutShareShortcut" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="FlyoutTimelineShortcut" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="FreeformMenuBottom.Content" xml:space="preserve">
+    <value>Send to bottom</value>
+  </data>
+  <data name="FreeformMenuCopy.Content" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="FreeformMenuDelete.Content" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="FreeformMenuDuplicate.Content" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="FreeformMenuFront.Content" xml:space="preserve">
+    <value>Send to front</value>
+  </data>
+  <data name="FreeformMenuPaste.Content" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="FreeformMenuToolbarToggle.Content" xml:space="preserve">
+    <value>Show toolbar</value>
+  </data>
+  <data name="FreeformToolbarCursor.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="FreeformToolbarMore.ToolTipService.ToolTip" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="FreeformToolbarNote.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Sticky note</value>
+  </data>
+  <data name="FreeformToolbarText.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="FreeformToolbarWebsite.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="NotesAddButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add to a collection</value>
+  </data>
+  <data name="NotesAddFlyoutCollection.Text" xml:space="preserve">
+    <value>Add to a collection</value>
+  </data>
+  <data name="NotesAddFlyoutWorkspace.Text" xml:space="preserve">
+    <value>Add to a workspace</value>
+  </data>
+  <data name="SettingsStyleBaseTheme.Text" xml:space="preserve">
+    <value>Base theme</value>
+  </data>
+  <data name="SettingsStyleBaseThemeAuto.Text" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="SettingsStyleBaseThemeDark.Text" xml:space="preserve">
+    <value>Dark theme</value>
+  </data>
+  <data name="SettingsStyleBaseThemeLight.Text" xml:space="preserve">
+    <value>Light theme</value>
+  </data>
+  <data name="SettingsStyleContextMenu.Text" xml:space="preserve">
+    <value>Context menu</value>
+  </data>
+  <data name="SettingsStyleLayoutClassic.Text" xml:space="preserve">
+    <value>Classic</value>
+  </data>
+  <data name="SettingsStyleLayoutCompact.Text" xml:space="preserve">
+    <value>Compact</value>
+  </data>
+  <data name="SettingsStyleLayoutVertical.Text" xml:space="preserve">
+    <value>Vertical tabs</value>
+  </data>
+  <data name="SettingsStyleMore.Text" xml:space="preserve">
+    <value>More options</value>
+  </data>
+  <data name="SettingsStyleToolbar.Text" xml:space="preserve">
+    <value>Customize toolbar</value>
+  </data>
+  <data name="UserFlyoutIncognito" xml:space="preserve">
+    <value>Browse in incognito</value>
+  </data>
+  <data name="UserFlyoutNewProfile" xml:space="preserve">
+    <value>Add a new profile</value>
+  </data>
+  <data name="FindFlyoutDown.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Next below</value>
+  </data>
+  <data name="FindFlyoutMatchCase.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Match case</value>
+  </data>
+  <data name="FindFlyoutMatchWord.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Match whole word</value>
+  </data>
+  <data name="FindFlyoutTextbox.PlaceholderText" xml:space="preserve">
+    <value>Type text to find</value>
+  </data>
+  <data name="FindFlyoutUp.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Next above</value>
+  </data>
+  <data name="FlyoutEditModeAdd.Content" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="FlyoutEditModeDone.Content" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="FlyoutEditModeUnpin.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Unpin</value>
+  </data>
+  <data name="FlyoutOtherShortcutRenameWindow" xml:space="preserve">
+    <value>Rename window</value>
+  </data>
+  <data name="NewTabPinCount.Header" xml:space="preserve">
+    <value>Amount of pins shown:</value>
+  </data>
+  <data name="NewTabPinDeleteButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NewTabPinEditButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="NewTabPinEditDialog.Title" xml:space="preserve">
+    <value>Edit this pin</value>
+  </data>
+  <data name="NewTabSearchSuggestions.Content" xml:space="preserve">
+    <value>Show search suggestions</value>
+  </data>
+  <data name="NotesDeleteButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NotesSaveButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="NotesShareButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="QuickSwitcherTextbox.PlaceholderText" xml:space="preserve">
+    <value>Type a tab name or command here</value>
+  </data>
+  <data name="SettingsAccessibilityDefaultZoom.Description" xml:space="preserve">
+    <value>The default setting is 100%. You can change it to a custom value to make it easier to see content on websites.</value>
+  </data>
+  <data name="SettingsAccessibilityDefaultZoom.Header" xml:space="preserve">
+    <value>Default zoom amount</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs.Text" xml:space="preserve">
+    <value>Sleeping tabs</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs10Min" xml:space="preserve">
+    <value>10 minutes</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs12Hours" xml:space="preserve">
+    <value>12 hours</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs15Min" xml:space="preserve">
+    <value>15 minutes</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs1Hour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs2Hours" xml:space="preserve">
+    <value>2 hours</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs30Min" xml:space="preserve">
+    <value>30 minutes</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs3Hours" xml:space="preserve">
+    <value>3 hours</value>
+  </data>
+  <data name="SettingsOtherSleepingTabs5Min" xml:space="preserve">
+    <value>5 minutes</value>
+  </data>
+  <data name="SettingsOtherSleepingTabsBlacklist.Description" xml:space="preserve">
+    <value>You will be able to put those sites in sleep mode manually from the tab context menu.</value>
+  </data>
+  <data name="SettingsOtherSleepingTabsBlacklist.Header" xml:space="preserve">
+    <value>Never put these websites to sleep automatically</value>
+  </data>
+  <data name="SettingsOtherSleepingTabsCard.Description" xml:space="preserve">
+    <value>If the tab is playing sound or doing activities such downloading, it will not go to sleep.</value>
+  </data>
+  <data name="SettingsOtherSleepingTabsCard.Header" xml:space="preserve">
+    <value>Put tabs to sleep automatically after:</value>
+  </data>
+  <data name="SettingsPrivacyClearDataDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SettingsPrivacyClearDataDialog.Content" xml:space="preserve">
+    <value>You can not reverse this action.</value>
+  </data>
+  <data name="SettingsPrivacyClearDataDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="SettingsPrivacyClearDataDialog.Title" xml:space="preserve">
+    <value>Are you sure you want to delete data?</value>
+  </data>
+  <data name="SettingsProfileLockAddDialog.Title" xml:space="preserve">
+    <value>Protect your profile</value>
+  </data>
+  <data name="SettingsProfileLockAddHello.Text" xml:space="preserve">
+    <value>Windows Hello</value>
+  </data>
+  <data name="SettingsProfileLockAddPassword.Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SettingsStyleTabsAttached.Text" xml:space="preserve">
+    <value>Attached tabs</value>
+  </data>
+  <data name="SettingsStyleTabsFloating.Text" xml:space="preserve">
+    <value>Floating tabs</value>
+  </data>
+  <data name="TabMenuRename.Text" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="FlyoutCanvasBrowsingShortcut" xml:space="preserve">
+    <value>Freeform browsing</value>
+  </data>
+  <data name="FlyoutSplitBrowsingShortcut" xml:space="preserve">
+    <value>Split browsing</value>
+  </data>
+  <data name="FreeformToolbarImage.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="FocusBlockSiteButton.Content" xml:space="preserve">
+    <value>Block this site</value>
+  </data>
+  <data name="NewProfileDialog.CloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="NewProfileDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="NewProfileDialog.Title" xml:space="preserve">
+    <value>Add a new profile</value>
+  </data>
+</root>

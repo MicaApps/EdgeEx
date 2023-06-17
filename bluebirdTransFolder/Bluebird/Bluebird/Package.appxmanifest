@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  IgnorableNamespaces="uap mp uap3">
+
+  <Identity
+    Name="57443TechFireX.BlueBirdBrowser"
+    Publisher="CN=787233D4-4D29-47D2-B29A-AD3E99C44FE7"
+    Version="1.0.7.0" />
+
+  <mp:PhoneIdentity PhoneProductId="d802fa1e-c8a5-4556-8ef4-26818b13fddd" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>BlueBird Browser</DisplayName>
+    <PublisherDisplayName>FireBrowser Devs</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Bluebird.App">
+      <uap:VisualElements
+        DisplayName="BlueBird Browser"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="Bluebird"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Bluebird" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\SplashScreen.png" uap5:Optional="true"/>
+      </uap:VisualElements>
+		<Extensions>
+			<uap5:Extension
+		Category="windows.startupTask"
+		Executable="Bluebird.exe"
+		EntryPoint="Bluebird.App">
+				<uap5:StartupTask
+				  TaskId="BlueBirdStartUp"
+				  Enabled="true"
+				  DisplayName="Bluebird" />
+			</uap5:Extension>
+			<uap:Extension Category="windows.protocol">
+				<uap:Protocol Name="bluebird">
+					<uap:DisplayName>Bluebird internal protocol</uap:DisplayName>
+					<uap:Logo>Assets/FileIcons/link.png</uap:Logo>
+				</uap:Protocol>
+			</uap:Extension>
+			<uap:Extension Category="windows.protocol">
+				<uap:Protocol Name="http">
+					<uap:DisplayName>Bluebird</uap:DisplayName>
+					<uap:Logo>Assets/FileIcons/link.png</uap:Logo>
+				</uap:Protocol>
+			</uap:Extension>
+			<uap:Extension Category="windows.protocol">
+				<uap:Protocol Name="https">
+					<uap:DisplayName>Bluebird</uap:DisplayName>
+					<uap:Logo>Assets/FileIcons/link.png</uap:Logo>
+				</uap:Protocol>
+			</uap:Extension>
+		</Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+	  <!-- required to access the internet-->
+	  <Capability Name="internetClient" />
+	  <uap3:Capability Name="backgroundMediaPlayback"/>
+	  <!-- required to access intranets -->
+	  <Capability Name="privateNetworkClientServer"/>
+  </Capabilities>
+</Package>

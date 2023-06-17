@@ -1,0 +1,41 @@
+﻿<ContentDialog
+    x:Class="FireBrowserDialogs.DialogTypes.UpdateChangelog.UpdateChangelog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FireBrowserDialogs.DialogTypes.UpdateChangelog"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Update Changelog"
+    PrimaryButtonText="OK"
+    CornerRadius="10">
+    <Grid Height="400" Width="400">
+        <StackPanel>
+            <TextBlock x:Name="Ver" HorizontalAlignment="Center" Height="Auto">
+            FireBrowser Alpha
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                 Bug Fixes
+            </TextBlock>
+            <TextBlock Text=" * Open In New Link ( Freezing )"/>
+            <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="0,15,0,0">
+              New Features
+            </TextBlock>
+            <TextBlock Text=" * Open In New Window"/>
+            <TextBlock Text=" * Custom Selection HomePage Colors"/>
+            <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="0,15,0,0">
+              Optimizations
+            </TextBlock>
+            <TextBlock Text=" * WebView2"/>
+            <TextBlock Text=" * Database"/>
+            <TextBlock Text=" * Settings"/>
+            <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="0,15,0,0">
+              Our Discord
+            </TextBlock>
+            <HyperlinkButton Content="https://discord.gg/kYStRKBHwy" Click="HyperlinkButton_Click"/>
+            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,15,0,0" FontWeight="Bold">
+                Note * Pre-Alpha Stage Software
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</ContentDialog>
