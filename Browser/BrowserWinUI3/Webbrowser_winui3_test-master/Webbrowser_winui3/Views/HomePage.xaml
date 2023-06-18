@@ -109,34 +109,34 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <Button
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Height="48">
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
-                        Content="&#xE112;"
-                        FontFamily="Segoe MDL2 Assets" />
-                    <Button
+                        Icon="Back"/>
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Content="&#xE111;"
                         FontFamily="Segoe MDL2 Assets" />
-                    <Button
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Content="&#xE149;"
                         FontFamily="Segoe MDL2 Assets" />
-                    <TextBlock
-                        Margin="5,0,5,2"
-                        VerticalAlignment="Center"
-                        Text="|" />
+                    <AppBarSeparator/>
                 </StackPanel>
                 <TextBox
+                    
                     x:Name="tb_url"
                     Grid.Column="1"
                     Height="30"
-                    Padding="3"
+                    Padding="10 8 0 0"
                     VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"
+                    VerticalContentAlignment="Stretch"
                     x:FieldModifier="public"
                     AutomationProperties.AccessibilityView="Raw"
                     Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
@@ -204,13 +204,19 @@
                     Margin="160,100,160,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top">
+                    
+                    <!--移除这个搜索框-->
                     <TextBox
                         x:Name="tb_homeurl"
                         Height="35"
-                        Margin="0,0,40,0"
+                        Margin="0,660,340,0"
                         HorizontalAlignment="Stretch"
-                        KeyUp="TextBox_KeyUp" />
+                        KeyUp="TextBox_KeyUp" 
+                        Padding="20"/>
+                    
+                    <!--移除这个按钮-->
                     <Button
+                        Margin="0 2223 0 0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="Transparent"
