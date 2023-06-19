@@ -155,43 +155,50 @@
                     Style="{StaticResource NoBlueUnderlineTextBoxStyle2}"
                     Text="app://home/" />
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Button
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Height="48">
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Click="GobnClick"
                         Content="&#xE111;"
                         FontFamily="Segoe MDL2 Assets" />
-                    <Button
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Click="{x:Bind listDetailsViewModel.ButtonAddToHome_Click}"
                         Content="&#xE10F;"
                         FontFamily="Segoe MDL2 Assets"
                         Tag="{x:Bind tb_url.Text, Mode=OneWay}" />
-                    <Button
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Content="&#xE113;"
                         FontFamily="Segoe MDL2 Assets" />
-                    <Button
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Click="{x:Bind listDetailsViewModel.FavButton_Click}"
                         Content="&#xE1CE;"
                         FontFamily="Segoe MDL2 Assets" />
-                    <Button
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Click="{x:Bind listDetailsViewModel.HisButton_Click}"
                         Content="&#xE1A2;"
                         FontFamily="Segoe MDL2 Assets" />
-                    <Button
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Content="&#xE118;"
                         FontFamily="Segoe MDL2 Assets" />
-                    <Button
+                    <AppBarButton
+                        Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Click="{x:Bind listDetailsViewModel.MoreButton_Click}"
@@ -199,7 +206,7 @@
                         FontFamily="Segoe MDL2 Assets" />
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" >
                 <Grid
                     Margin="160,100,160,0"
                     HorizontalAlignment="Stretch"
@@ -225,7 +232,7 @@
                         Content="&#xE111;"
                         FontFamily="Segoe MDL2 Assets" />
                 </Grid>
-                <ScrollViewer Margin="140,160,140,100">
+                <ScrollViewer Margin="40,60,140,100">
                     <GridView x:Name="gv">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="models:WebModel">
@@ -257,6 +264,34 @@
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
+                </ScrollViewer>
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel Spacing="50" Margin="70">
+                        <StackPanel Orientation="Horizontal" Spacing="50" HorizontalAlignment="Center">
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="50" HorizontalAlignment="Center">
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="50" HorizontalAlignment="Center">
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                        </StackPanel>
+                    </StackPanel>
                 </ScrollViewer>
             </Grid>
         </Grid>

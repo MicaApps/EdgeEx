@@ -13,26 +13,26 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Background="Transparent" Height="40" Grid.Row="0">
+        <Grid Background="Transparent" Height="48" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0">
-                <Button Content="&#xE112;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="backclick"/>
-                <Button Content="&#xE111;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="forwardclick"/>
-                <Button Content="&#xE149;" FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="refreshclick"/>
+                <AppBarButton Width="40" Icon="Back" Click="backclick"/>
+                <AppBarButton Width="40" Icon="Forward" Click="forwardclick"/>
+                <AppBarButton Width="40" Icon="Refresh" Click="refreshclick"/>
             </StackPanel>
-            <TextBox KeyUp="{x:Bind listDetailsViewModel.tb_url_KeyUp}" GotFocus="{x:Bind listDetailsViewModel.tb_url_GotFocus}"  x:FieldModifier="public" x:Name="tb_url" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" Grid.Column="1"/>
+            <TextBox Background="Transparent" BorderBrush="Transparent" KeyUp="{x:Bind listDetailsViewModel.tb_url_KeyUp}" GotFocus="{x:Bind listDetailsViewModel.tb_url_GotFocus}"  x:FieldModifier="public" x:Name="tb_url" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" Grid.Column="1"/>
             <StackPanel Orientation="Horizontal" Grid.Column="2">
-                <Button Content="&#xE111;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="GobnClick"/>
-                <Button  Content="&#xE10F;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Tag="{x:Bind tb_url.Text,Mode=OneWay}"  Click="{x:Bind listDetailsViewModel.ButtonAddToHome_Click}"/>
-                <Button Content="&#xE113;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="AddFavButton_Click"/>
-                <Button Content="&#xE1CE;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Click="{x:Bind listDetailsViewModel.FavButton_Click}"/>
-                <Button Content="&#xE1A2;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="{x:Bind listDetailsViewModel.HisButton_Click}"/>
-                <Button Content="&#xE118;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="DownloadbnClick"/>
-                <Button Content="&#xE115;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="{x:Bind listDetailsViewModel.MoreButton_Click}"/>
+                <AppBarButton Width="40" Content="&#xE111;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="GobnClick"/>
+                <AppBarButton Width="40"  Content="&#xE10F;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Tag="{x:Bind tb_url.Text,Mode=OneWay}"  Click="{x:Bind listDetailsViewModel.ButtonAddToHome_Click}"/>
+                <AppBarButton Width="40" Content="&#xE113;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="AddFavButton_Click"/>
+                <AppBarButton Width="40" Content="&#xE1CE;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Click="{x:Bind listDetailsViewModel.FavButton_Click}"/>
+                <AppBarButton Width="40" Content="&#xE1A2;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="{x:Bind listDetailsViewModel.HisButton_Click}"/>
+                <AppBarButton Width="40" Icon="Download" Click="DownloadbnClick"/>
+                <AppBarButton Width="40" Icon="Setting"  Click="{x:Bind listDetailsViewModel.MoreButton_Click}"/>
             </StackPanel>
         </Grid>
         <Grid  Grid.Row="1">
