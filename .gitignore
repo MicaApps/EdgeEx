@@ -26,3 +26,5 @@ x64/
 /Cef/WinUI3CefView/Winui3Cef/vk_swiftshader.dll
 /Cef/WinUI3CefView/Winui3Cef/vk_swiftshader_icd.json
 /Cef/WinUI3CefView/Winui3Cef/vulkan-1.dll
+/Browser/BrowserWinUI3/Webbrowser_winui3_test-master/Webbrowser_winui3/obj
+/Browser/BrowserWinUI3/Webbrowser_winui3_test-master/Webbrowser_winui3/bin
