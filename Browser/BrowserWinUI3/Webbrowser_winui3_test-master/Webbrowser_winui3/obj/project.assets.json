@@ -17256,11 +17256,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Users\\Shomn\\Source\\Repos\\EdgeEx5\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
+      "projectUniqueName": "E:\\Users\\Shomn\\source\\repos\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
       "projectName": "Webbrowser_winui3",
-      "projectPath": "E:\\Users\\Shomn\\Source\\Repos\\EdgeEx5\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
+      "projectPath": "E:\\Users\\Shomn\\source\\repos\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
       "packagesPath": "C:\\Users\\Shomn\\.nuget\\packages\\",
-      "outputPath": "E:\\Users\\Shomn\\Source\\Repos\\EdgeEx5\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\obj\\",
+      "outputPath": "E:\\Users\\Shomn\\source\\repos\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -29,7 +29,7 @@
                 <AppBarButton Width="40" Content="&#xE111;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="GobnClick"/>
                 <AppBarButton Width="40"  Content="&#xE10F;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Tag="{x:Bind tb_url.Text,Mode=OneWay}"  Click="{x:Bind listDetailsViewModel.ButtonAddToHome_Click}"/>
                 <AppBarButton Width="40" Content="&#xE113;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="AddFavButton_Click"/>
-                <AppBarButton Width="40" Content="&#xE1CE;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Click="{x:Bind listDetailsViewModel.FavButton_Click}"/>
+                <AppBarButton Width="40" Content="&#xE1CE;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Click="{x:Bind listDetailsViewModel.FavButtonList_Click}"/>
                 <AppBarButton Width="40" Content="&#xE1A2;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="{x:Bind listDetailsViewModel.HisButton_Click}"/>
                 <AppBarButton Width="40" Icon="Download" Click="DownloadbnClick"/>
                 <AppBarButton Width="40" Icon="Setting"  Click="{x:Bind listDetailsViewModel.MoreButton_Click}"/>

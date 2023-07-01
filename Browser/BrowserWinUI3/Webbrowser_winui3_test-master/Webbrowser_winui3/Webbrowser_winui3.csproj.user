@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>E:\Users\Shomn\source\repos\EdgeEx5\Browser\BrowserWinUI3\Webbrowser_winui3_test-master\Webbrowser_winui3\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+    <Source>E:\Users\Shomn\Downloads\browsericon.png</Source>
+    <SmallTileSource>E:\Users\Shomn\Downloads\browsericon.png</SmallTileSource>
+    <MediumTileSource>E:\Users\Shomn\Downloads\browsericon.png</MediumTileSource>
+    <WideTileSource>E:\Users\Shomn\Downloads\browsericon.png</WideTileSource>
+    <LargeTileSource>E:\Users\Shomn\Downloads\browsericon.png</LargeTileSource>
+    <AppIconSource>E:\Users\Shomn\Downloads\browsericon.png</AppIconSource>
+    <SplashScreenSource>E:\Users\Shomn\Downloads\browsericon.png</SplashScreenSource>
+    <PackageLogoSource>E:\Users\Shomn\Downloads\browsericon.png</PackageLogoSource>
+  </PropertyGroup>
+  <ItemGroup>
+    <Page Update="Views\FavListPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

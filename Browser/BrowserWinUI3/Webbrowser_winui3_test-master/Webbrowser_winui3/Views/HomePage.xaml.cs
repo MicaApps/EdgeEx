@@ -10,7 +10,7 @@ namespace Webbrowser_winui3.Views;
 // TODO: Set the URL for your privacy policy by updating SettingsPage_PrivacyTermsLink.NavigateUri in Resources.resw.
 public sealed partial class HomePage : Page
 {
-    ListDetailsViewModel listDetailsViewModel = new ListDetailsViewModel();
+    ListViewModel listDetailsViewModel = new ListViewModel();
     public HomePage()
     {
         InitializeComponent();

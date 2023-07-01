@@ -10,12 +10,14 @@
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:WebModel">
-            <Grid Height="60" Tag="{x:Bind Url,Mode=OneWay}">
+            <Grid Height="80" Tag="{x:Bind Url,Mode=OneWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-
+                <Grid Grid.Column="0" Background="red" Width="120" Margin="10" CornerRadius="2">
+                    
+                </Grid>
                 <StackPanel
                     Grid.Column="1"
                     Margin="{StaticResource SmallLeftMargin}"
@@ -62,12 +64,12 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid x:Name="ContentArea">
-        <VisualStateManager.VisualStateGroups>
+    <Grid x:Name="ContentArea" >
+        <!--<VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        --><!--641 is the default CompactModeThresholdWidth in NavigationView --><!--
                         <AdaptiveTrigger MinWindowWidth="641" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -75,11 +77,13 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        </VisualStateManager.VisualStateGroups>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <!--工具栏-->
         <Grid Background="Transparent" Height="40" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -91,36 +95,55 @@
                 <Button Content="&#xE111;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"/>
                 <Button Content="&#xE149;" FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"/>
             </StackPanel>
-            <TextBox GotFocus="{x:Bind listDetailsViewModel.tb_url_GotFocus}"  KeyUp="{x:Bind listDetailsViewModel.tb_url_KeyUp}" x:FieldModifier="public" x:Name="tb_url" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" Grid.Column="1"/>
-            <StackPanel Orientation="Horizontal" Grid.Column="2">
-                <Button Content="&#xE111;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="GobnClick"/>
-                <Button  Content="&#xE10F;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Tag="{x:Bind tb_url.Text,Mode=OneWay}"  Click="{x:Bind listDetailsViewModel.ButtonAddToHome_Click}"/>
-                <Button Content="&#xE113;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"/>
-                <Button Content="&#xE1CE;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Click="{x:Bind listDetailsViewModel.FavButton_Click}"/>
-                <Button Content="&#xE1A2;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="{x:Bind listDetailsViewModel.HisButton_Click}"/>
-                <Button Content="&#xE118;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"/>
-                <Button Content="&#xE115;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="{x:Bind listDetailsViewModel.MoreButton_Click}"/>
+            <TextBox GotFocus="{x:Bind listViewModel.tb_url_GotFocus}"  KeyUp="{x:Bind listViewModel.tb_url_KeyUp}" x:FieldModifier="public" Background="Transparent" BorderBrush="Transparent" x:Name="tb_url" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Height="40" >
+                <AppBarButton Width="40" Height="40"  Content="&#xE111;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="GobnClick"/>
+                <AppBarButton Width="40" Height="40" Content="&#xE10F;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Tag="{x:Bind tb_url.Text,Mode=OneWay}"  Click="{x:Bind listViewModel.ButtonAddToHome_Click}"/>
+                <AppBarButton Width="40" Height="40" Content="&#xE113;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"/>
+                <AppBarButton Width="40" Height="40" Content="&#xE1CE;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0"  Click="{x:Bind listViewModel.FavButtonList_Click}"/>
+                <AppBarButton Width="40" Height="40" Content="&#xE81C;"  FontFamily="Segoe MDL2 Assets" Background="Transparent" BorderThickness="0" Click="{x:Bind listViewModel.HisButton_Click}"/>
+                <AppBarButton Width="40" Height="40" Icon="Download"/>
+                <AppBarButton Width="40" Height="40" Icon="Setting" Click="{x:Bind listViewModel.MoreButton_Click}"/>
             </StackPanel>
         </Grid>
-        <Grid  Grid.Row="1">
+        
+        <!--左侧列表-->
+        
+        <Grid  Grid.Row="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Margin="25,5,0,5" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Width="280"/>
-            <controls:ListDetailsView
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <AppBarButton Icon="List" Height="40" Width="40"/>
+                <AppBarButton  Height="40" Width="40">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF0E2;" />
+                </AppBarButton>
+                <AppBarButton  Height="40" Width="40">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2C7;" />
+                </AppBarButton>
+                
+                <TextBox Grid.Row="0" Margin="10,5,35,5" TextChanged="TextBox_TextChanged" HorizontalAlignment="Right" Width="280"/>
+                
+            </StackPanel>
+                
+            
+            
+            
+            <ListView Padding="100 0"
             Grid.Row="1"
             x:Name="ListDetailsViewControl"
-            BackButtonBehavior="Manual"
+            
             Background="Transparent"
             BorderBrush="Transparent"
             x:DefaultBindMode="OneWay"
             x:FieldModifier="public"
-            DetailsTemplate="{StaticResource DetailsTemplate}"
+            
             ItemTemplate="{StaticResource ItemTemplate}"
-            ListHeaderTemplate="{StaticResource MinimalListHeaderTemplate}"
+            
             SelectionChanged="ListDetailsViewControl_SelectionChanged"
-            NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"/>
+            />
         </Grid>
     </Grid>
 </Page>

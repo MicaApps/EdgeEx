@@ -20,11 +20,11 @@ public sealed partial class ListDetailsDetailControl : UserControl
     private static void OnListDetailsMenuItemPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
     }
-    ListDetailsViewModel listDetailsViewModel = new ListDetailsViewModel();
+    ListViewModel listDetailsViewModel = new ListViewModel();
     public ListDetailsDetailControl()
     {
         InitializeComponent();
-        ListDetailsViewModel.Set_lv_historydetailSource_Command.Execute(lv_historydetail);
+        ListViewModel.Set_lv_historydetailSource_Command.Execute(lv_historydetail);
     }
 
     private void ButtonOpen_Click(object sender, RoutedEventArgs e)
@@ -34,7 +34,7 @@ public sealed partial class ListDetailsDetailControl : UserControl
 
     private void ButtonDelete_Click(object sender, RoutedEventArgs e)
     {
-        ListDetailsViewModel.DeleteCommand.Execute(((Button)sender).Tag.ToString());
+        ListViewModel.DeleteCommand.Execute(((Button)sender).Tag.ToString());
     } 
     private void ButtonCopyUrl_Click(object sender, RoutedEventArgs e)
     {

@@ -176,12 +176,13 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Content="&#xE113;"
+                        Click="{x:Bind listDetailsViewModel.FavButtonAddCancel_Click}"
                         FontFamily="Segoe MDL2 Assets" />
                     <AppBarButton
                         Width="40"
                         Background="Transparent"
                         BorderThickness="0"
-                        Click="{x:Bind listDetailsViewModel.FavButton_Click}"
+                        Click="{x:Bind listDetailsViewModel.FavButtonList_Click}"
                         Content="&#xE1CE;"
                         FontFamily="Segoe MDL2 Assets" />
                     <AppBarButton
@@ -189,21 +190,17 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Click="{x:Bind listDetailsViewModel.HisButton_Click}"
-                        Content="&#xE1A2;"
+                        Content="&#xE81C;"
                         FontFamily="Segoe MDL2 Assets" />
                     <AppBarButton
                         Width="40"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Content="&#xE118;"
-                        FontFamily="Segoe MDL2 Assets" />
+                        Icon="Download"/>
                     <AppBarButton
                         Width="40"
                         Background="Transparent"
                         BorderThickness="0"
                         Click="{x:Bind listDetailsViewModel.MoreButton_Click}"
-                        Content="&#xE115;"
-                        FontFamily="Segoe MDL2 Assets" />
+                        Icon="Setting"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1" >

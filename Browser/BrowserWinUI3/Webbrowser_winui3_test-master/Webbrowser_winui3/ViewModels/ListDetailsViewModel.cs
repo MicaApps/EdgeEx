@@ -12,7 +12,7 @@ using Webbrowser_winui3.Services;
 
 namespace Webbrowser_winui3.ViewModels;
 
-public class ListDetailsViewModel : ObservableRecipient
+public class ListViewModel : ObservableRecipient
 {
     public static List<WebModel> _HistorySource0 = new() { };
     public static ObservableCollection<WebModel> _HistorySource = new() { };
@@ -55,9 +55,9 @@ public class ListDetailsViewModel : ObservableRecipient
             }
         }
     });
-    public static ICommand Set_ListDetailsViewControlSource_Command = new RelayCommand<object[]>((param) =>
+    public static ICommand Set_ListViewControlSource_Command = new RelayCommand<object[]>((param) =>
     {
-        var lv = param[0] as ListDetailsView;
+        var lv = param[0] as ListView;
         var tb = param[1] as TextBox;
         if (_IsHisOrFav)
         {
@@ -175,7 +175,23 @@ public class ListDetailsViewModel : ObservableRecipient
     {
         MainViewModel.ButtonAddToHome_ClickCommand.Execute(((Button)sender).Tag.ToString());
     }
-    public void FavButton_Click(object sender, RoutedEventArgs e)
+
+    /// <summary>
+    /// 添加/取消书签
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void FavButtonAddCancel_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    /// <summary>
+    /// 书签列表
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void FavButtonList_Click(object sender, RoutedEventArgs e)
     {
         _IsHisOrFav = false;
         FavInit_Command.Execute(null);

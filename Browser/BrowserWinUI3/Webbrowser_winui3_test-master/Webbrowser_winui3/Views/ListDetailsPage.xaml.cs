@@ -12,25 +12,25 @@ namespace Webbrowser_winui3.Views;
 public sealed partial class ListDetailsPage : Page
 {
 
-    ListDetailsViewModel listDetailsViewModel = new ListDetailsViewModel();
+    ListViewModel listViewModel = new ListViewModel();
     public ListDetailsPage()
     {
         InitializeComponent();
-        ListDetailsViewModel.Set_ListDetailsViewControlSource_Command.Execute(new object[] { ListDetailsViewControl ,tb_url});
+        ListViewModel.Set_ListViewControlSource_Command.Execute(new object[] { ListDetailsViewControl ,tb_url});
     }
 
     private void ListDetailsViewControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ListDetailsViewModel.ListDetailsViewControl_SelectionChanged.Execute(e.AddedItems);
+        ListViewModel.ListDetailsViewControl_SelectionChanged.Execute(e.AddedItems);
     }
 
     private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        ListDetailsViewModel.TextBox_TextChanged_Command.Execute(sender as TextBox);
+        ListViewModel.TextBox_TextChanged_Command.Execute(sender as TextBox);
     }
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
-        ListDetailsViewModel.OnNavigatedTo_Command.Execute(e.Parameter);
+        ListViewModel.OnNavigatedTo_Command.Execute(e.Parameter);
         base.OnNavigatedTo(e);
     }
 

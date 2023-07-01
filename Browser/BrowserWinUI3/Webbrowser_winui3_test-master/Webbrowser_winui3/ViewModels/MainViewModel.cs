@@ -79,11 +79,11 @@ public class MainViewModel : ObservableRecipient
         WebModel webModel;
         try
         {
-            webModel = ListDetailsViewModel._HistorySource0.First(o => o.Url == param);
+            webModel = ListViewModel._HistorySource0.First(o => o.Url == param);
         }
         catch
         {
-            webModel = ListDetailsViewModel._FavoriteSource0.First(o => o.Url == param);
+            webModel = ListViewModel._FavoriteSource0.First(o => o.Url == param);
         }
         ContentDialog cd = new ContentDialog();
         cd.XamlRoot = _MainPage.XamlRoot;
@@ -100,18 +100,27 @@ public class MainViewModel : ObservableRecipient
         await cd.ShowAsync();
 
     });
+
+    /// <summary>
+    /// 添加或取消当前页面为书签
+    /// </summary>
+    public static ICommand AddCancelFavoriteCommand = new RelayCommand<string>((param) =>
+    {
+
+    });
+
     public static ICommand OpenWebPageCommand = new RelayCommand<string>((param) =>
     {
         switch (param)
         {
             case "app://favorite/":
-                ListDetailsViewModel._IsHisOrFav = false;
-                ListDetailsViewModel.FavInit_Command.Execute(null);
+                ListViewModel._IsHisOrFav = false;
+                ListViewModel.FavInit_Command.Execute(null);
                 OpenFavCommand.Execute(null);
                 break;
             case "app://history/":
-                ListDetailsViewModel._IsHisOrFav = true;
-                ListDetailsViewModel.HistoryInit_Command.Execute(null);
+                ListViewModel._IsHisOrFav = true;
+                ListViewModel.HistoryInit_Command.Execute(null);
                 OpenHistoryCommand.Execute(null);
                 break;
             case "app://settings/":

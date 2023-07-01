@@ -493,7 +493,7 @@
                     Width="40"
                         Background="Transparent"
                         BorderThickness="0"
-                        Click="{x:Bind listDetailsViewModel.FavButton_Click}"
+                        Click="{x:Bind listDetailsViewModel.FavButtonList_Click}"
                         Content="&#xE1CE;"
                         FontFamily="Segoe MDL2 Assets" />
                 <AppBarButton

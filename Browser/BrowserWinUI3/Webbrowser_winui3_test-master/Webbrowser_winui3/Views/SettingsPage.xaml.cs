@@ -7,7 +7,7 @@ namespace Webbrowser_winui3.Views;
 // TODO: Set the URL for your privacy policy by updating SettingsPage_PrivacyTermsLink.NavigateUri in Resources.resw.
 public sealed partial class SettingsPage : Page
 {
-    ListDetailsViewModel listDetailsViewModel = new ListDetailsViewModel();
+    ListViewModel listDetailsViewModel = new ListViewModel();
     SettingViewModel settingViewModel=new SettingViewModel();
     public SettingsPage()
     {
@@ -31,7 +31,7 @@ public sealed partial class SettingsPage : Page
 
     private void bnClearHistoryClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        ListDetailsViewModel.ClearHistoryCommand.Execute(null);
+        ListViewModel.ClearHistoryCommand.Execute(null);
     }
 
     private void CheckBox_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

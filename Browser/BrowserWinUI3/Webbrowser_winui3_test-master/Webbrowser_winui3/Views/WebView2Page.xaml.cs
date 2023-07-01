@@ -37,7 +37,7 @@ namespace Webbrowser_winui3.Views
     {
         string _WaitUrl = "", _WaitHtml = "";
         bool _IsWvLoaded = false;
-        ListDetailsViewModel listDetailsViewModel = new ListDetailsViewModel();
+        ListViewModel listDetailsViewModel = new ListViewModel();
         public WebView2Page()
         {
             this.InitializeComponent();
@@ -69,8 +69,8 @@ namespace Webbrowser_winui3.Views
                 tb_url.Text = webModel.Url;
                 SqliteService.EditDBByCommand($@"INSERT INTO History (Name,Url,Date)
                                                 VALUES ('{webModel.Title}','{webModel.Url}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}');");
-                ListDetailsViewModel._HistorySource0.Insert(0, webModel);
-                ListDetailsViewModel._HistorySource.Insert(0, webModel);
+                ListViewModel._HistorySource0.Insert(0, webModel);
+                ListViewModel._HistorySource.Insert(0, webModel);
                 webModel.tabItemIcon = await GetUrlImage(getIconUrl(webModel.Url));
                 if (!_IsNewWindowRequested)
                 {
@@ -214,7 +214,7 @@ namespace Webbrowser_winui3.Views
             catch { return null; }
         }
         /// <summary>
-        /// ×¢Èëjs
+        /// ×¢ï¿½ï¿½js
         /// </summary>
         /// <param name="mutefunctionString"></param>
         public async void jsmsg(string mutefunctionString)
@@ -239,8 +239,8 @@ namespace Webbrowser_winui3.Views
             {
                 SqliteService.EditDBByCommand($@"INSERT INTO Favorite (Name,Url,Date)
                                                 VALUES ('{webModel.Title}','{webModel.Url}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}');");
-                ListDetailsViewModel._FavoriteSource0.Insert(0, webModel);
-                ListDetailsViewModel._FavoriteSource.Insert(0, webModel);
+                ListViewModel._FavoriteSource0.Insert(0, webModel);
+                ListViewModel._FavoriteSource.Insert(0, webModel);
             };
             await cd.ShowAsync();
         }
@@ -271,7 +271,7 @@ namespace Webbrowser_winui3.Views
         }
 
         /// <summary>
-        /// ÍøÒ³¾²Òô
+        /// ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public async void Mute(bool isMute)
         {

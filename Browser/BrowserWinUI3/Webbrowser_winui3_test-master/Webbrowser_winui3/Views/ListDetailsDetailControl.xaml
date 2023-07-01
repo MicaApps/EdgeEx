@@ -10,6 +10,8 @@
         x:Name="ForegroundElement"
         HorizontalAlignment="Stretch">
         <StackPanel HorizontalAlignment="Left">
+            
+            <!--右侧详情-->
             <ListView  x:Name="lv_historydetail" 
                        x:DefaultBindMode="OneWay"
                         RelativePanel.AlignTopWithPanel="True"
