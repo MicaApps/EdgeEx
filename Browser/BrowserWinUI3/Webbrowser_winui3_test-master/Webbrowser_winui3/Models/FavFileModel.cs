@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Webbrowser_winui3.Models
 {
-    internal class FavFileModel: ModelBase
+    public class FavFileModel: ModelBase
     {
         private string? _favName;
         private Guid? _id;
@@ -51,7 +51,7 @@ namespace Webbrowser_winui3.Models
                 _favChildren = value;
                 OnPropertyChanged();
             }
-        } 
+        }
 
         public FavFileModel Parent {
             get { return _parent; }
@@ -61,6 +61,7 @@ namespace Webbrowser_winui3.Models
                 OnPropertyChanged();
             }
         }
+
 
         public FavFileModel()
         {

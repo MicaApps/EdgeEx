@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Webbrowser_winui3.Models
 {
-    internal class ModelBase : INotifyPropertyChanged
+    public class ModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
