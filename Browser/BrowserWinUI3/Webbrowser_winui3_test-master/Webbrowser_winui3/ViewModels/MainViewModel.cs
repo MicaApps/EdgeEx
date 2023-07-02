@@ -60,14 +60,21 @@ public class MainViewModel : ObservableRecipient
         });
     public static ICommand TabCloseRequestedCommand = new RelayCommand<TabViewItem>((param) =>
         {
-            if (_ListWebViewPage.ContainsKey(param.Tag.ToString()))
+            try
             {
-                var wvp = _ListWebViewPage[param.Tag.ToString()];
-                wvp.Mute(true);
-                _ListWebViewPage.Remove(param.Tag.ToString());
+                if (_ListWebViewPage.ContainsKey(param.Tag.ToString()))
+                {
+                    var wvp = _ListWebViewPage[param.Tag.ToString()];
+                    wvp.Mute(true);
+                    _ListWebViewPage.Remove(param.Tag.ToString());
+                }
+                _MainPage.tabView.TabItems.Remove(param);
+                _MainPage.g_frames.Children.Remove(_MainPage.g_frames.Children.First(o => (o as Frame).Tag.ToString() == param.Tag.ToString()));
             }
-            _MainPage.tabView.TabItems.Remove(param);
-            _MainPage.g_frames.Children.Remove(_MainPage.g_frames.Children.First(o => (o as Frame).Tag.ToString() == param.Tag.ToString()));
+            catch
+            {
+
+            }
         });
     public static ICommand CopyUrlCommand = new RelayCommand<string>((param) =>
     {
