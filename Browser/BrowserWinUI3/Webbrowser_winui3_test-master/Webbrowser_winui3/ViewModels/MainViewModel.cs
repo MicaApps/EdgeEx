@@ -153,7 +153,7 @@ public class MainViewModel : ObservableRecipient
     });
     public static ICommand OpenFavCommand = new RelayCommand<object>((param) =>
     {
-        OpenNewPage(typeof(ListDetailsPage), ReswSource.GetString("Favorite"), new object[] { "Favorite" });
+        OpenNewPage(typeof(FavListPageView), ReswSource.GetString("Favorite"), null);
     });
     static void OpenNewPage(Type type, string header, object[] objects)
     {
