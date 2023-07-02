@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Webbrowser_winui3.Views.FavListPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convertor="using:Webbrowser_winui3.Convertor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Webbrowser_winui3.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Webbrowser_winui3.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:FavListPageViewModel}"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <convertor:FavItemVisibleConvertor x:Key="convertor" />
+    </Page.Resources>
+
+    <Grid x:Name="ContentArea">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  工具栏  -->
+        <Grid
+            Grid.Row="0"
+            Height="40"
+            Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE112;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE111;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE149;"
+                    FontFamily="Segoe MDL2 Assets" />
+            </StackPanel>
+            <TextBox
+                x:Name="tb_url"
+                Grid.Column="1"
+                Height="30"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                x:FieldModifier="public"
+                Background="Transparent"
+                BorderBrush="Transparent" />
+            <StackPanel
+                Grid.Column="2"
+                Height="40"
+                Orientation="Horizontal">
+                <AppBarButton
+                    Width="40"
+                    Height="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE111;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <AppBarButton
+                    Width="40"
+                    Height="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE10F;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <AppBarButton
+                    Width="40"
+                    Height="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE113;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <AppBarButton
+                    Width="40"
+                    Height="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE1CE;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <AppBarButton
+                    Width="40"
+                    Height="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE81C;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <AppBarButton
+                    Width="40"
+                    Height="40"
+                    Icon="Download">
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="0,0,0,12"
+                                    Style="{ThemeResource BaseTextBlockStyle}"
+                                    Text="All items will be removed. Do you want to continue?" />
+                                <Button Content="Yes, empty my cart" />
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </AppBarButton>
+                <AppBarButton
+                    Width="40"
+                    Height="40"
+                    Icon="Setting" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                Command="{Binding SelectedCommand}"
+                Content="&#xE112;"
+                FontFamily="Segoe MDL2 Assets" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE112;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE112;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE112;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="&#xE112;"
+                    FontFamily="Segoe MDL2 Assets" />
+                <Button Background="Transparent" BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe MDL2 Assets"
+                            Text="&#xE149;" />
+                        <TextBlock Text="Select" />
+                    </StackPanel>
+                </Button>
+                <Button Background="Transparent" BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe MDL2 Assets"
+                            Text="&#xE149;" />
+                        <TextBlock Text="Output" />
+                    </StackPanel>
+                </Button>
+                <TextBox
+                    Width="280"
+                    Margin="10"
+                    PlaceholderText="Search" />
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TreeView
+                x:Name="tree"
+                Width="280"
+                ItemsSource="{Binding FavFileModels}"
+                SelectedItem="{Binding FavFileModelSelected}">
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <TreeViewItem
+                            Content="{Binding FavName}"
+                            DoubleTapped="TreeView_DoubleTapped"
+                            ItemsSource="{Binding FavChildren}"
+                            Tapped="TreeViewItem_Tapped"
+                            Visibility="{Binding FavChildren, Converter={StaticResource convertor}}" />
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <ListView
+                Grid.Column="1"
+                ItemsSource="{Binding FavFileModelSelected.FavChildren}"
+                SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ListViewItem DoubleTapped="ListViewItem_DoubleTapped">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Ellipse
+                                    x:Name="Ellipse"
+                                    Grid.RowSpan="2"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="6"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Fill="Red" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="12,6,0,0"
+                                    Text="{Binding FavName}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="12,0,0,6"
+                                    Text="{Binding Url}" />
+                            </Grid>
+                        </ListViewItem>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--  DataTemplate used:  -->
+
+
+        </Grid>
+    </Grid>
+</Page>
