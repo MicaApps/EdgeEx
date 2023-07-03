@@ -12,7 +12,7 @@
     <PackageLogoSource>E:\Users\Shomn\Downloads\browsericon.png</PackageLogoSource>
   </PropertyGroup>
   <ItemGroup>
-    <Page Update="Views\FavListPage.xaml">
+    <Page Update="Views\FavListPageView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

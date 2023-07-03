@@ -231,6 +231,12 @@
           }
         }
       },
+      "Fody/6.6.4": {
+        "type": "package",
+        "build": {
+          "build/Fody.targets": {}
+        }
+      },
       "Microsoft.Data.Sqlite.Core/7.0.4": {
         "type": "package",
         "dependencies": {
@@ -1120,6 +1126,25 @@
           "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
+        }
+      },
+      "PropertyChanged.Fody/4.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.6.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/PropertyChanged.Fody.props": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -2806,6 +2831,12 @@
           }
         }
       },
+      "Fody/6.6.4": {
+        "type": "package",
+        "build": {
+          "build/Fody.targets": {}
+        }
+      },
       "Microsoft.Data.Sqlite.Core/7.0.4": {
         "type": "package",
         "dependencies": {
@@ -3674,6 +3705,25 @@
           "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
+        }
+      },
+      "PropertyChanged.Fody/4.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.6.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/PropertyChanged.Fody.props": {}
         }
       },
       "runtime.any.System.Collections/4.3.0": {
@@ -5556,6 +5606,12 @@
           }
         }
       },
+      "Fody/6.6.4": {
+        "type": "package",
+        "build": {
+          "build/Fody.targets": {}
+        }
+      },
       "Microsoft.Data.Sqlite.Core/7.0.4": {
         "type": "package",
         "dependencies": {
@@ -6424,6 +6480,25 @@
           "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
+        }
+      },
+      "PropertyChanged.Fody/4.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.6.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/PropertyChanged.Fody.props": {}
         }
       },
       "runtime.any.System.Collections/4.3.0": {
@@ -8306,6 +8381,12 @@
           }
         }
       },
+      "Fody/6.6.4": {
+        "type": "package",
+        "build": {
+          "build/Fody.targets": {}
+        }
+      },
       "Microsoft.Data.Sqlite.Core/7.0.4": {
         "type": "package",
         "dependencies": {
@@ -9174,6 +9255,25 @@
           "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
+        }
+      },
+      "PropertyChanged.Fody/4.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.6.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/PropertyChanged.Fody.props": {}
         }
       },
       "runtime.any.System.Collections/4.3.0": {
@@ -11112,6 +11212,39 @@
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
+    "Fody/6.6.4": {
+      "sha512": "vLZS+oa+ndUHYPlx/8n9bBTT3dHkCF0riml4paKq4D663+cZd47x1uagQo32D/gKFZ/sfmV1oqKaLmH0elxq4A==",
+      "type": "package",
+      "path": "fody/6.6.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "build/Fody.targets",
+        "fody.6.6.4.nupkg.sha512",
+        "fody.nuspec",
+        "netclassictask/Fody.dll",
+        "netclassictask/FodyCommon.dll",
+        "netclassictask/FodyHelpers.dll",
+        "netclassictask/FodyIsolated.dll",
+        "netclassictask/Mono.Cecil.Pdb.dll",
+        "netclassictask/Mono.Cecil.Pdb.pdb",
+        "netclassictask/Mono.Cecil.Rocks.dll",
+        "netclassictask/Mono.Cecil.Rocks.pdb",
+        "netclassictask/Mono.Cecil.dll",
+        "netclassictask/Mono.Cecil.pdb",
+        "netstandardtask/Fody.dll",
+        "netstandardtask/FodyCommon.dll",
+        "netstandardtask/FodyHelpers.dll",
+        "netstandardtask/FodyIsolated.dll",
+        "netstandardtask/Mono.Cecil.Pdb.dll",
+        "netstandardtask/Mono.Cecil.Pdb.pdb",
+        "netstandardtask/Mono.Cecil.Rocks.dll",
+        "netstandardtask/Mono.Cecil.Rocks.pdb",
+        "netstandardtask/Mono.Cecil.dll",
+        "netstandardtask/Mono.Cecil.pdb"
+      ]
+    },
     "Microsoft.Data.Sqlite.Core/7.0.4": {
       "sha512": "AUBM1KZ7EvmkYhC/ECXL4cjx+q55DJ3lmSf0NwAyRNArubNPRdroGono5uN6aW7Kqp+IUZwEK0Ywd1Gh7FDM2A==",
       "type": "package",
@@ -12913,6 +13046,27 @@
         "dotnet_library_license.txt",
         "netstandard.library.1.6.1.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "PropertyChanged.Fody/4.1.0": {
+      "sha512": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
+      "type": "package",
+      "path": "propertychanged.fody/4.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/PropertyChanged.Fody.Analyzer.dll",
+        "build/PropertyChanged.Fody.props",
+        "lib/net40/PropertyChanged.dll",
+        "lib/net40/PropertyChanged.xml",
+        "lib/netstandard2.0/PropertyChanged.dll",
+        "lib/netstandard2.0/PropertyChanged.xml",
+        "lib/netstandard2.1/PropertyChanged.dll",
+        "lib/netstandard2.1/PropertyChanged.xml",
+        "propertychanged.fody.4.1.0.nupkg.sha512",
+        "propertychanged.fody.nuspec",
+        "weaver/PropertyChanged.Fody.dll",
+        "weaver/PropertyChanged.Fody.xcf"
       ]
     },
     "runtime.any.System.Collections/4.3.0": {
@@ -17246,6 +17400,7 @@
       "Microsoft.Extensions.Hosting >= 6.0.1",
       "Microsoft.WindowsAppSDK >= 1.2.230118.102",
       "Microsoft.Xaml.Behaviors.WinUI.Managed >= 2.0.9",
+      "PropertyChanged.Fody >= 4.1.0",
       "WinUIEx >= 2.1.0"
     ]
   },
@@ -17256,11 +17411,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Users\\Shomn\\source\\repos\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
+      "projectUniqueName": "E:\\Users\\Shomn\\Downloads\\EdgeEx6(1)\\EdgeEx6\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
       "projectName": "Webbrowser_winui3",
-      "projectPath": "E:\\Users\\Shomn\\source\\repos\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
+      "projectPath": "E:\\Users\\Shomn\\Downloads\\EdgeEx6(1)\\EdgeEx6\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\Webbrowser_winui3.csproj",
       "packagesPath": "C:\\Users\\Shomn\\.nuget\\packages\\",
-      "outputPath": "E:\\Users\\Shomn\\source\\repos\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\obj\\",
+      "outputPath": "E:\\Users\\Shomn\\Downloads\\EdgeEx6(1)\\EdgeEx6\\EdgeEx6\\Browser\\BrowserWinUI3\\Webbrowser_winui3_test-master\\Webbrowser_winui3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -17321,6 +17476,10 @@
           "Microsoft.Xaml.Behaviors.WinUI.Managed": {
             "target": "Package",
             "version": "[2.0.9, )"
+          },
+          "PropertyChanged.Fody": {
+            "target": "Package",
+            "version": "[4.1.0, )"
           },
           "WinUIEx": {
             "target": "Package",
