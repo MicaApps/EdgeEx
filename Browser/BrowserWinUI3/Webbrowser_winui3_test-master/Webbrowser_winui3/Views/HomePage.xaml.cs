@@ -52,7 +52,7 @@ public sealed partial class HomePage : Page
                     {
                         string metastring = meta.Value;
 
-                        metastring = metastring.EndsWith("/") ? metastring[..^1] + "/>" : metastring;
+                        metastring = !metastring.EndsWith("/>") ? metastring[..^1] + " />" : metastring;
 
                         string after = "";
 
@@ -62,7 +62,20 @@ public sealed partial class HomePage : Page
                             if(split.Length == 1)
                             {
                                 if (unit.StartsWith("<") || unit.EndsWith(">"))
+                                {
+                                    if (unit.EndsWith(">") && unit.Split("/")[1] == ">")
+                                    {
+                                        after += "/>";
+                                        continue;
+                                    }
+                                        
                                     after += unit + " ";
+                                }
+                                else if(unit.StartsWith("\"") || unit.EndsWith("\""))
+                                {
+                                    after += unit + " ";
+                                }
+                                    
                             }
                             else
                             {
@@ -77,18 +90,25 @@ public sealed partial class HomePage : Page
 
                         var element = xd.DocumentElement;
 
-                        if (element.Attributes["rel"].Value == "icon")
+                        if (element.Attributes["rel"].Value.Split(" ").Contains("icon"))
                         {
                             iconpath = element.Attributes["href"].Value;
                             break;
                         }
                     }
 
-                    item.Background = new ImageBrush
+                    if(iconpath != "")
+                        item.Background = new ImageBrush
+                        {
+                            ImageSource = new BitmapImage(new Uri((iconpath.StartsWith("//")) ? "https:" + iconpath : iconpath.StartsWith("/")? "https://" + new Uri(site).Host + iconpath : iconpath))
+                        };
+                    else
                     {
-
-                        ImageSource = new BitmapImage(new Uri((iconpath.StartsWith("/")) ? site.Split("/")[0] + iconpath : iconpath))
-                    };
+                        item.Background = new ImageBrush
+                        {
+                            ImageSource = new BitmapImage(new Uri("https://" + new Uri(site).Host + "/favicon.ico"))
+                        };
+                    }
                     item.PointerPressed += (sender, e) =>
                     {
                         /*int index = 0;
