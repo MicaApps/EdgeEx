@@ -265,7 +265,7 @@
                 <ScrollViewer Grid.Row="1">
                     <StackPanel Spacing="50" Margin="70" x:Name="PageLinks">
                         <StackPanel Orientation="Horizontal" Spacing="50" HorizontalAlignment="Center">
-                            <Grid Width="72" Height="72" Background="#20FFFFFF" Tag="https://cn.bing.com/?scope=web&amp;FORM=ANSPH1&amp;pc=CNNDDB"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF" Tag="https://www.bing.com"/>
                             <Grid Width="72" Height="72" Background="#20FFFFFF" Tag="https://www.baidu.com"/>
                             <Grid Width="72" Height="72" Background="#20FFFFFF" Tag="https://www.bilibili.com"/>
                             <Grid Width="72" Height="72" Background="#20FFFFFF"/>
