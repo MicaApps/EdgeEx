@@ -12,6 +12,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Text.RegularExpressions;
 using Sgml;
 using Microsoft.UI.Xaml;
+using ColorCode.Compilation.Languages;
 
 namespace Webbrowser_winui3.Views;
 
@@ -37,35 +38,57 @@ public sealed partial class HomePage : Page
 
                     if (site == "blanks")
                         continue;
-                    /*
+                    
                     WebClient wc = new WebClient();
 
                     byte[] downloaddata = wc.DownloadData(site);
                     string codestr = Encoding.GetEncoding("UTF-8").GetString(downloaddata);
 
-                    XmlDocument xd = new XmlDocument();
-                    var xml = HtmlToStdXml(codestr);
-                    xd.LoadXml(xml);
+                    var metas = MatchesMataTag().Matches(MatchHeadTag().Match(codestr).Value).ToArray();
 
                     string iconpath = "";
-                    foreach (var headitems in xd.DocumentElement["head"])
+
+                    foreach (var meta in metas)
                     {
-                        var node = headitems as XmlElement;
-                        if (node.Name != "link")
-                            continue;
+                        string metastring = meta.Value;
 
-                        if (node.GetAttribute("rel") != "icon")
-                            continue;
+                        metastring = metastring.EndsWith("/") ? metastring[..^1] + "/>" : metastring;
 
-                        iconpath = node.GetAttribute("href");
-                        break;
+                        string after = "";
+
+                        foreach(string unit in metastring.Split(" "))
+                        {
+                            var split = unit.Split("=");
+                            if(split.Length == 1)
+                            {
+                                if (unit.StartsWith("<") || unit.EndsWith(">"))
+                                    after += unit + " ";
+                            }
+                            else
+                            {
+                                after += unit + " ";
+                            }
+                        }
+
+                        after = after.TrimEnd(' ');
+
+                        XmlDocument xd = new();
+                        xd.LoadXml(after);
+
+                        var element = xd.DocumentElement;
+
+                        if (element.Attributes["rel"].Value == "icon")
+                        {
+                            iconpath = element.Attributes["href"].Value;
+                            break;
+                        }
                     }
 
                     item.Background = new ImageBrush
                     {
 
                         ImageSource = new BitmapImage(new Uri((iconpath.StartsWith("/")) ? site.Split("/")[0] + iconpath : iconpath))
-                    };*/
+                    };
                     item.PointerPressed += (sender, e) =>
                     {
                         /*int index = 0;
@@ -95,8 +118,16 @@ public sealed partial class HomePage : Page
         };
     }
 
+    [GeneratedRegex("<link [^>]+>")]
+    private static partial Regex MatchesMataTag();
+    [GeneratedRegex("<head>(.+)</head>")]
+    private static partial Regex MatchHeadTag();
+
     private static string HtmlToStdXml(string html)
     {
+        
+
+
         SgmlReader sr = new SgmlReader();
 
         sr.DocType = "HTML";
@@ -111,6 +142,7 @@ public sealed partial class HomePage : Page
         }
 
         xmlTextWriter.Close();
+
 
         string result = XMLText.ToString();
         XMLText.Close();
@@ -178,4 +210,6 @@ public sealed partial class HomePage : Page
         TextBox textBox = sender as TextBox;
         textBox.Background = textBox.Background;
     }
+
+    
 }
