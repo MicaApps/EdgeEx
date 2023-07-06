@@ -6,6 +6,7 @@ namespace Webbrowser_winui3.Views;
 
 public sealed partial class MainPage : Page
 {
+    public static MainPage Instance { get; private set; }
     public MainPage()
     {
         InitializeComponent();
@@ -13,6 +14,7 @@ public sealed partial class MainPage : Page
         {
             MainViewModel.MainPageInitCommand.Execute(this);
         };
+        Instance = this;
     }
 
     private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)

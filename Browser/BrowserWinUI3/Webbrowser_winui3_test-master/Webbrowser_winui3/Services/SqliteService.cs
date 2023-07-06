@@ -87,7 +87,7 @@ public static class SqliteService
     /// <param name="tablename"></param>
     /// <param name="column"></param>
     /// <param name="value"></param>
-    /// <param name="whrer"></param>
+    /// <param name="where"></param>
     /// <returns></returns>
     public static SqliteDataReader UpdateTableData(string tablename, string column,string value,string where)
     {

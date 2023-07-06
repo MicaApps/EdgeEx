@@ -232,13 +232,6 @@
                 BorderBrush="Transparent"
                 ItemTemplate="{StaticResource ItemTemplate}"
                 SelectionChanged="ListDetailsViewControl_SelectionChanged" />
-
-
-
-
-
-
-
         </Grid>
     </Grid>
 </Page>

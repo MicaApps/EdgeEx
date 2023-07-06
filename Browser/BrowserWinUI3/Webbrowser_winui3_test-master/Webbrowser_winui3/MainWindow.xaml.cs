@@ -8,6 +8,7 @@ namespace Webbrowser_winui3;
 
 public sealed partial class MainWindow : WindowEx
 {
+    public static MainPage AppMainPage = new MainPage();
     public MainWindow()
     {
         InitializeComponent();

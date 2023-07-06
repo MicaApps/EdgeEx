@@ -31,7 +31,7 @@ public class MainViewModel : ObservableRecipient
     public static List<Grid> _RequestedThemeList = new();
     public static bool _IsOpenInNew = true;
     public static string _SearchEngine = "http://www.bing.com/search?q=";
-    static int _TagCount = 0;
+    public static int _TagCount = 0;
     public static ICommand MainPageInitCommand = new RelayCommand<MainPage>(async (param) =>
     {
         _MainPage = param;
@@ -148,7 +148,7 @@ public class MainViewModel : ObservableRecipient
     });
     public static ICommand OpenHomeCommand = new RelayCommand<object>((param) =>
     {
-        OpenNewPage(typeof(HomePage), ReswSource.GetString("Home"), null);
+        OpenNewPage(typeof(HomePage), ReswSource.GetString("Home"),null);
     });
     public static ICommand OpenSettingCommand = new RelayCommand<object>((param) =>
     {
@@ -171,7 +171,7 @@ public class MainViewModel : ObservableRecipient
             Tag = tag,
             Header = header,
         };
-        if(type== typeof(WebView2Page))
+        if(type == typeof(WebView2Page))
         {
             (objects[0] as WebModel).tabItem = tabviewitem;
         }

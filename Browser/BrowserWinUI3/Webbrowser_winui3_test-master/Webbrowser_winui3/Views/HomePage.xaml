@@ -263,9 +263,9 @@
                     </GridView>
                 </ScrollViewer>
                 <ScrollViewer Grid.Row="1">
-                    <StackPanel Spacing="50" Margin="70">
+                    <StackPanel Spacing="50" Margin="70" x:Name="PageLinks">
                         <StackPanel Orientation="Horizontal" Spacing="50" HorizontalAlignment="Center">
-                            <Grid Width="72" Height="72" Background="#20FFFFFF"/>
+                            <Grid Width="72" Height="72" Background="#20FFFFFF" Tag="https://www.bing.com"/>
                             <Grid Width="72" Height="72" Background="#20FFFFFF"/>
                             <Grid Width="72" Height="72" Background="#20FFFFFF"/>
                             <Grid Width="72" Height="72" Background="#20FFFFFF"/>
