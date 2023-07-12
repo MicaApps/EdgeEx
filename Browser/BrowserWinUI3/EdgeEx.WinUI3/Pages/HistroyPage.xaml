@@ -1,0 +1,127 @@
+<Page
+    x:Class="EdgeEx.WinUI3.Pages.HistroyPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:EdgeEx.WinUI3.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="10,0,10,0">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="HistoryDateListView" Grid.Column="0">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <StackPanel
+                        Padding="5,0,5,0"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <FontIcon Glyph="&#xE787;" />
+                        <TextBlock Text="{x:Bind}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Items>
+                <x:String>2022/02/23</x:String>
+                <x:String>2021/01/23</x:String>
+            </ListView.Items>
+        </ListView>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="330" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="1"
+                    Height="48"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <AppBarToggleButton Width="48" Height="48">
+                        <FontIcon Glyph="&#xE71D;" />
+                    </AppBarToggleButton>
+                    <AppBarButton Width="48" Height="48">
+                        <FontIcon Glyph="&#xE8BC;" />
+                    </AppBarButton>
+                    <AppBarButton Width="48" Height="48">
+                        <FontIcon Glyph="&#xE8A9;" />
+                    </AppBarButton>
+                    <AppBarSeparator />
+                    <CommandBar
+                        Background="Transparent"
+                        DefaultLabelPosition="Right"
+                        IsOpen="False">
+                        <AppBarButton Label="Select">
+                            <AppBarButton.Icon>
+                                <FontIcon Glyph="&#xEA98;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                        <AppBarButton Label="Outport">
+                            <AppBarButton.Icon>
+                                <FontIcon Glyph="&#xE898;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                    </CommandBar>
+                </StackPanel>
+                <AutoSuggestBox
+                    Grid.Column="2"
+                    Height="32"
+                    MinWidth="200"
+                    PlaceholderText="Search"
+                    QueryIcon="Find" />
+            </Grid>
+            <ListView Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Grid Height="32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="32" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="200" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Text="22:39" />
+                            <Image
+                                Grid.Column="1"
+                                Width="32"
+                                Height="32"
+                                VerticalAlignment="Center"
+                                Source="ms-appx:///Assets\Square44x44Logo.targetsize-256.png" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Text="DiskTools/Webbrowser_winui3_UI" />
+                            <TextBlock
+                                Grid.Column="3"
+                                MaxWidth="200"
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Text="https://github.com/DiskTools/Webbrowser_winui3_UI"
+                                TextTrimming="CharacterEllipsis" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Items>
+                    <x:String>2022/02/23</x:String>
+                    <x:String>2022/02/23</x:String>
+                    <x:String>2022/02/23</x:String>
+                    <x:String>2021/01/23</x:String>
+                </ListView.Items>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>
