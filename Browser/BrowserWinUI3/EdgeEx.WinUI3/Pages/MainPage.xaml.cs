@@ -48,36 +48,57 @@ namespace EdgeEx.WinUI3.Pages
         // Remove the requested tab from the TabView
         private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
-            sender.TabItems.Remove(args.Tab);
+            sender.TabItems.Remove(args.Item);
         }
 
-        private void DownloadButthon_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleThemeTeachingTip1.IsOpen = true;
-        }
+        
         private void NewTab(string title,IconSource icon,Type page)
         {
             Tabs.TabItems.Add(new TabViewItem
             {
                 IconSource = icon,
                 Header = title,
+                Tag = title,
             });
             ContentFrame.Navigate(page);
         }
         private void UriNavigate(Uri uri)
         {
-            if(uri.Scheme.ToLower() == "edgeex")
+            switch(uri.Scheme.ToLower()) 
             {
-                if(uri.Host.ToLower() == "history")
-                {
-                    NewTab("history", new FontIconSource() { Glyph = "\uE81C" },typeof(HistroyPage));
-                }
+                case "history":
+                    NewTab("history", new FontIconSource() { Glyph = "\uE81C" }, typeof(HistroyPage));
+                    break;
+                case "home":
+                    NewTab("home", new FontIconSource() { Glyph = "\uE80F" }, typeof(HomePage));
+                    break;
+                case "bookmarks":
+                    NewTab("bookmarks", new FontIconSource() { Glyph = "\uE728" }, typeof(HomePage));
+                    break;
+                case "settings":
+                    NewTab("settings", new FontIconSource() { Glyph = "\uE713" }, typeof(SettingsPage));
+                    break;
             }
+            
         }
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            UriNavigate(new Uri("edgeex://history/"));
+            UriNavigate(new Uri("History://local/"));
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            UriNavigate(new Uri("Settings://local/"));
+        }
+
+        private void BookMarksButthon_Click(object sender, RoutedEventArgs e)
+        {
+            UriNavigate(new Uri("BookMarks://local/"));
+        }
+        private void DownloadButthon_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleThemeTeachingTip1.IsOpen = true;
         }
     }
 }

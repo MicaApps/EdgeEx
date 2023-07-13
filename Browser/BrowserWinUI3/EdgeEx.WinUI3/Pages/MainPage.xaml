@@ -464,7 +464,10 @@
                     Width="48"
                     Click="DownloadButthon_Click"
                     Icon="Download" />
-                <AppBarButton x:Name="BookMarksButthon" Width="48">
+                <AppBarButton
+                    x:Name="BookMarksButthon"
+                    Width="48"
+                    Click="BookMarksButthon_Click">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE728;" />
                     </AppBarButton.Icon>
@@ -488,8 +491,15 @@
                         <FontIcon Glyph="&#xE81C;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarButton Width="48" Icon="Setting" />
-                <AppBarButton Width="48" Icon="More" />
+                <AppBarButton
+                    x:Name="SettingsButton"
+                    Width="48"
+                    Click="SettingsButton_Click"
+                    Icon="Setting" />
+                <AppBarButton
+                    x:Name="MoreButton"
+                    Width="48"
+                    Icon="More" />
             </StackPanel>
         </Grid>
         <Frame x:Name="ContentFrame" Grid.Row="2" />

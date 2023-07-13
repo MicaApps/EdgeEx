@@ -9,7 +9,7 @@ using Windows.Storage;
 namespace EdgeEx.WinUI3.Helpers
 {
     
-    class LocalSettingsHelper
+    internal class LocalSettingsHelper
     {
         /// <summary>
         /// Does the setting name exist in the local app settings

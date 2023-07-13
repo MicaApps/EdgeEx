@@ -1,5 +1,7 @@
 ﻿using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Pages;
+using EdgeEx.WinUI3.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -35,9 +37,28 @@ namespace EdgeEx.WinUI3
         /// </summary>
         public App()
         {
+            Services = ConfigureServices();
             this.InitializeComponent();
         }
+        /// <summary>
+        /// Gets the current <see cref="App"/> instance in use
+        /// </summary>
+        public new static App Current => (App)Application.Current;
 
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
+        /// </summary>
+        public IServiceProvider Services { get; }
+
+        /// <summary>
+        /// Configures the services for the application.
+        /// </summary>
+        private static IServiceProvider ConfigureServices()
+        {
+            ServiceCollection services = new ServiceCollection();
+            services.AddSingleton<SettingsViewModel>();
+            return services.BuildServiceProvider();
+        }
         /// <summary>
         /// Invoked when the application is launched.
         /// </summary>
