@@ -13,24 +13,12 @@
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListView x:Name="HistoryDateListView" Grid.Column="0">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <StackPanel
-                        Padding="5,0,5,0"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <FontIcon Glyph="&#xE787;" />
-                        <TextBlock Text="{x:Bind}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.Items>
-                <x:String>2022/02/23</x:String>
-                <x:String>2021/01/23</x:String>
-            </ListView.Items>
-        </ListView>
+        <CalendarDatePicker
+            x:Name="HistoryDatePicker"
+            Grid.Column="0"
+            VerticalAlignment="Top"
+            DateFormat="{}{year.full}-{month.integer}-{day.integer}"
+            PlaceholderText="Pick a date" />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48" />

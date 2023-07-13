@@ -11,6 +11,7 @@
 
     <Page.Resources>
 
+
         <x:Double x:Key="EdgeExTitleBarHeight">48</x:Double>
         <x:Double x:Key="EdgeExCommandBarHeight">48</x:Double>
         <Style TargetType="TabViewItem">
@@ -467,6 +468,17 @@
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE728;" />
                     </AppBarButton.Icon>
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicElementMediumHighBrush}" />
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <TextBlock Text="hello" />
+                        </Flyout>
+                    </AppBarButton.Flyout>
                 </AppBarButton>
                 <AppBarButton
                     x:Name="HistoryButton"
@@ -484,7 +496,7 @@
         <TeachingTip
             x:Name="ToggleThemeTeachingTip1"
             Title="Download"
-            Background="{ThemeResource LayerOnAcrylicFillColorDefaultBrush}"
+            Background="{ThemeResource AcrylicBackgroundFillColorBaseBrush}"
             IsLightDismissEnabled="True"
             Target="{x:Bind DownloadButthon}">
             <TeachingTip.HeroContent>
