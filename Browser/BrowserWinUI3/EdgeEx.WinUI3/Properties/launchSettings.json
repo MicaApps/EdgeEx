@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EdgeEx.WinUI3 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EdgeEx.WinUI3 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
