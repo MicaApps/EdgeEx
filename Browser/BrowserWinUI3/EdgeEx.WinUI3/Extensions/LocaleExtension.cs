@@ -1,5 +1,6 @@
 using EdgeEx.WinUI3.Enums;
-using EdgeEx.WinUI3.Helpers;
+using EdgeEx.WinUI3.Toolkits;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Markup;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Markup;
@@ -21,7 +22,7 @@ namespace EdgeEx.WinUI3.Extensions
         /// <inheritdoc/>
         protected override object ProvideValue()
         {
-            return ResourceHelper.GetString(Key);
+            return App.Current.Services.GetService<ResourceToolkit>().GetString(Key);
         }
     }
 }

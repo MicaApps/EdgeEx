@@ -1,6 +1,8 @@
 using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Pages;
+using EdgeEx.WinUI3.Toolkits;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -10,11 +12,14 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinRT.Interop;
@@ -33,25 +38,12 @@ namespace EdgeEx.WinUI3
         public MainWindow()
         {
             this.InitializeComponent();
-            AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/icon.ico"));
-            Title = ResourceHelper.GetString(ResourceKey.AppTitle);
+            AppWindow.SetIcon(Path.Combine(Package.Current.InstalledLocation.Path, "Assets/icon.ico"));
+            Debug.WriteLine(Path.Combine(Package.Current.InstalledLocation.Path, "Assets/icon.ico"));
+            ResourceToolkit resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
+            Title = resourceToolkit.GetString(ResourceKey.AppTitle);
             ExtendsContentIntoTitleBar = true;
-            if(LocalSettingsHelper.GetString(LocalSettingName.Backdrop) is string backdrop)
-            {
-                if(backdrop == "Mica")
-                {
-                    this.SystemBackdrop = new MicaBackdrop();
-                }
-                else
-                {
-                    this.SystemBackdrop = new DesktopAcrylicBackdrop();
-                }
-            }
-            else
-            {
-                this.SystemBackdrop = new MicaBackdrop();
-                LocalSettingsHelper.Set(LocalSettingName.Backdrop, "Mica");
-            }
+            WindowHelper.SetWindowBackdrop(this, WindowHelper.IsMica() ? WindowBackdrop.Mica : WindowBackdrop.Acrylic);
         }
     }
 }

@@ -449,7 +449,7 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
+            <StackPanel Grid.Column="0"   Orientation="Horizontal">
                 <AppBarButton Width="48" Icon="Back" />
                 <AppBarButton Width="48" Icon="Forward" />
                 <AppBarButton Width="48" Icon="Refresh" />

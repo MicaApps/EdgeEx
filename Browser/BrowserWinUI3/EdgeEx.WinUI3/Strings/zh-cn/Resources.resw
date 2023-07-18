@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>关于</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>EdgeEx</value>
+  </data>
+  <data name="AuthorTeam" xml:space="preserve">
+    <value>制作团队</value>
+  </data>
+  <data name="Dependencies" xml:space="preserve">
+    <value>依赖</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="OtherSelection" xml:space="preserve">
+    <value>其他设置</value>
+  </data>
+  <data name="Shomnipotence" xml:space="preserve">
+    <value>🎨大设计师</value>
+  </data>
+  <data name="ThemeSettings" xml:space="preserve">
+    <value>主题设置</value>
+  </data>
+  <data name="WindowBackdrop" xml:space="preserve">
+    <value>窗体背景</value>
+  </data>
+  <data name="WindowBackdropDescription" xml:space="preserve">
+    <value>设置窗体亚克力/云母背景</value>
   </data>
 </root>

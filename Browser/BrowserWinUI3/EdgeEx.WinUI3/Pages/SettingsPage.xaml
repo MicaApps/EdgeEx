@@ -1,15 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="EdgeEx.WinUI3.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:EdgeEx.WinUI3.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="using:EdgeEx.WinUI3.Enums"
+    xmlns:ex="using:EdgeEx.WinUI3.Extensions"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:local="using:EdgeEx.WinUI3.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:ui="using:CommunityToolkit.WinUI.UI"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <x:Double x:Key="SettingsCardSpacing">3</x:Double>
+        <Style
+            x:Key="SettingsSectionHeaderTextBlockStyle"
+            BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+            TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Margin" Value="1,20,0,5" />
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+    <ScrollViewer Padding="20,0">
+        <StackPanel HorizontalAlignment="Stretch" Spacing="{StaticResource SettingsCardSpacing}">
+            <win:StackPanel.ChildrenTransitions>
+                <win:EntranceThemeTransition FromVerticalOffset="50" />
+                <win:RepositionThemeTransition IsStaggeringEnabled="False" />
+            </win:StackPanel.ChildrenTransitions>
 
-    <Grid>
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=ThemeSettings}" />
+            <labs:SettingsCard Description="{ex:Locale Key=WindowBackdropDescription}" Header="{ex:Locale Key=WindowBackdrop}">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE7F4;" />
+                </labs:SettingsCard.HeaderIcon>
+                <ComboBox
+                    x:Name="WindowBackdropComboBox"
+                    ItemsSource="{ui:EnumValues Type=enums:WindowBackdrop}"
+                    Loaded="WindowBackdropComboBox_Loaded"
+                    SelectedItem="{x:Bind ViewModel.SelectedBackdrop, Mode=TwoWay}"
+                    SelectionChanged="WindowBackdropComboBox_SelectionChanged" />
+            </labs:SettingsCard>
 
-    </Grid>
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=OtherSelection}" />
+            <labs:SettingsCard x:Name="LogSettingCard" Header="{ex:Locale Key=Log}">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE82D;" />
+                </labs:SettingsCard.HeaderIcon>
+                <Button Click="LogButton_Click" Content="{ex:Locale Key=Open}" />
+            </labs:SettingsCard>
+
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=About}" />
+            <labs:SettingsExpander Description="© 2023-2023 MicaApps. All rights reserved." Header="{ex:Locale Key=AppTitle}">
+                <labs:SettingsExpander.HeaderIcon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+                </labs:SettingsExpander.HeaderIcon>
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <TextBlock
+                        x:Name="Version"
+                        VerticalAlignment="Center"
+                        win:IsTextSelectionEnabled="True"
+                        FontSize="16"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}" />
+                </StackPanel>
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard
+                        HorizontalContentAlignment="Left"
+                        ContentAlignment="Vertical"
+                        Header="{ex:Locale Key=AuthorTeam}">
+                        <StackPanel Orientation="Vertical">
+                            <HyperlinkButton Content="MicaCraft" NavigateUri="https://github.com/MicaCraft" />
+                            <HyperlinkButton Content="👪MicaApps" NavigateUri="https://github.com/MicaApps" />
+                            <HyperlinkButton Content="{ex:Locale Key=Shomnipotence}" NavigateUri="https://github.com/Shomnipotence" />
+                            <HyperlinkButton Content="🖥️kitUIN" NavigateUri="https://github.com/kituin" />
+                        </StackPanel>
+                    </labs:SettingsCard>
+                    <labs:SettingsCard
+                        HorizontalContentAlignment="Left"
+                        ContentAlignment="Vertical"
+                        Header="{ex:Locale Key=Dependencies}">
+                        <StackPanel Orientation="Vertical">
+                            <HyperlinkButton Content="🎨Windows UI Library" NavigateUri="https://aka.ms/winui" />
+                            <HyperlinkButton Content="🔧Windows Community Toolkit" NavigateUri="https://github.com/CommunityToolkit/dotnet" />
+                            <HyperlinkButton Content="📃Serilog" NavigateUri="https://github.com/serilog/serilog" />
+                        </StackPanel>
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

@@ -1,5 +1,6 @@
 ﻿using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Pages;
+using EdgeEx.WinUI3.Toolkits;
 using EdgeEx.WinUI3.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -14,6 +15,7 @@ using Serilog;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -45,8 +47,10 @@ namespace EdgeEx.WinUI3
         public App()
         {
             Services = ConfigureServices();
-            this.InitializeComponent();
+            InitLogger();
             InitDatabase();
+            this.InitializeComponent();
+            
         }
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
@@ -82,6 +86,8 @@ namespace EdgeEx.WinUI3
                });
                 return sqlSugar;
             });
+            services.AddSingleton<LocalSettingsToolkit>();
+            services.AddSingleton<ResourceToolkit>();
             services.AddSingleton<SettingsViewModel>();
             return services.BuildServiceProvider();
         }
@@ -107,7 +113,18 @@ namespace EdgeEx.WinUI3
             db.DbMaintenance.CreateDatabase();
             // db.CodeFirst.InitTables(typeof(CodeFirstTable1), typeof(CodeFirstTable2));
         }
-
+        /// <summary>
+        /// Init Serilog Logger
+        /// </summary>
+        public static void InitLogger()
+        {
+            string logPath = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs");
+            if (!Directory.Exists(logPath)) Directory.CreateDirectory(logPath);
+            Log.Logger = new LoggerConfiguration()
+               .MinimumLevel.Debug()
+               .WriteTo.File(System.IO.Path.Combine(logPath, "EdgeEx.WinUI3.log"), outputTemplate: "{Timestamp:MM-dd HH:mm:ss.fff} [{Level:u4}] {SourceContext} | {Message:lj} {Exception}{NewLine}", rollingInterval: RollingInterval.Day, shared: true)
+               .CreateLogger();
+        }
         private WindowEx m_window;
     }
 }

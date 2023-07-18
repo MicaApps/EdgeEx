@@ -1,15 +1,15 @@
 using EdgeEx.WinUI3.Enums;
 using Windows.ApplicationModel.Resources;
 
-namespace EdgeEx.WinUI3.Helpers
+namespace EdgeEx.WinUI3.Toolkits
 {
     /// <summary>
     /// ResourceHelper
     /// </summary>
-    internal class ResourceHelper
+    public class ResourceToolkit
     {
         private static readonly ResourceLoader loader = new ResourceLoader();
-        public static string GetString(string resourceName)
+        public string GetString(string resourceName)
         {
             return loader.GetString(resourceName);
         }
@@ -18,7 +18,7 @@ namespace EdgeEx.WinUI3.Helpers
         /// </summary>
         /// <param name="resourceKey"></param>
         /// <returns></returns>
-        public static string GetString(ResourceKey resourceKey)
+        public string GetString(ResourceKey resourceKey)
         {
             return loader.GetString(resourceKey.ToString());
         }
