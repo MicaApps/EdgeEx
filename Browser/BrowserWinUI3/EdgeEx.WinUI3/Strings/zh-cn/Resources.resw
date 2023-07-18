@@ -124,13 +124,25 @@
     <value>EdgeEx</value>
   </data>
   <data name="AuthorTeam" xml:space="preserve">
-    <value>制作团队</value>
+    <value>👪制作团队</value>
+  </data>
+  <data name="BugRequest" xml:space="preserve">
+    <value>🐛Bug反馈</value>
   </data>
   <data name="Dependencies" xml:space="preserve">
-    <value>依赖</value>
+    <value>🔧依赖</value>
   </data>
   <data name="Log" xml:space="preserve">
     <value>日志</value>
+  </data>
+  <data name="MicaAppsDes" xml:space="preserve">
+    <value>应用组织</value>
+  </data>
+  <data name="MicaAppsTitle" xml:space="preserve">
+    <value>云母工艺</value>
+  </data>
+  <data name="MicaCraftDes" xml:space="preserve">
+    <value>父组织</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>打开</value>
@@ -138,11 +150,11 @@
   <data name="OtherSelection" xml:space="preserve">
     <value>其他设置</value>
   </data>
-  <data name="Shomnipotence" xml:space="preserve">
-    <value>🎨大设计师</value>
-  </data>
   <data name="ThemeSettings" xml:space="preserve">
     <value>主题设置</value>
+  </data>
+  <data name="UICode" xml:space="preserve">
+    <value>UI代码</value>
   </data>
   <data name="WindowBackdrop" xml:space="preserve">
     <value>窗体背景</value>

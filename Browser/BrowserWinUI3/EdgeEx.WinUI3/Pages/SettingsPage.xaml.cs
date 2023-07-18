@@ -20,6 +20,8 @@ using EdgeEx.WinUI3.Helpers;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.System;
+using System.Diagnostics;
+using CommunityToolkit.Labs.WinUI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -52,5 +54,16 @@ namespace EdgeEx.WinUI3.Pages
         {
             await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
         }
+
+        private void SettingsExpander_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            AuthorScrollViewer.Width = (sender as SettingsExpander).ActualWidth - 115;
+        }
+        private async void Uri_Click(object sender, RoutedEventArgs e)
+        {
+            var uri = new Uri((sender as SettingsCard).Tag.ToString());
+            await Launcher.LaunchUriAsync(uri);
+        }
+
     }
 }

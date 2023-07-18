@@ -2,6 +2,7 @@
     x:Class="EdgeEx.WinUI3.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cols="using:EdgeEx.WinUI3.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:EdgeEx.WinUI3.Enums"
     xmlns:ex="using:EdgeEx.WinUI3.Extensions"
@@ -9,7 +10,6 @@
     xmlns:local="using:EdgeEx.WinUI3.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:CommunityToolkit.WinUI.UI"
-    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d">
     <Page.Resources>
         <x:Double x:Key="SettingsCardSpacing">3</x:Double>
@@ -22,72 +22,124 @@
             </Style.Setters>
         </Style>
     </Page.Resources>
-    <ScrollViewer Padding="20,0">
-        <StackPanel HorizontalAlignment="Stretch" Spacing="{StaticResource SettingsCardSpacing}">
-            <win:StackPanel.ChildrenTransitions>
-                <win:EntranceThemeTransition FromVerticalOffset="50" />
-                <win:RepositionThemeTransition IsStaggeringEnabled="False" />
-            </win:StackPanel.ChildrenTransitions>
+    <Grid>
+        <ScrollViewer
+            Padding="20,0"
+            IsTabStop="False"
+            UseSystemFocusVisuals="False"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
+            <StackPanel Spacing="{StaticResource SettingsCardSpacing}">
+                <StackPanel.ChildrenTransitions>
+                    <EntranceThemeTransition FromVerticalOffset="50" />
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </StackPanel.ChildrenTransitions>
 
-            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=ThemeSettings}" />
-            <labs:SettingsCard Description="{ex:Locale Key=WindowBackdropDescription}" Header="{ex:Locale Key=WindowBackdrop}">
-                <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE7F4;" />
-                </labs:SettingsCard.HeaderIcon>
-                <ComboBox
-                    x:Name="WindowBackdropComboBox"
-                    ItemsSource="{ui:EnumValues Type=enums:WindowBackdrop}"
-                    Loaded="WindowBackdropComboBox_Loaded"
-                    SelectedItem="{x:Bind ViewModel.SelectedBackdrop, Mode=TwoWay}"
-                    SelectionChanged="WindowBackdropComboBox_SelectionChanged" />
-            </labs:SettingsCard>
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=ThemeSettings}" />
+                <labs:SettingsCard Description="{ex:Locale Key=WindowBackdropDescription}" Header="{ex:Locale Key=WindowBackdrop}">
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE7F4;" />
+                    </labs:SettingsCard.HeaderIcon>
+                    <ComboBox
+                        x:Name="WindowBackdropComboBox"
+                        ItemsSource="{ui:EnumValues Type=enums:WindowBackdrop}"
+                        Loaded="WindowBackdropComboBox_Loaded"
+                        SelectedItem="{x:Bind ViewModel.SelectedBackdrop, Mode=TwoWay}"
+                        SelectionChanged="WindowBackdropComboBox_SelectionChanged" />
+                </labs:SettingsCard>
 
-            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=OtherSelection}" />
-            <labs:SettingsCard x:Name="LogSettingCard" Header="{ex:Locale Key=Log}">
-                <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE82D;" />
-                </labs:SettingsCard.HeaderIcon>
-                <Button Click="LogButton_Click" Content="{ex:Locale Key=Open}" />
-            </labs:SettingsCard>
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=OtherSelection}" />
+                <labs:SettingsCard x:Name="LogSettingCard" Header="{ex:Locale Key=Log}">
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE82D;" />
+                    </labs:SettingsCard.HeaderIcon>
+                    <Button Click="LogButton_Click" Content="{ex:Locale Key=Open}" />
+                </labs:SettingsCard>
 
-            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=About}" />
-            <labs:SettingsExpander Description="© 2023-2023 MicaApps. All rights reserved." Header="{ex:Locale Key=AppTitle}">
-                <labs:SettingsExpander.HeaderIcon>
-                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Square44x44Logo.altform-lightunplated_targetsize-48.png" />
-                </labs:SettingsExpander.HeaderIcon>
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <TextBlock
-                        x:Name="Version"
-                        VerticalAlignment="Center"
-                        win:IsTextSelectionEnabled="True"
-                        FontSize="16"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}" />
-                </StackPanel>
-                <labs:SettingsExpander.Items>
-                    <labs:SettingsCard
-                        HorizontalContentAlignment="Left"
-                        ContentAlignment="Vertical"
-                        Header="{ex:Locale Key=AuthorTeam}">
-                        <StackPanel Orientation="Vertical">
-                            <HyperlinkButton Content="MicaCraft" NavigateUri="https://github.com/MicaCraft" />
-                            <HyperlinkButton Content="👪MicaApps" NavigateUri="https://github.com/MicaApps" />
-                            <HyperlinkButton Content="{ex:Locale Key=Shomnipotence}" NavigateUri="https://github.com/Shomnipotence" />
-                            <HyperlinkButton Content="🖥️kitUIN" NavigateUri="https://github.com/kituin" />
-                        </StackPanel>
-                    </labs:SettingsCard>
-                    <labs:SettingsCard
-                        HorizontalContentAlignment="Left"
-                        ContentAlignment="Vertical"
-                        Header="{ex:Locale Key=Dependencies}">
-                        <StackPanel Orientation="Vertical">
-                            <HyperlinkButton Content="🎨Windows UI Library" NavigateUri="https://aka.ms/winui" />
-                            <HyperlinkButton Content="🔧Windows Community Toolkit" NavigateUri="https://github.com/CommunityToolkit/dotnet" />
-                            <HyperlinkButton Content="📃Serilog" NavigateUri="https://github.com/serilog/serilog" />
-                        </StackPanel>
-                    </labs:SettingsCard>
-                </labs:SettingsExpander.Items>
-            </labs:SettingsExpander>
-        </StackPanel>
-    </ScrollViewer>
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=About}" />
+                <labs:SettingsExpander
+                    Description="© 2023-2023 MicaApps. All rights reserved."
+                    Header="{ex:Locale Key=AppTitle}"
+                    SizeChanged="SettingsExpander_SizeChanged">
+                    <labs:SettingsExpander.HeaderIcon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+                    </labs:SettingsExpander.HeaderIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock
+                            x:Name="Version"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            IsTextSelectionEnabled="True"
+                            Style="{StaticResource CaptionTextBlockStyle}" />
+                    </StackPanel>
+                    <labs:SettingsExpander.Items>
+                        <labs:SettingsCard
+                            x:Name="BugRequestCard"
+                            Click="Uri_Click"
+                            Header="{ex:Locale Key=BugRequest}"
+                            IsClickEnabled="True"
+                            Tag="https://github.com/MicaApps/EdgeEx/issues">
+                            <labs:SettingsCard.ActionIcon>
+                                <FontIcon Glyph="&#xE8A7;" />
+                            </labs:SettingsCard.ActionIcon>
+                        </labs:SettingsCard>
+                        <labs:SettingsCard
+                            HorizontalContentAlignment="Left"
+                            ContentAlignment="Vertical"
+                            Header="{ex:Locale Key=AuthorTeam}">
+                            <ScrollViewer
+                                x:Name="AuthorScrollViewer"
+                                Padding="0,0,0,5"
+                                HorizontalScrollBarVisibility="Visible"
+                                HorizontalScrollMode="Enabled"
+                                VerticalScrollBarVisibility="Hidden"
+                                VerticalScrollMode="Disabled">
+                                <StackPanel
+                                    HorizontalAlignment="Left"
+                                    Orientation="Horizontal"
+                                    Spacing="5">
+                                    <cols:AppAuthor
+                                        Title="MicaCraft"
+                                        Description="{ex:Locale Key=MicaCraftDes}"
+                                        NavigateUri="https://github.com/MicaCraft"
+                                        Thumb="ms-appx:///Assets/Authors/MicaCraft.png" />
+                                    <cols:AppAuthor
+                                        Title="{ex:Locale Key=MicaAppsTitle}"
+                                        Description="{ex:Locale Key=MicaAppsDes}"
+                                        NavigateUri="https://github.com/MicaApps"
+                                        Thumb="ms-appx:///Assets/Authors/MicaApps.png" />
+                                    <cols:AppAuthor
+                                        Title="HO-COOH"
+                                        Description="CEF"
+                                        NavigateUri="https://github.com/HO-COOH"
+                                        Thumb="ms-appx:///Assets/Authors/HO-COOH.jpg" />
+                                    <cols:AppAuthor
+                                        Title="kitUIN"
+                                        Description="{ex:Locale Key=UICode}"
+                                        NavigateUri="https://github.com/kitUIN"
+                                        Thumb="ms-appx:///Assets/Authors/kitUIN.jpg" />
+                                    <cols:AppAuthor
+                                        Title="Shomnipotence"
+                                        Description="UI"
+                                        NavigateUri="https://github.com/Shomnipotence"
+                                        Thumb="ms-appx:///Assets/Authors/Shomnipotence.jpg" />
+                                </StackPanel>
+                            </ScrollViewer>
+                        </labs:SettingsCard>
+                        <labs:SettingsCard
+                            HorizontalContentAlignment="Left"
+                            ContentAlignment="Vertical"
+                            Header="{ex:Locale Key=Dependencies}">
+                            <StackPanel Orientation="Vertical">
+                                <HyperlinkButton Content="Windows UI Library" NavigateUri="https://aka.ms/winui" />
+                                <HyperlinkButton Content="Windows Community Toolkit" NavigateUri="https://github.com/CommunityToolkit/dotnet" />
+                                <HyperlinkButton Content="Serilog" NavigateUri="https://github.com/serilog/serilog" />
+                            </StackPanel>
+                        </labs:SettingsCard>
+                    </labs:SettingsExpander.Items>
+                </labs:SettingsExpander>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>

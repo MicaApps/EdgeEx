@@ -39,7 +39,6 @@ namespace EdgeEx.WinUI3
         {
             this.InitializeComponent();
             AppWindow.SetIcon(Path.Combine(Package.Current.InstalledLocation.Path, "Assets/icon.ico"));
-            Debug.WriteLine(Path.Combine(Package.Current.InstalledLocation.Path, "Assets/icon.ico"));
             ResourceToolkit resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             Title = resourceToolkit.GetString(ResourceKey.AppTitle);
             ExtendsContentIntoTitleBar = true;

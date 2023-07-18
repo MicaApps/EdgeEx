@@ -13,5 +13,10 @@ namespace EdgeEx.WinUI3.Enums
         Open,
         Log,
         OtherSelection,
+        UICode,
+        MicaAppsTitle,
+        MicaAppsDes,
+        MicaCraftDes,
+        BugRequest,
     }
 }

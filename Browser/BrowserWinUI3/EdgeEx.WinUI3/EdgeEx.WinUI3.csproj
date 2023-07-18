@@ -60,6 +60,7 @@
     <None Remove="Assets\Wide310x150Logo.scale-150.png" />
     <None Remove="Assets\Wide310x150Logo.scale-400.png" />
     <None Remove="Assets\WindowIcon.ico" />
+    <None Remove="Controls\AppAuthor.xaml" />
     <None Remove="Pages\HistroyPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\MainPage.xaml" />
@@ -118,8 +119,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\AppAuthor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 
