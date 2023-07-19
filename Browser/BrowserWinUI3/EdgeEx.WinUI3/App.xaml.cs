@@ -1,4 +1,5 @@
 ﻿using EdgeEx.WinUI3.Helpers;
+using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Pages;
 using EdgeEx.WinUI3.Toolkits;
 using EdgeEx.WinUI3.ViewModels;
@@ -86,6 +87,7 @@ namespace EdgeEx.WinUI3
                });
                 return sqlSugar;
             });
+            services.AddSingleton<ICallerToolkit, CallerToolkit>();
             services.AddSingleton<LocalSettingsToolkit>();
             services.AddSingleton<ResourceToolkit>();
             services.AddTransient<SettingsViewModel>();

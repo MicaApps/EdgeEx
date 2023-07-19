@@ -162,9 +162,6 @@
   <data name="OtherSelection" xml:space="preserve">
     <value>其他设置</value>
   </data>
-  <data name="RefreshBackdrop" xml:space="preserve">
-    <value>重新加载背景</value>
-  </data>
   <data name="Reset" xml:space="preserve">
     <value>重置</value>
   </data>

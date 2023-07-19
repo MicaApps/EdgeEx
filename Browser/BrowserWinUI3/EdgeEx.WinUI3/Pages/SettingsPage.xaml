@@ -44,28 +44,18 @@
                     </labs:SettingsExpander.HeaderIcon>
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <HyperlinkButton
-                            x:Name="RefreshBackdropButton"
-                            Width="32"
-                            Height="32"
-                            Padding="2"
-                            Click="RefreshBackdropButton_Click"
-                            Foreground="{ThemeResource ButtonForeground}">
-                            <ToolTipService.ToolTip>
-                                <ToolTip Content="{ex:Locale Key=RefreshBackdrop}" />
-                            </ToolTipService.ToolTip>
-                            <FontIcon FontSize="15" Glyph="&#xE72C;" />
-                        </HyperlinkButton>
-                        <HyperlinkButton
                             x:Name="ResetButton"
-                            Width="32"
                             Height="32"
-                            Padding="2"
+                            Padding="8,2"
                             Click="ResetButton_Click"
                             Foreground="{ThemeResource ButtonForeground}">
                             <ToolTipService.ToolTip>
                                 <ToolTip Content="{ex:Locale Key=Reset}" />
                             </ToolTipService.ToolTip>
-                            <FontIcon Glyph="&#xE8E6;" />
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <FontIcon FontSize="15" Glyph="&#xE72C;" />
+                                <TextBlock Text="{ex:Locale Key=Reset}" />
+                            </StackPanel>
                         </HyperlinkButton>
                         <ComboBox
                             x:Name="WindowBackdropComboBox"
@@ -102,7 +92,6 @@
                                 Minimum="0"
                                 PlaceholderText="0.00"
                                 SmallChange="0.01"
-                                SpinButtonPlacementMode="Inline"
                                 Value="{x:Bind ViewModel.AcrylicTintOpacity, Mode=TwoWay}" />
                         </labs:SettingsCard>
                         <labs:SettingsCard x:Name="FallbackColorCard" Header="{ex:Locale Key=FallbackColor}">

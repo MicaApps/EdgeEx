@@ -50,7 +50,7 @@ public class SystemBackdropsHelper
         if (IsDefault)
         {
             // Default set
-            SetBackdrop(CurrentBackdrop, null, true);
+            SetBackdrop(CurrentBackdrop, null);
         }
         else
         {
@@ -61,14 +61,15 @@ public class SystemBackdropsHelper
                     TintColor = localSettingsToolkit.GetString(LocalSettingName.AcrylicTintColor).ToColor(),
                     TintOpacity = localSettingsToolkit.GetFloat(LocalSettingName.AcrylicTintOpacity),
                     FallbackColor = localSettingsToolkit.GetString(LocalSettingName.AcrylicFallbackColor).ToColor(),
-                }, true);
+                });
             }
             else
             {
+                Log.Information(localSettingsToolkit.GetString(LocalSettingName.MicaKind));
                 SetBackdrop(CurrentBackdrop, new MicaController()
                 {
                    Kind = EnumHelper.GetEnum<MicaKind>(localSettingsToolkit.GetString(LocalSettingName.MicaKind)),
-                }, true);
+                });
             }
         }
         
@@ -98,12 +99,8 @@ public class SystemBackdropsHelper
     /// Note: This completely removes any previous controller to reset to the default state.
     /// </summary>
     /// <param name="type"></param>
-    public void SetBackdrop(WindowBackdrop type, ISystemBackdropController controller = null, bool force=false)
+    public void SetBackdrop(WindowBackdrop type, ISystemBackdropController controller = null)
     {
-        if (!force)
-        {
-            if (CurrentBackdrop == type) return;
-        }
         if (m_micaController != null)
         {
             m_micaController.Dispose();
@@ -167,7 +164,7 @@ public class SystemBackdropsHelper
             m_configurationSource.IsInputActive = true;
             SetConfigurationSourceTheme();
 
-            if (m_micaController == null) m_micaController = new MicaController();
+            m_micaController ??= new MicaController();
             Log.Information("Set Mica WindowBackdrop:Kind={Kind}", m_micaController.Kind);
             // Enable the system backdrop.
             // Note: Be sure to have "using WinRT;" to support the Window.As<...>() call.
