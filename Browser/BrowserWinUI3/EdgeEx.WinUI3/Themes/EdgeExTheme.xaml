@@ -5,9 +5,9 @@
                 <ResourceDictionary>
                     <AcrylicBrush
                         x:Key="DefaultEdgeExAcrylicBrush"
-                        FallbackColor="#FFD3D3D3"
-                        TintColor="#FFD3D3D3"
-                        TintOpacity="0" />
+                        FallbackColor="#FF1F1F1F"
+                        TintColor="#FF1C1C1C"
+                        TintOpacity="0.8" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -16,9 +16,9 @@
                 <ResourceDictionary>
                     <AcrylicBrush
                         x:Key="DefaultEdgeExAcrylicBrush"
-                        FallbackColor="#FFD3D3D3"
-                        TintColor="#FFD3D3D3"
-                        TintOpacity="0" />
+                        FallbackColor="#FF1F1F1F"
+                        TintColor="#FF1C1C1C"
+                        TintOpacity="0.8" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
