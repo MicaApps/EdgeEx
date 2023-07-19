@@ -140,6 +140,9 @@
                                     x:Name="CloseButton"
                                     Grid.Column="2"
                                     Margin="1"
+                                    Width="24"
+                                    Height="24"
+                                    Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     Content="&#xE8BB;"
@@ -167,7 +170,7 @@
                                             <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderPointerOverCloseButtonForeground}" />
                                             <Setter Target="CloseButton.CornerRadius" Value="2" />
                                             <Setter Target="TabSeparator.Opacity" Value="0" />
-                                            <Setter Target="TabContainer.BorderBrush" Value="{ThemeResource TabViewItemHeaderBackgroundPointerOver}" />
+                                            <Setter Target="TabContainer.BorderBrush" Value="Transparent" />
                                         </VisualState.Setters>
                                     </VisualState>
 
