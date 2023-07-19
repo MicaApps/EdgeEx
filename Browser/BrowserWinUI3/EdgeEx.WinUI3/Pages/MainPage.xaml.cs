@@ -1,4 +1,6 @@
 using EdgeEx.WinUI3.Helpers;
+using EdgeEx.WinUI3.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -29,7 +31,15 @@ namespace EdgeEx.WinUI3.Pages
         {
             this.InitializeComponent();
             WindowHelper.MainWindow.SetTitleBar(AppTitleBar);
+            ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
+            caller.UriNavigatedEvent += Caller_UriNavigatedEvent;
         }
+
+        private void Caller_UriNavigatedEvent(object sender, Args.UriNavigatedEventArg e)
+        {
+            UriNavigate(e.NavigatedUri);
+        }
+
         // Add a new Tab to the TabView
         private void TabView_AddTabButtonClick(TabView sender, object args)
         {
@@ -64,37 +74,39 @@ namespace EdgeEx.WinUI3.Pages
         }
         private void UriNavigate(Uri uri)
         {
-            switch(uri.Scheme.ToLower()) 
+            AddressBar.Text = uri.ToString();
+            switch(uri.Scheme) 
             {
-                case "history":
-                    NewTab("history", new FontIconSource() { Glyph = "\uE81C" }, typeof(HistroyPage));
+                case "edgeex":
+                    switch (uri.Host)
+                    {
+                        case "history":
+                            NewTab("history", new FontIconSource() { Glyph = "\uE81C" }, typeof(HistroyPage));
+                            break;
+                        case "settings":
+                            NewTab("settings", new FontIconSource() { Glyph = "\uE713" }, typeof(SettingsPage));
+                            break;
+
+
+                    }
                     break;
-                case "home":
-                    NewTab("home", new FontIconSource() { Glyph = "\uE80F" }, typeof(HomePage));
-                    break;
-                case "bookmarks":
-                    NewTab("bookmarks", new FontIconSource() { Glyph = "\uE728" }, typeof(HomePage));
-                    break;
-                case "settings":
-                    NewTab("settings", new FontIconSource() { Glyph = "\uE713" }, typeof(SettingsPage));
-                    break;
+                 
             }
-            
         }
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            UriNavigate(new Uri("History://local/"));
+            UriNavigate(new Uri("EdgeEx://History/"));
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            UriNavigate(new Uri("Settings://local/"));
+            UriNavigate(new Uri("EdgeEx://Settings/"));
         }
 
         private void BookMarksButthon_Click(object sender, RoutedEventArgs e)
         {
-            UriNavigate(new Uri("BookMarks://local/"));
+            UriNavigate(new Uri("EdgeEx://BookMarks/"));
         }
         private void DownloadButthon_Click(object sender, RoutedEventArgs e)
         {

@@ -22,10 +22,21 @@ namespace EdgeEx.WinUI3.Toolkits
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
+        public event EventHandler<UriNavigatedEventArg> UriNavigatedEvent;
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public void ChangeWindowBackdrop(WindowBackdrop oldMode, WindowBackdrop newMode, Color tintColor, Color fallbackColor, float tintOpacity, MicaKind kind)
         {
-            Log.Information(tintOpacity.ToString());
             WindowBackdropChangedEvent?.Invoke(this, new WindowBackdropChangedEventArg(oldMode, newMode, tintColor, fallbackColor, tintOpacity, kind));
+        }
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public void NavigateUri(Uri uri)
+        {
+            UriNavigatedEvent?.Invoke(this, new UriNavigatedEventArg(uri));
         }
     }
 }

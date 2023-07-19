@@ -18,8 +18,18 @@ namespace EdgeEx.WinUI3.Interfaces
         /// </summary>
         event EventHandler<WindowBackdropChangedEventArg> WindowBackdropChangedEvent;
         /// <summary>
+        /// Uri Navigated Event
+        /// </summary>
+        event EventHandler<UriNavigatedEventArg> UriNavigatedEvent;
+        /// <summary>
         /// Change Window Backdrop  
         /// </summary>
         void ChangeWindowBackdrop(WindowBackdrop oldMode, WindowBackdrop newMode, Color tintColor, Color fallbackColor, float tintOpacity, MicaKind kind);
+
+        /// <summary>
+        /// Navigate By Uri
+        /// </summary>
+        void NavigateUri(Uri uri);
+        
     }
 }
