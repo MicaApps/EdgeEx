@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <Application
     x:Class="EdgeEx.WinUI3.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,6 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="WindowCaptionBackground">Transparent</SolidColorBrush>
             <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled">Transparent</SolidColorBrush>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

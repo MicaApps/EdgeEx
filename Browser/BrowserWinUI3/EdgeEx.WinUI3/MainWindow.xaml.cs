@@ -4,6 +4,7 @@ using EdgeEx.WinUI3.Pages;
 using EdgeEx.WinUI3.Toolkits;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
+using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -42,7 +43,7 @@ namespace EdgeEx.WinUI3
             ResourceToolkit resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             Title = resourceToolkit.GetString(ResourceKey.AppTitle);
             ExtendsContentIntoTitleBar = true;
-            WindowHelper.SetWindowBackdrop(this, WindowHelper.IsMica() ? WindowBackdrop.Mica : WindowBackdrop.Acrylic);
+            
         }
     }
 }

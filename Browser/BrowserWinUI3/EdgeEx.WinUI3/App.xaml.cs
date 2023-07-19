@@ -88,7 +88,7 @@ namespace EdgeEx.WinUI3
             });
             services.AddSingleton<LocalSettingsToolkit>();
             services.AddSingleton<ResourceToolkit>();
-            services.AddSingleton<SettingsViewModel>();
+            services.AddTransient<SettingsViewModel>();
             return services.BuildServiceProvider();
         }
         /// <summary>

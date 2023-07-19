@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace EdgeEx.WinUI3.Enums
 {
     public enum WindowBackdrop
-    {
-        Mica,
+    { 
         Acrylic,
+        Mica,
+        
     }
 }

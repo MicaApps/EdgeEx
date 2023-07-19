@@ -18,5 +18,13 @@ namespace EdgeEx.WinUI3.Enums
         MicaAppsDes,
         MicaCraftDes,
         BugRequest,
+        RefreshBackdrop,
+        Reset,
+        Acrylic,
+        Mica,
+        TintColor,
+        TintOpacity,
+        FallbackColor,
+        MicaKind,
     }
 }

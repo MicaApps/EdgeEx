@@ -409,7 +409,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource EdgeExMainPageBackground}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="48" />

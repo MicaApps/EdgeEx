@@ -2,6 +2,7 @@
     x:Class="EdgeEx.WinUI3.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:co="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:cols="using:EdgeEx.WinUI3.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:EdgeEx.WinUI3.Enums"
@@ -9,6 +10,7 @@
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:local="using:EdgeEx.WinUI3.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muc="using:Microsoft.UI.Composition.SystemBackdrops"
     xmlns:ui="using:CommunityToolkit.WinUI.UI"
     mc:Ignorable="d">
     <Page.Resources>
@@ -36,17 +38,95 @@
                 </StackPanel.ChildrenTransitions>
 
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=ThemeSettings}" />
-                <labs:SettingsCard Description="{ex:Locale Key=WindowBackdropDescription}" Header="{ex:Locale Key=WindowBackdrop}">
-                    <labs:SettingsCard.HeaderIcon>
+                <labs:SettingsExpander Description="{ex:Locale Key=WindowBackdropDescription}" Header="{ex:Locale Key=WindowBackdrop}">
+                    <labs:SettingsExpander.HeaderIcon>
                         <FontIcon Glyph="&#xE7F4;" />
-                    </labs:SettingsCard.HeaderIcon>
-                    <ComboBox
-                        x:Name="WindowBackdropComboBox"
-                        ItemsSource="{ui:EnumValues Type=enums:WindowBackdrop}"
-                        Loaded="WindowBackdropComboBox_Loaded"
-                        SelectedItem="{x:Bind ViewModel.SelectedBackdrop, Mode=TwoWay}"
-                        SelectionChanged="WindowBackdropComboBox_SelectionChanged" />
-                </labs:SettingsCard>
+                    </labs:SettingsExpander.HeaderIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <HyperlinkButton
+                            x:Name="RefreshBackdropButton"
+                            Width="32"
+                            Height="32"
+                            Padding="2"
+                            Click="RefreshBackdropButton_Click"
+                            Foreground="{ThemeResource ButtonForeground}">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{ex:Locale Key=RefreshBackdrop}" />
+                            </ToolTipService.ToolTip>
+                            <FontIcon FontSize="15" Glyph="&#xE72C;" />
+                        </HyperlinkButton>
+                        <HyperlinkButton
+                            x:Name="ResetButton"
+                            Width="32"
+                            Height="32"
+                            Padding="2"
+                            Click="ResetButton_Click"
+                            Foreground="{ThemeResource ButtonForeground}">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{ex:Locale Key=Reset}" />
+                            </ToolTipService.ToolTip>
+                            <FontIcon Glyph="&#xE8E6;" />
+                        </HyperlinkButton>
+                        <ComboBox
+                            x:Name="WindowBackdropComboBox"
+                            Loaded="WindowBackdropComboBox_Loaded"
+                            SelectionChanged="WindowBackdropComboBox_SelectionChanged">
+                            <ComboBoxItem Content="{ex:Locale Key=Acrylic}" Tag="Acrylic" />
+                            <ComboBoxItem Content="{ex:Locale Key=Mica}" Tag="Mica" />
+                        </ComboBox>
+                    </StackPanel>
+                    <labs:SettingsExpander.Items>
+                        <labs:SettingsCard x:Name="TintColorCard" Header="{ex:Locale Key=TintColor}">
+                            <labs:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xEF3C;" />
+                            </labs:SettingsCard.HeaderIcon>
+                            <co:ColorPickerButton SelectedColor="{x:Bind ViewModel.AcrylicTintColor, Mode=TwoWay}">
+                                <co:ColorPickerButton.ColorPickerStyle>
+                                    <Style TargetType="co:ColorPicker">
+                                        <Setter Property="ColorSpectrumShape" Value="Box" />
+                                        <Setter Property="IsAlphaEnabled" Value="True" />
+                                        <Setter Property="IsHexInputVisible" Value="True" />
+                                    </Style>
+                                </co:ColorPickerButton.ColorPickerStyle>
+                            </co:ColorPickerButton>
+                        </labs:SettingsCard>
+                        <labs:SettingsCard x:Name="TintOpacityCard" Header="{ex:Locale Key=TintOpacity}">
+                            <labs:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE8B2;" />
+                            </labs:SettingsCard.HeaderIcon>
+                            <NumberBox
+                                x:Name="AcrylicFormattedNumberBox"
+                                LargeChange="0.1"
+                                Loaded="FormattedNumberBox_Loaded"
+                                Maximum="1"
+                                Minimum="0"
+                                PlaceholderText="0.00"
+                                SmallChange="0.01"
+                                SpinButtonPlacementMode="Inline"
+                                Value="{x:Bind ViewModel.AcrylicTintOpacity, Mode=TwoWay}" />
+                        </labs:SettingsCard>
+                        <labs:SettingsCard x:Name="FallbackColorCard" Header="{ex:Locale Key=FallbackColor}">
+                            <labs:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xEF3C;" />
+                            </labs:SettingsCard.HeaderIcon>
+                            <co:ColorPickerButton SelectedColor="{x:Bind ViewModel.AcrylicFallbackColor, Mode=TwoWay}">
+                                <co:ColorPickerButton.ColorPickerStyle>
+                                    <Style TargetType="co:ColorPicker">
+                                        <Setter Property="ColorSpectrumShape" Value="Box" />
+                                        <Setter Property="IsAlphaEnabled" Value="True" />
+                                        <Setter Property="IsHexInputVisible" Value="True" />
+                                    </Style>
+                                </co:ColorPickerButton.ColorPickerStyle>
+                            </co:ColorPickerButton>
+                        </labs:SettingsCard>
+                        <labs:SettingsCard x:Name="MicaKindCard" Header="MicaKind">
+                            <labs:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE97C;" />
+                            </labs:SettingsCard.HeaderIcon>
+                            <ComboBox ItemsSource="{ui:EnumValues Type=muc:MicaKind}" SelectedItem="{x:Bind ViewModel.Kind, Mode=TwoWay}" />
+                        </labs:SettingsCard>
+                    </labs:SettingsExpander.Items>
+                </labs:SettingsExpander>
 
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=OtherSelection}" />
                 <labs:SettingsCard x:Name="LogSettingCard" Header="{ex:Locale Key=Log}">

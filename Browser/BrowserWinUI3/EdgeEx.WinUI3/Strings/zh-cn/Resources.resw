@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="Acrylic" xml:space="preserve">
+    <value>亚克力</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>EdgeEx</value>
   </data>
@@ -132,8 +135,14 @@
   <data name="Dependencies" xml:space="preserve">
     <value>🔧依赖</value>
   </data>
+  <data name="FallbackColor" xml:space="preserve">
+    <value>未聚焦时颜色</value>
+  </data>
   <data name="Log" xml:space="preserve">
     <value>日志</value>
+  </data>
+  <data name="Mica" xml:space="preserve">
+    <value>云母</value>
   </data>
   <data name="MicaAppsDes" xml:space="preserve">
     <value>应用组织</value>
@@ -144,14 +153,29 @@
   <data name="MicaCraftDes" xml:space="preserve">
     <value>父组织</value>
   </data>
+  <data name="MicaKind" xml:space="preserve">
+    <value>云母类型</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>打开</value>
   </data>
   <data name="OtherSelection" xml:space="preserve">
     <value>其他设置</value>
   </data>
+  <data name="RefreshBackdrop" xml:space="preserve">
+    <value>重新加载背景</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
   <data name="ThemeSettings" xml:space="preserve">
     <value>主题设置</value>
+  </data>
+  <data name="TintColor" xml:space="preserve">
+    <value>亚克力颜色</value>
+  </data>
+  <data name="TintOpacity" xml:space="preserve">
+    <value>亚克力透明度</value>
   </data>
   <data name="UICode" xml:space="preserve">
     <value>UI代码</value>

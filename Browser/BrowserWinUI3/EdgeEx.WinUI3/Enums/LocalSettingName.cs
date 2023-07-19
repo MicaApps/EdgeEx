@@ -9,5 +9,9 @@ namespace EdgeEx.WinUI3.Enums
     public enum LocalSettingName
     {
         Backdrop,
+        AcrylicTintColor,
+        AcrylicTintOpacity,
+        AcrylicFallbackColor, 
+        MicaKind,
     }
 }
