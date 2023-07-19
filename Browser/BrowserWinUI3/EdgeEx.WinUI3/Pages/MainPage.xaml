@@ -444,7 +444,7 @@
                     Background="Transparent" />
             </TabView.TabStripFooter>
         </TabView>
-        <Grid Grid.Row="1" Height="{StaticResource EdgeExCommandBarHeight}">
+        <Grid Grid.Row="1" Height="{StaticResource EdgeExCommandBarHeight}" Margin="8 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="*" />
