@@ -118,69 +118,69 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>关于</value>
+    <value>About</value>
   </data>
   <data name="Acrylic" xml:space="preserve">
-    <value>亚克力</value>
+    <value>Acrylic</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
     <value>EdgeEx</value>
   </data>
   <data name="AuthorTeam" xml:space="preserve">
-    <value>👪制作团队</value>
+    <value>👪Develpment Team</value>
   </data>
   <data name="BugRequest" xml:space="preserve">
-    <value>🐛Bug反馈</value>
+    <value>🐛BugRequest</value>
   </data>
   <data name="Dependencies" xml:space="preserve">
-    <value>🔧依赖</value>
+    <value>🔧Dependencies</value>
   </data>
   <data name="FallbackColor" xml:space="preserve">
-    <value>未聚焦时颜色</value>
+    <value>FallbackColor</value>
   </data>
   <data name="Log" xml:space="preserve">
-    <value>日志</value>
+    <value>Log</value>
   </data>
   <data name="Mica" xml:space="preserve">
-    <value>云母</value>
+    <value>Mica</value>
   </data>
   <data name="MicaAppsDes" xml:space="preserve">
-    <value>组织</value>
+    <value>Organization</value>
   </data>
   <data name="MicaAppsTitle" xml:space="preserve">
     <value>MicaApps</value>
   </data>
   <data name="MicaCraftDes" xml:space="preserve">
-    <value>组织</value>
+    <value>Organization</value>
   </data>
   <data name="MicaKind" xml:space="preserve">
-    <value>云母类型</value>
+    <value>MicaKind</value>
   </data>
   <data name="Open" xml:space="preserve">
-    <value>打开</value>
+    <value>Open</value>
   </data>
   <data name="OtherSelection" xml:space="preserve">
-    <value>其他设置</value>
+    <value>Other Selection</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>重置</value>
+    <value>Reset</value>
   </data>
   <data name="ThemeSettings" xml:space="preserve">
-    <value>主题设置</value>
+    <value>Theme Settings</value>
   </data>
   <data name="TintColor" xml:space="preserve">
-    <value>亚克力颜色</value>
+    <value>Tint Color</value>
   </data>
   <data name="TintOpacity" xml:space="preserve">
-    <value>亚克力透明度</value>
+    <value>Tint Opacity</value>
   </data>
   <data name="UICode" xml:space="preserve">
-    <value>UI代码</value>
+    <value>UI Code</value>
   </data>
   <data name="WindowBackdrop" xml:space="preserve">
-    <value>窗体背景</value>
+    <value>Window Backdrop</value>
   </data>
   <data name="WindowBackdropDescription" xml:space="preserve">
-    <value>设置窗体亚克力/云母背景</value>
+    <value>Window Backdrop Description</value>
   </data>
 </root>
