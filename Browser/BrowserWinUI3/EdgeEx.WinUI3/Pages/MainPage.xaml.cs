@@ -1,5 +1,6 @@
-
+using ABI.System;
 using CommunityToolkit.WinUI;
+using EdgeEx.WinUI3.Args;
 using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
@@ -12,6 +13,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using Serilog;
 using System;
@@ -21,9 +23,12 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using WinUIEx;
+using Type = System.Type;
 using Uri = System.Uri;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -37,19 +42,53 @@ namespace EdgeEx.WinUI3.Pages
     public sealed partial class MainPage : Page
     {
         private MainViewModel ViewModel { get; }
+        private ICallerToolkit caller;
+        private string PersistenceId { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
-            WindowHelper.MainWindow.SetTitleBar(AppTitleBar);
             ViewModel = App.Current.Services.GetService<MainViewModel>();
-            ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
+            caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.UriNavigatedEvent += Caller_UriNavigatedEvent;
+            caller.UriNavigatedMessageEvent += Caller_UriNavigatedMessageEvent;
+            caller.FrameStatusEvent += Caller_FrameStatusEvent;
         }
+
+        private void Caller_FrameStatusEvent(object sender, FrameStatusEventArg e)
+        {
+            if(e.PersistenceId == PersistenceId)
+            {
+                GoBackButton.IsEnabled = e.CanGoBack;
+                GoForwardButton.IsEnabled = e.CanGoForward;
+                RefreshButton.IsEnabled = e.CanRefresh;
+            }
+        }
+
+        private void Caller_UriNavigatedMessageEvent(object sender, UriNavigatedMessageEventArg e)
+        {
+            if (Tabs.SelectedItem is TabViewItem item&& item.Name == e.TabItemName)
+            {
+                AddressBar.Text = e.NavigatedUri.ToString();
+                item.Tag = e.NavigatedUri;
+                item.Header = e.Title[1..^1];
+                if(e.Icon != null)
+                {
+                    Uri uri = new Uri(e.Icon);
+                    if (item.IconSource is ImageIconSource iconSource && iconSource.ImageSource is BitmapImage bitmap && bitmap.UriSource == uri) return;
+                    ImageIconSource i = new ImageIconSource()
+                    {
+                        ImageSource = new BitmapImage(uri)
+                    };
+                    item.IconSource = i;
+                }
+            }
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            UriNavigate(e.Parameter as Uri);
+            UriNavigate(e.Parameter as Uri, NavigateTabMode.NewTab);
         }
-        private void Caller_UriNavigatedEvent(object sender, Args.UriNavigatedEventArg e)
+        private void Caller_UriNavigatedEvent(object sender, UriNavigatedEventArg e)
         {
             UriNavigate(e.NavigatedUri);
         }
@@ -59,28 +98,29 @@ namespace EdgeEx.WinUI3.Pages
         /// </summary>
         private void TabView_AddTabButtonClick(TabView sender, object args)
         {
-            UriNavigate(new Uri("EdgeEx://NewTab/"));
+            UriNavigate(new Uri("EdgeEx://NewTab/"),NavigateTabMode.NewTab);
         }
-          
+        /// <summary>
+        /// Add a new Tab to the TabView
+        /// </summary>
         private void NewTab(string title,Uri uri,IconSource icon,Type page, NavigateTabMode mode)
         {
-            Frame frame = new Frame()
-            {
-                Margin = new Thickness(0, 48, 0, 0),
-            };
-            frame.Navigate(page, uri);
+            string name = Guid.NewGuid().ToString("N");
             if (mode == NavigateTabMode.NewTab)
             {
-                
-                string name = Guid.NewGuid().ToString("N");
+                Frame frame = new Frame()
+                {
+                    Margin = new Thickness(0, 48, 0, 0),
+                };
+                frame.Navigate(page, new NavigatePageArg(name, uri));
                 TabViewItem item = new TabViewItem
                 {
                     Name = name,
                     IconSource = icon,
                     Header = title,
                     Tag = uri,
-                    Content = frame,
                 };
+                item.Content = frame;
                 int index = Tabs.SelectedIndex + 1;
                 if(index == Tabs.TabItems.Count || Tabs.TabItems.Count == 0)
                 {
@@ -90,18 +130,33 @@ namespace EdgeEx.WinUI3.Pages
                 else
                 {
                     Tabs.TabItems.Insert(index, item);
-                    Tabs.SelectedItem = item;
+                    Tabs.SelectedIndex = index;
                 }
             }
             else if (mode == NavigateTabMode.Current)
             {
-                (Tabs.SelectedItem as TabViewItem).Content = frame;
+                if(Tabs.SelectedItem is TabViewItem item)
+                {
+                    item.Name = name;
+                    item.Tag = uri;
+                    (item.Content as Frame).Navigate(page, new NavigatePageArg(name, uri));
+                }
             }
         }
-        private void UriNavigate(Uri uri, NavigateTabMode mode = NavigateTabMode.NewTab)
+
+
+        private void UriNavigate(string uri, NavigateTabMode mode = NavigateTabMode.Current)
+        {
+            UriNavigate(new Uri(uri), mode);
+
+        }
+        private void UriNavigate(Uri uri, NavigateTabMode mode = NavigateTabMode.Current)
         {
             if(uri.Scheme == "edgeex")
             {
+                GoBackButton.IsEnabled = false;
+                GoForwardButton.IsEnabled = false;
+                RefreshButton.IsEnabled = false;
                 switch (uri.Host)
                 {
                     case "history":
@@ -120,7 +175,7 @@ namespace EdgeEx.WinUI3.Pages
             }
             else
             {
-
+                NewTab(uri.ToString(), uri, new FontIconSource() { Glyph = "\uE8A5" }, typeof(WebPage), mode);
             }
         }
 
@@ -146,10 +201,7 @@ namespace EdgeEx.WinUI3.Pages
         private void Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Tabs.SelectedItem is TabViewItem item)
-            {
-                Frame frame = item.Content as Frame;
-                ViewModel.CanGoBack = frame.CanGoBack;
-                ViewModel.CanGoForward = frame.CanGoForward;
+            { 
                 Uri uri = item.Tag as Uri;
                 AddressBar.Text = uri.ToString();
             }
@@ -158,35 +210,53 @@ namespace EdgeEx.WinUI3.Pages
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tabs.SelectedItem is TabViewItem item&& item.Content is Frame frame)
+            if (Tabs.SelectedItem is TabViewItem item)
             {
-                frame.GoBack();
-                ViewModel.CanGoBack = frame.CanGoBack;
-                ViewModel.CanGoForward = frame.CanGoForward;
+                caller.FrameOperate(sender, PersistenceId, item.Name, FrameOperation.GoBack);
             }
         }
 
         private void GoForwardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tabs.SelectedItem is TabViewItem item && item.Content is Frame frame)
-            { 
-                frame.GoForward();
-                ViewModel.CanGoBack = frame.CanGoBack;
-                ViewModel.CanGoForward = frame.CanGoForward;
+            if (Tabs.SelectedItem is TabViewItem item)
+            {
+                caller.FrameOperate(sender, PersistenceId, item.Name, FrameOperation.GoForward);
             }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tabs.SelectedItem is TabViewItem item && item.Tag is Uri uri)
+            if(Tabs.SelectedItem is TabViewItem item)
             {
-                UriNavigate(uri, NavigateTabMode.Current);
+                caller.FrameOperate(sender, PersistenceId, item.Name, FrameOperation.Refresh);
             }
         }
 
         private void Tabs_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
             Tabs.TabItems.Remove(args.Tab);
+        } 
+
+        private void AddressBar_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            
+        }
+
+        private void AddressBar_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            UriNavigate(AddressBar.Text, NavigateTabMode.Current);
+        }
+
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            caller.SizeChanged(e);
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            WindowEx window = WindowHelper.GetWindowForElement(this);
+            PersistenceId = window.PersistenceId;
+            window.SetTitleBar(AppTitleBar);
         }
     }
 }

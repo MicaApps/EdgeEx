@@ -17,6 +17,7 @@ using Serilog;
 using System;
 using System.IO;
 using Windows.ApplicationModel;
+using Windows.Foundation;
 using Windows.Globalization.NumberFormatting;
 using Windows.Storage;
 using Windows.System;
@@ -40,6 +41,11 @@ namespace EdgeEx.WinUI3.Pages
             ViewModel = App.Current.Services.GetService<SettingsViewModel>();
             Version.Text = string.Format("v{0}.{1}.{2}.{3}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
         }
+        private void Caller_SizeChangedEvent(object sender, SizeChangedEventArgs e)
+        {
+            Top.Height = e.NewSize.Height;
+            Top.Width = e.NewSize.Width;
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             
@@ -48,6 +54,7 @@ namespace EdgeEx.WinUI3.Pages
         {
             ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.WindowBackdropChangedEvent -= Caller_WindowBackdropChangedEvent;
+            caller.SizeChangedEvent -= Caller_SizeChangedEvent;
         }
         private void Caller_WindowBackdropChangedEvent(object sender, Args.WindowBackdropChangedEventArg e)
         {
@@ -135,6 +142,7 @@ namespace EdgeEx.WinUI3.Pages
             WindowBackdropComboBox.SelectedIndex = helper.CurrentBackdrop== WindowBackdrop.Acrylic ? 0 : 1;
             ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.WindowBackdropChangedEvent += Caller_WindowBackdropChangedEvent;
+            caller.SizeChangedEvent += Caller_SizeChangedEvent;
         }
         private async void LogButton_Click(object sender, RoutedEventArgs e)
         {
@@ -161,6 +169,9 @@ namespace EdgeEx.WinUI3.Pages
             formatter.FractionDigits = 2;
             formatter.NumberRounder = rounder;
             AcrylicFormattedNumberBox.NumberFormatter = formatter;
+            Rect rect = WindowHelper.GetWindowForElement(this).Bounds;
+            Top.Height = rect.Height - 48 - 48;
+            Top.Width = rect.Width;
         }
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {

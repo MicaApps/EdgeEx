@@ -11,6 +11,8 @@ namespace EdgeEx.WinUI3.ViewModels
         private bool canGoBack;
         [ObservableProperty]
         private bool canGoForward;
+        [ObservableProperty]
+        private bool isApp;
         public MainViewModel() { }
     }
 }
