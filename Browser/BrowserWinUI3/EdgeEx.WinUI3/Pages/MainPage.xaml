@@ -15,7 +15,7 @@
         <x:Double x:Key="EdgeExTitleBarHeight">48</x:Double>
         <x:Double x:Key="EdgeExCommandBarHeight">48</x:Double>
         <x:Double x:Key="EdgeExCommandBarButtonWidth">40</x:Double>
-        <Style TargetType="TabViewItem">
+        <Style x:Key="EdgeExTabViewItemStyle" TargetType="TabViewItem">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabViewItem">
@@ -414,20 +414,14 @@
     </Page.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="48" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
         <TabView
             x:Name="Tabs"
-            Grid.Row="0"
             AddTabButtonClick="TabView_AddTabButtonClick"
             Background="Transparent"
             BorderBrush="Transparent"
             CloseButtonOverlayMode="Always"
             SelectionChanged="Tabs_SelectionChanged"
-            TabCloseRequested="TabView_TabCloseRequested">
+            TabCloseRequested="Tabs_TabCloseRequested">
             <TabView.TabStripHeader>
                 <StackPanel Height="{StaticResource EdgeExTitleBarHeight}" Orientation="Horizontal">
                     <AppBarButton Width="48">
@@ -446,9 +440,8 @@
             </TabView.TabStripFooter>
         </TabView>
         <Grid
-            Grid.Row="1"
             Height="{StaticResource EdgeExCommandBarHeight}"
-            Margin="8,0"
+            Margin="8,48"
             VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -457,9 +450,23 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <AppBarButton Width="{StaticResource EdgeExCommandBarButtonWidth}" Icon="Back" />
-                <AppBarButton Width="{StaticResource EdgeExCommandBarButtonWidth}" Icon="Forward" />
-                <AppBarButton Width="{StaticResource EdgeExCommandBarButtonWidth}" Icon="Refresh" />
+                <AppBarButton
+                    x:Name="GoBackButton"
+                    Width="{StaticResource EdgeExCommandBarButtonWidth}"
+                    Click="GoBackButton_Click"
+                    Icon="Back"
+                    IsEnabled="{x:Bind ViewModel.CanGoBack, Mode=OneWay}" />
+                <AppBarButton
+                    x:Name="GoForwardButton"
+                    Width="{StaticResource EdgeExCommandBarButtonWidth}"
+                    Click="GoForwardButton_Click"
+                    Icon="Forward"
+                    IsEnabled="{x:Bind ViewModel.CanGoForward, Mode=OneWay}" />
+                <AppBarButton
+                    x:Name="RefreshButton"
+                    Width="{StaticResource EdgeExCommandBarButtonWidth}"
+                    Click="RefreshButton_Click"
+                    Icon="Refresh" />
                 <AppBarSeparator />
             </StackPanel>
             <TextBox

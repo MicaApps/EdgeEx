@@ -12,6 +12,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muc="using:Microsoft.UI.Composition.SystemBackdrops"
     xmlns:ui="using:CommunityToolkit.WinUI.UI"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
     <Page.Resources>
         <x:Double x:Key="SettingsCardSpacing">3</x:Double>
