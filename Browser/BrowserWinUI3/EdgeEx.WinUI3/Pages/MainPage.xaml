@@ -444,7 +444,7 @@
                     Background="Transparent" />
             </TabView.TabStripFooter>
         </TabView>
-        <Grid Grid.Row="1" Height="{StaticResource EdgeExCommandBarHeight}">
+        <Grid Grid.Row="1" Height="{StaticResource EdgeExCommandBarHeight}" Margin="8 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="*" />
@@ -453,9 +453,9 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <AppBarButton Width="48" Icon="Back" />
-                <AppBarButton Width="48" Icon="Forward" />
-                <AppBarButton Width="48" Icon="Refresh" />
+                <AppBarButton Width="40" Icon="Back" />
+                <AppBarButton Width="40" Icon="Forward" />
+                <AppBarButton Width="40" Icon="Refresh" />
                 <AppBarSeparator />
             </StackPanel>
             <TextBox
@@ -470,12 +470,12 @@
                 <AppBarSeparator />
                 <AppBarButton
                     x:Name="DownloadButthon"
-                    Width="48"
+                    Width="40"
                     Click="DownloadButthon_Click"
                     Icon="Download" />
                 <AppBarButton
                     x:Name="BookMarksButthon"
-                    Width="48"
+                    Width="40"
                     Click="BookMarksButthon_Click">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE728;" />
@@ -494,7 +494,7 @@
                 </AppBarButton>
                 <AppBarButton
                     x:Name="HistoryButton"
-                    Width="48"
+                    Width="40"
                     Click="HistoryButton_Click">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE81C;" />
@@ -502,12 +502,12 @@
                 </AppBarButton>
                 <AppBarButton
                     x:Name="SettingsButton"
-                    Width="48"
+                    Width="40"
                     Click="SettingsButton_Click"
                     Icon="Setting" />
                 <AppBarButton
                     x:Name="MoreButton"
-                    Width="48"
+                    Width="40"
                     Icon="More" />
             </StackPanel>
         </Grid>
