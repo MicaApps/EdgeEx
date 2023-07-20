@@ -156,8 +156,9 @@ namespace winrt::Winui3Cef::implementation
         CefInitialize(mainArgs, settings, app, nullptr) ?
             OutputDebugString(L"Cef initialized\n") :
             OutputDebugString(L"Cef initialize failed!!!!!!!!!!!!!!!!!!!!!\n");
+        
 
-        m_cefHwnd = CreateWindowEx(WS_EX_LAYERED, L"Static", L"", WS_VISIBLE | WS_CHILD, 0, 0, m_size.Width, m_size.Height,
+        m_cefHwnd = CreateWindowEx(WS_EX_LAYERED, L"Static", L"", WS_VISIBLE | WS_CHILD, this->ActualOffset().x, this->ActualOffset().y, m_size.Width, m_size.Height,
             GetHwnd(Global::s_window), nullptr, nullptr, nullptr);
 
         createBrowser();
@@ -170,6 +171,8 @@ namespace winrt::Winui3Cef::implementation
     {
         auto size = e.NewSize();
         auto dpi = GetDpiForWindow(GetDesktopWindow());
+        auto x = this->ActualOffset().x * dpi / 96;
+        auto y = this->ActualOffset().y * dpi / 96;
         m_size.Width = size.Width * dpi / 96;
         m_size.Height = size.Height * dpi / 96;
         //SetWindowRgn(m_cefHwnd, toHRGN(m_size), true);
@@ -177,18 +180,19 @@ namespace winrt::Winui3Cef::implementation
         if (m_client && m_client->m_host)
         {
             auto handle = m_client->m_host->GetWindowHandle();
+             
             //SetWindowPos(m_cefHwnd, NULL, getOrigin().X, getOrigin().Y, m_size.Width, m_size.Height, 0);
-            SetWindowPos(handle, NULL, getOrigin().X, getOrigin().Y, m_size.Width, m_size.Height, SWP_NOOWNERZORDER);
-            SetWindowPos(m_cefHwnd, NULL, getOrigin().X, getOrigin().Y, m_size.Width, m_size.Height, SWP_NOOWNERZORDER);
+            SetWindowPos(handle, NULL, 0,0, m_size.Width, m_size.Height, SWP_NOOWNERZORDER);
+            SetWindowPos(m_cefHwnd, NULL, x, y, m_size.Width, m_size.Height, SWP_NOOWNERZORDER);
         }
 
         if (m_isInit)
         {
             std::thread{
-                [this] {
+                [this, x, y] {
                     std::this_thread::sleep_for(std::chrono::seconds{1});
                     //SetWindowPos(GetHwnd(Global::s_window), 0, 0, 0, 0, 0, SWP_NOSIZE);
-                    SetWindowPos(m_cefHwnd, NULL, 0, 0, 0, 0, SWP_NOSIZE);
+                    SetWindowPos(m_cefHwnd, NULL, x, y, 0, 0, SWP_NOSIZE);
                     m_webMessageReceivedEvent(*this, L"some text");
                 }
             }.detach();
@@ -230,6 +234,7 @@ namespace winrt::Winui3Cef::implementation
 
     winrt::Windows::Foundation::Point CefView::getOrigin()
     {
+        
         return winrt::Windows::Foundation::Point{};
     }
 
