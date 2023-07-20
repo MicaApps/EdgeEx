@@ -102,7 +102,9 @@ namespace EdgeEx.WinUI3
             m_window = new MainWindow();
             WindowHelper.MainWindow = m_window;
             WindowHelper.TrackWindow(m_window);
-            m_window.Content = new MainPage();
+            Frame frame = new Frame();
+            frame.Navigate(typeof(MainPage), new Uri("EdgeEx://NewTab/"));
+            m_window.Content = frame;
             m_window.Activate();
         }
 

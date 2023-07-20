@@ -139,7 +139,6 @@
                             VerticalAlignment="Center"
                             FontSize="16"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            IsTextSelectionEnabled="True"
                             Style="{StaticResource CaptionTextBlockStyle}" />
                     </StackPanel>
                     <labs:SettingsExpander.Items>

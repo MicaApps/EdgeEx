@@ -1,3 +1,5 @@
+
+using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Uri = System.Uri;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,7 +37,10 @@ namespace EdgeEx.WinUI3.Pages
             ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.UriNavigatedEvent += Caller_UriNavigatedEvent;
         }
-
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            UriNavigate(e.Parameter as Uri);
+        }
         private void Caller_UriNavigatedEvent(object sender, Args.UriNavigatedEventArg e)
         {
             UriNavigate(e.NavigatedUri);
@@ -43,54 +49,67 @@ namespace EdgeEx.WinUI3.Pages
         // Add a new Tab to the TabView
         private void TabView_AddTabButtonClick(TabView sender, object args)
         {
-            var newTab = new TabViewItem();
-            newTab.IconSource = new SymbolIconSource() { Symbol = Symbol.Document };
-            newTab.Header = "New Document";
-
-            // The Content of a TabViewItem is often a frame which hosts a page.
-            Frame frame = new Frame();
-            newTab.Content = frame;
-            frame.Navigate(typeof(HomePage));
-
-            sender.TabItems.Add(newTab);
+            UriNavigate(new Uri("EdgeEx://NewTab/"));
         }
 
         // Remove the requested tab from the TabView
         private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
-        {
-            sender.TabItems.Remove(args.Item);
+        { 
+            //sender.TabItems.Remove(args.Item);
         }
 
         
-        private void NewTab(string title,IconSource icon,Type page)
+        private void NewTab(string title,Uri uri,IconSource icon,Type page, NavigateTabMode mode)
         {
-            Tabs.TabItems.Add(new TabViewItem
+            if (mode == NavigateTabMode.NewTab)
             {
-                IconSource = icon,
-                Header = title,
-                Tag = title,
-            });
-            ContentFrame.Navigate(page);
-        }
-        private void UriNavigate(Uri uri)
-        {
-            AddressBar.Text = uri.ToString();
-            switch(uri.Scheme) 
-            {
-                case "edgeex":
-                    switch (uri.Host)
-                    {
-                        case "history":
-                            NewTab("history", new FontIconSource() { Glyph = "\uE81C" }, typeof(HistroyPage));
-                            break;
-                        case "settings":
-                            NewTab("settings", new FontIconSource() { Glyph = "\uE713" }, typeof(SettingsPage));
-                            break;
-
-
-                    }
-                    break;
+                Frame frame = new Frame()
+                {
+                    Margin = new Thickness(0, 48, 0, 0),
+                };
                  
+                var item = new TabViewItem
+                {
+                    IconSource = icon,
+                    Header = title,
+                    Tag = uri,
+                    Content = frame,
+                };
+                int index = Tabs.SelectedIndex + 1;
+                if(index == Tabs.TabItems.Count || Tabs.TabItems.Count==0)
+                {
+                    Tabs.TabItems.Add(item);
+                }
+                else
+                {
+                    Tabs.TabItems.Insert(index, item);
+                }
+                Tabs.SelectedItem = item; 
+            }
+        }
+        private void UriNavigate(Uri uri, NavigateTabMode mode = NavigateTabMode.NewTab)
+        {
+            if(uri.Scheme == "edgeex")
+            {
+                switch (uri.Host)
+                {
+                    case "history":
+                        NewTab("history", uri, new FontIconSource() { Glyph = "\uE81C" }, typeof(HistroyPage), mode);
+                        break;
+                    case "settings":
+                        NewTab("settings", uri, new FontIconSource() { Glyph = "\uE713" }, typeof(SettingsPage), mode);
+                        break;
+                    case "newtab":
+                        NewTab("newtab", uri, new FontIconSource() { Glyph = "\uE8A5" }, typeof(HomePage), mode);
+                        break;
+                    default: 
+                        
+                        break;
+                }
+            }
+            else
+            {
+
             }
         }
 
@@ -111,6 +130,13 @@ namespace EdgeEx.WinUI3.Pages
         private void DownloadButthon_Click(object sender, RoutedEventArgs e)
         {
             ToggleThemeTeachingTip1.IsOpen = true;
+        }
+
+        private void Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Tabs.SelectedItem == null) return;
+            Uri uri = (Tabs.SelectedItem as FrameworkElement).Tag as Uri;
+            AddressBar.Text = uri.ToString();
         }
     }
 }
