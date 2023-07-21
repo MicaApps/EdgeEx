@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ex="using:EdgeEx.WinUI3.Extensions"
     xmlns:local="using:EdgeEx.WinUI3.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives"
@@ -490,6 +491,81 @@
                 QuerySubmitted="AddressBar_QuerySubmitted" />
 
             <StackPanel Grid.Column="3" Orientation="Horizontal">
+                <AppBarButton
+                    x:Name="FavoriteButton"
+                    Width="{StaticResource EdgeExCommandBarButtonWidth}"
+                    Click="FavoriteButton_Click">
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="BottomEdgeAlignedRight">
+                            <Grid Width="250" Padding="5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32" />
+                                    <RowDefinition Height="48" />
+                                    <RowDefinition Height="48" />
+                                    <RowDefinition Height="48" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    FontSize="17"
+                                    FontWeight="SemiBold"
+                                    Text="{ex:Locale Key=AddToBookmark}" />
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="{ex:Locale Key=Name}" />
+                                    <TextBox
+                                        Grid.Column="1"
+                                        Height="32"
+                                        Margin="10,0"
+                                        VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="{ex:Locale Key=Folder}" />
+                                    <TextBox
+                                        Grid.Column="1"
+                                        Height="32"
+                                        Margin="10,0"
+                                        VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Content="{ex:Locale Key=More}" />
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="2"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Orientation="Horizontal"
+                                        Spacing="20">
+                                        <Button Content="{ex:Locale Key=Confirm}" />
+                                        <Button Content="{ex:Locale Key=Delete}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                    <FontIcon Glyph="&#xE734;" />
+                </AppBarButton>
                 <AppBarSeparator />
                 <AppBarButton
                     x:Name="DownloadButthon"

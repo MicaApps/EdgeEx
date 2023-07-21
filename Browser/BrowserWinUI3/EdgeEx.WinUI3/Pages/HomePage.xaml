@@ -10,6 +10,12 @@
     mc:Ignorable="d">
 
     <Grid x:Name="Top" Loaded="Top_Loaded">
-        <TextBlock Text="±ð¼±,»¹Ã»Ð´" />
+        <GridView> 
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>

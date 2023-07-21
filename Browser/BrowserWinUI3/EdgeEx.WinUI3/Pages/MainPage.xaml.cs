@@ -353,5 +353,10 @@ namespace EdgeEx.WinUI3.Pages
                 }
             }
         }
+
+        private void FavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

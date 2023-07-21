@@ -225,4 +225,22 @@
   <data name="LabWarnIconToolTip" xml:space="preserve">
     <value>Experimental features may not work and cause crashes, please open them with caution⚠️</value>
   </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="AddToBookmark" xml:space="preserve">
+    <value>Add To Bookmark</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
 </root>

@@ -39,5 +39,11 @@ namespace EdgeEx.WinUI3.Enums
         DragOut,
         DragOutDes,
         LabWarnIconToolTip,
+        Folder,
+        AddToBookmark,
+        Name,
+        Confirm,
+        Delete,
+        More,
     }
 }

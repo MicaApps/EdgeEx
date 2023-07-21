@@ -128,9 +128,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="Controls\LabIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

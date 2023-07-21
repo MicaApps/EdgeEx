@@ -24,7 +24,7 @@
                     <EntranceThemeTransition FromVerticalOffset="50" />
                     <RepositionThemeTransition IsStaggeringEnabled="False" />
                 </StackPanel.ChildrenTransitions>
-
+                <TextBlock Style="{ThemeResource TitleLargeTextBlockStyle}" Text="{ex:Locale Key=Settings}" />
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=ThemeSettings}" />
                 <labs:SettingsCard
                     x:Name="ThemeSettingCard"

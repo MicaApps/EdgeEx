@@ -26,7 +26,10 @@
                     <EntranceThemeTransition FromVerticalOffset="50" />
                     <RepositionThemeTransition IsStaggeringEnabled="False" />
                 </StackPanel.ChildrenTransitions>
-
+                <TextBlock
+                    Margin="0,0,0,15"
+                    Style="{ThemeResource TitleLargeTextBlockStyle}"
+                    Text="{ex:Locale Key=Lab}" />
                 <labs:SettingsExpander Description="{ex:Locale Key=WindowBackdropDescription}" Header="{ex:Locale Key=WindowBackdropLab}">
                     <labs:SettingsExpander.HeaderIcon>
                         <FontIcon Glyph="&#xF354;" />
