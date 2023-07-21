@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Serilog;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Windows.UI;
 using WinRT;
 using WinUIEx;
@@ -44,6 +45,17 @@ namespace EdgeEx.WinUI3.Helpers
                     {
                         return window;
                     }
+                }
+            }
+            return null;
+        }
+        static public WindowEx GetWindowForPersistenceId(string persistenceId)
+        {
+            foreach (WindowEx window in _activeWindows)
+            {
+                if (persistenceId == window.PersistenceId)
+                {
+                    return window;
                 }
             }
             return null;

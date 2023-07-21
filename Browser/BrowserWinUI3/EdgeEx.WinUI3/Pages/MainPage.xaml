@@ -417,11 +417,20 @@
         <TabView
             x:Name="Tabs"
             AddTabButtonClick="TabView_AddTabButtonClick"
+            AllowDrop="True"
             Background="Transparent"
             BorderBrush="Transparent"
+            CanDragTabs="True"
             CloseButtonOverlayMode="Always"
+            DragOver="Tabs_DragOver"
+            Drop="Tabs_Drop"
+            DropCompleted="Tabs_DropCompleted"
             SelectionChanged="Tabs_SelectionChanged"
-            TabCloseRequested="Tabs_TabCloseRequested">
+            TabCloseRequested="Tabs_TabCloseRequested"
+            TabDragCompleted="Tabs_TabDragCompleted"
+            TabDragStarting="Tabs_TabDragStarting"
+            TabDroppedOutside="Tabs_TabDroppedOutside">
+
             <TabView.TabStripHeader>
                 <StackPanel Height="{StaticResource EdgeExTitleBarHeight}" Orientation="Horizontal">
                     <AppBarButton Width="{StaticResource EdgeExCommandBarButtonWidth}" Height="{StaticResource EdgeExTitleBarHeight}">

@@ -61,6 +61,7 @@
     <None Remove="Assets\Wide310x150Logo.scale-400.png" />
     <None Remove="Assets\WindowIcon.ico" />
     <None Remove="Controls\AppAuthor.xaml" />
+    <None Remove="Controls\LabIcon.xaml" />
     <None Remove="Pages\HistroyPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\LabSettingsPage.xaml" />
@@ -128,6 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\LabIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\LabSettingsPage.xaml">

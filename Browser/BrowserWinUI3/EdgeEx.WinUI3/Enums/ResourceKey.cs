@@ -34,5 +34,10 @@ namespace EdgeEx.WinUI3.Enums
         NewTab,
         History,
         ThemeSettingsDes,
+        TabDragTo,
+        TabDragToDes,
+        DragOut,
+        DragOutDes,
+        LabWarnIconToolTip,
     }
 }

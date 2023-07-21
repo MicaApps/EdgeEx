@@ -210,4 +210,19 @@
   <data name="ThemeSettingsDes" xml:space="preserve">
     <value>设置应用的颜色</value>
   </data>
+  <data name="TabDragTo" xml:space="preserve">
+    <value>拖入合并</value>
+  </data>
+  <data name="DragOut" xml:space="preserve">
+    <value>撕下标签页</value>
+  </data>
+  <data name="DragOutDes" xml:space="preserve">
+    <value>拖出标签页新建窗口</value>
+  </data>
+  <data name="TabDragToDes" xml:space="preserve">
+    <value>拖入窗口合并标签页</value>
+  </data>
+  <data name="LabWarnIconToolTip" xml:space="preserve">
+    <value>实验性功能,可能不能运行,导致崩溃,请谨慎开启⚠️</value>
+  </data>
 </root>

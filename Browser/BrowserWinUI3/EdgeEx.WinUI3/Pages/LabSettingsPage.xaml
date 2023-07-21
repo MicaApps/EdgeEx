@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:co="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:controls="using:EdgeEx.WinUI3.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ex="using:EdgeEx.WinUI3.Extensions"
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
@@ -26,7 +27,6 @@
                     <RepositionThemeTransition IsStaggeringEnabled="False" />
                 </StackPanel.ChildrenTransitions>
 
-                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Locale Key=ThemeSettings}" />
                 <labs:SettingsExpander Description="{ex:Locale Key=WindowBackdropDescription}" Header="{ex:Locale Key=WindowBackdropLab}">
                     <labs:SettingsExpander.HeaderIcon>
                         <FontIcon Glyph="&#xF354;" />
@@ -105,6 +105,30 @@
                         </labs:SettingsCard>
                     </labs:SettingsExpander.Items>
                 </labs:SettingsExpander>
+                <labs:SettingsCard
+                    x:Name="DragOutCard"
+                    Description="{ex:Locale Key=DragOutDes}"
+                    Header="{ex:Locale Key=DragOut}">
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8A7;" />
+                    </labs:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.IsTabDragOut, Mode=TwoWay}" />
+                        <controls:LabIcon />
+                    </StackPanel>
+                </labs:SettingsCard>
+                <labs:SettingsCard
+                    x:Name="TabDragToCard"
+                    Description="{ex:Locale Key=TabDragToDes}"
+                    Header="{ex:Locale Key=TabDragTo}">
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE78B;" />
+                    </labs:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.IsTabDragTo, Mode=TwoWay}" />
+                        <controls:LabIcon />
+                    </StackPanel>
+                </labs:SettingsCard>
             </StackPanel>
         </ScrollViewer>
     </Grid>

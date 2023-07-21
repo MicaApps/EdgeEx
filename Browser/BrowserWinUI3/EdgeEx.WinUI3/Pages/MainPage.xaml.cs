@@ -21,12 +21,15 @@ using Microsoft.Win32;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -47,6 +50,7 @@ namespace EdgeEx.WinUI3.Pages
     {
         private MainViewModel ViewModel { get; }
         private ResourceToolkit resourceToolkit;
+        private LocalSettingsToolkit localSettingsToolkit;
         private ICallerToolkit caller;
         private int titleBarHeight;
         private int commandBarHeight;
@@ -58,6 +62,7 @@ namespace EdgeEx.WinUI3.Pages
             commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
             ViewModel = App.Current.Services.GetService<MainViewModel>();
             resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
+            localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
             caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.UriNavigatedEvent += Caller_UriNavigatedEvent;
             caller.UriNavigatedMessageEvent += Caller_UriNavigatedMessageEvent;
@@ -89,7 +94,15 @@ namespace EdgeEx.WinUI3.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            UriNavigate(e.Parameter as Uri, NavigateTabMode.NewTab);
+            if(e.Parameter is Uri uri)
+            {
+                UriNavigate(uri, NavigateTabMode.NewTab);
+            }else if(e.Parameter is TabViewItem item)
+            {
+                Tabs.TabItems.Add(item);
+                Tabs.SelectedIndex = 0;
+            }
+            
         }
         private void Caller_UriNavigatedEvent(object sender, UriNavigatedEventArg e)
         {
@@ -271,6 +284,74 @@ namespace EdgeEx.WinUI3.Pages
         {
             WindowEx window = WindowHelper.GetWindowForElement(this);
             PersistenceId = window.PersistenceId;
+        }
+
+        private void Tabs_TabDragStarting(TabView sender, TabViewTabDragStartingEventArgs args)
+        {
+            if (localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragTo))
+            {
+                DataPackage data = args.Data;
+                data.RequestedOperation = DataPackageOperation.Move;
+                data.SetText($"{PersistenceId}|{sender.TabItems.IndexOf(args.Tab)}");
+            }
+        }
+        private void Tabs_TabDroppedOutside(TabView sender, TabViewTabDroppedOutsideEventArgs args)
+        {
+            if (localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragOut))
+            {
+
+                ThemeHelper.InitializeSetting();
+                MainWindow window = new MainWindow();
+                Frame frame = new Frame();
+                window.PersistenceId = Guid.NewGuid().ToString("N");
+                frame.Navigate(typeof(MainPage), args.Tab);
+                window.Content = frame;
+                WindowHelper.TrackWindow(window);
+                window.Activate();
+                ThemeHelper.Initialize();
+                Tabs.TabItems.Remove(args.Tab);
+                if (Tabs.TabItems.Count == 0)
+                {
+                    WindowHelper.GetWindowForElement(this)?.Close();
+                }
+            }
+        }
+        
+        private void Tabs_TabDragCompleted(TabView sender, TabViewTabDragCompletedEventArgs args)
+        {
+           
+        }
+
+        private void Tabs_DragOver(object sender, DragEventArgs e)
+        {
+            if (localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragTo))
+            {
+                e.AcceptedOperation = DataPackageOperation.Move;
+                e.DragUIOverride.Caption = resourceToolkit.GetString(ResourceKey.TabDragTo);
+                e.DragUIOverride.IsCaptionVisible = true;
+                e.DragUIOverride.IsContentVisible = true;
+                e.DragUIOverride.IsGlyphVisible = true;
+            }
+            
+        }
+
+        private void Tabs_DropCompleted(UIElement sender, DropCompletedEventArgs args)
+        {
+           
+        }
+
+        private async void Tabs_Drop(object sender, DragEventArgs e)
+        {
+            if (localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragTo))
+            {
+                string a = await e.DataView.GetTextAsync();
+                string[] args = a.Split('|');
+                int index = Convert.ToInt32(args[1]);
+                if (args[0] != PersistenceId && index < Tabs.TabItems.Count && index >= 0)
+                {
+
+                }
+            }
         }
     }
 }

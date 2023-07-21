@@ -25,6 +25,22 @@ namespace EdgeEx.WinUI3.ViewModels
             _localSettingsToolkit = localSettingsToolkit;
             _resourceToolkit = resourceToolkit;
             _callerToolkit = caller;
+            if (!_localSettingsToolkit.Contains(LocalSettingName.IsTabDragOut))
+            {
+                _localSettingsToolkit.Set(LocalSettingName.IsTabDragOut, false);
+            }
+            else
+            {
+                IsTabDragOut = _localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragOut);
+            }
+            if (!_localSettingsToolkit.Contains(LocalSettingName.IsTabDragTo))
+            {
+                _localSettingsToolkit.Set(LocalSettingName.IsTabDragTo, false);
+            }
+            else
+            {
+                IsTabDragTo = _localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragTo);
+            }
         }
         public DesktopAcrylicController InitDesktopAcrylicController(DesktopAcrylicController controller = null)
         {
@@ -67,7 +83,18 @@ namespace EdgeEx.WinUI3.ViewModels
         private MicaKind kind;
         [ObservableProperty]
         private WindowBackdrop windowBackdrop;
-
+        [ObservableProperty]
+        private bool isTabDragTo;
+        [ObservableProperty]
+        private bool isTabDragOut;
+        partial void OnIsTabDragOutChanged(bool oldValue, bool newValue)
+        {
+            _localSettingsToolkit.Set(LocalSettingName.IsTabDragOut, newValue);
+        }
+        partial void OnIsTabDragToChanged(bool oldValue, bool newValue)
+        {
+            _localSettingsToolkit.Set(LocalSettingName.IsTabDragTo, newValue);
+        }
         public void ChangeWindowBackdrop(WindowBackdrop oldMode, WindowBackdrop newMode)
         {
             _callerToolkit.ChangeWindowBackdrop(oldMode, newMode, AcrylicTintColor, AcrylicFallbackColor, AcrylicTintOpacity, Kind);

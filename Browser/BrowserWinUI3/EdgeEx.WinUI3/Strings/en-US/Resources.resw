@@ -210,4 +210,19 @@
   <data name="ThemeSettingsDes" xml:space="preserve">
     <value>Set The Color Of The Application</value>
   </data>
+  <data name="TabDragTo" xml:space="preserve">
+    <value>Tab Drag To Merge</value>
+  </data>
+  <data name="DragOut" xml:space="preserve">
+    <value>Drag Out Tab</value>
+  </data>
+  <data name="DragOutDes" xml:space="preserve">
+    <value>Drag Out A Tab To Create A New Window</value>
+  </data>
+  <data name="TabDragToDes" xml:space="preserve">
+    <value>Drag Into Windows To Merge Tabs</value>
+  </data>
+  <data name="LabWarnIconToolTip" xml:space="preserve">
+    <value>Experimental features may not work and cause crashes, please open them with caution⚠️</value>
+  </data>
 </root>
