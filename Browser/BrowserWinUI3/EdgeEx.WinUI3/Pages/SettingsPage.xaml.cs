@@ -42,6 +42,7 @@ namespace EdgeEx.WinUI3.Pages
         private string PersistenceId { get; set; }
         private string TabItemName { get; set; }
         private Uri NavigateUri { get; set; }
+
         private ICallerToolkit caller;
         public SettingsPage()
         {
@@ -99,6 +100,7 @@ namespace EdgeEx.WinUI3.Pages
         {
             caller.SizeChangedEvent -= Caller_SizeChangedEvent;
             caller.WindowBackdropChangedEvent -= Caller_WindowBackdropChangedEvent;
+            caller.FrameOperationEvent -= Caller_FrameOperationEvent;
         }
         private void Caller_WindowBackdropChangedEvent(object sender, Args.WindowBackdropChangedEventArg e)
         {

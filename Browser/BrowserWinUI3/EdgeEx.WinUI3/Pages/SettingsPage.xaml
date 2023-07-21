@@ -113,36 +113,44 @@
                                 HorizontalScrollMode="Enabled"
                                 VerticalScrollBarVisibility="Hidden"
                                 VerticalScrollMode="Disabled">
-                                <StackPanel
-                                    HorizontalAlignment="Left"
-                                    Orientation="Horizontal"
-                                    Spacing="5">
-                                    <cols:AppAuthor
-                                        Title="MicaCraft"
-                                        Description="{ex:Locale Key=MicaCraftDes}"
-                                        NavigateUri="https://github.com/MicaCraft"
-                                        Thumb="ms-appx:///Assets/Authors/MicaCraft.png" />
-                                    <cols:AppAuthor
-                                        Title="{ex:Locale Key=MicaAppsTitle}"
-                                        Description="{ex:Locale Key=MicaAppsDes}"
-                                        NavigateUri="https://github.com/MicaApps"
-                                        Thumb="ms-appx:///Assets/Authors/MicaApps.png" />
-                                    <cols:AppAuthor
-                                        Title="HO-COOH"
-                                        Description="CEF"
-                                        NavigateUri="https://github.com/HO-COOH"
-                                        Thumb="ms-appx:///Assets/Authors/HO-COOH.jpg" />
-                                    <cols:AppAuthor
-                                        Title="kitUIN"
-                                        Description="{ex:Locale Key=UICode}"
-                                        NavigateUri="https://github.com/kitUIN"
-                                        Thumb="ms-appx:///Assets/Authors/kitUIN.jpg" />
-                                    <cols:AppAuthor
-                                        Title="Shomnipotence"
-                                        Description="UI"
-                                        NavigateUri="https://github.com/Shomnipotence"
-                                        Thumb="ms-appx:///Assets/Authors/Shomnipotence.jpg" />
+                                <StackPanel Orientation="Vertical" Spacing="5">
+                                    <StackPanel
+                                        HorizontalAlignment="Left"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <cols:AppAuthor
+                                            Title="MicaCraft"
+                                            Description="{ex:Locale Key=MicaCraftDes}"
+                                            NavigateUri="https://github.com/MicaCraft"
+                                            Thumb="ms-appx:///Assets/Authors/MicaCraft.png" />
+                                        <cols:AppAuthor
+                                            Title="{ex:Locale Key=MicaAppsTitle}"
+                                            Description="{ex:Locale Key=MicaAppsDes}"
+                                            NavigateUri="https://github.com/MicaApps"
+                                            Thumb="ms-appx:///Assets/Authors/MicaApps.png" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        HorizontalAlignment="Left"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <cols:AppAuthor
+                                            Title="HO-COOH"
+                                            Description="CEF"
+                                            NavigateUri="https://github.com/HO-COOH"
+                                            Thumb="ms-appx:///Assets/Authors/HO-COOH.jpg" />
+                                        <cols:AppAuthor
+                                            Title="kitUIN"
+                                            Description="{ex:Locale Key=UICode}"
+                                            NavigateUri="https://github.com/kitUIN"
+                                            Thumb="ms-appx:///Assets/Authors/kitUIN.jpg" />
+                                        <cols:AppAuthor
+                                            Title="Shomnipotence"
+                                            Description="UI"
+                                            NavigateUri="https://github.com/Shomnipotence"
+                                            Thumb="ms-appx:///Assets/Authors/Shomnipotence.jpg" />
+                                    </StackPanel>
                                 </StackPanel>
+
                             </ScrollViewer>
                         </labs:SettingsCard>
                         <labs:SettingsCard
