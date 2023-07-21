@@ -20,11 +20,30 @@ namespace EdgeEx.WinUI3.Controls
 {
     public sealed partial class AppAuthor : UserControl
     {
+        public static readonly DependencyProperty IsCircleProperty =
+           DependencyProperty.Register(nameof(IsCircle),
+               typeof(bool),
+               typeof(AppAuthor),
+               new PropertyMetadata(default, new PropertyChangedCallback(OnIsCircleChanged)));
+        public bool IsCircle
+        {
+            get { return (bool)GetValue(IsCircleProperty); }
+            set { SetValue(IsCircleProperty, value); }
+        }
+        private static void OnIsCircleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            AppAuthor control = (AppAuthor)d;
+            control.IsCircle = (bool)e.NewValue;
+        }
         public static readonly DependencyProperty TitleProperty =
            DependencyProperty.Register(nameof(Title),
                typeof(string),
                typeof(AppAuthor),
                new PropertyMetadata(default, new PropertyChangedCallback(OnTitleChanged)));
+        private Visibility Not(bool f)
+        {
+            return f ? Visibility.Collapsed : Visibility.Visible;
+        }
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }

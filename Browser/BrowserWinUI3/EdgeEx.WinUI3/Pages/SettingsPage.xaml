@@ -121,11 +121,13 @@
                                         <cols:AppAuthor
                                             Title="MicaCraft"
                                             Description="{ex:Locale Key=MicaCraftDes}"
+                                            IsCircle="False"
                                             NavigateUri="https://github.com/MicaCraft"
                                             Thumb="ms-appx:///Assets/Authors/MicaCraft.png" />
                                         <cols:AppAuthor
                                             Title="{ex:Locale Key=MicaAppsTitle}"
                                             Description="{ex:Locale Key=MicaAppsDes}"
+                                            IsCircle="False"
                                             NavigateUri="https://github.com/MicaApps"
                                             Thumb="ms-appx:///Assets/Authors/MicaApps.png" />
                                     </StackPanel>
@@ -136,16 +138,19 @@
                                         <cols:AppAuthor
                                             Title="HO-COOH"
                                             Description="CEF"
+                                            IsCircle="True"
                                             NavigateUri="https://github.com/HO-COOH"
                                             Thumb="ms-appx:///Assets/Authors/HO-COOH.jpg" />
                                         <cols:AppAuthor
                                             Title="kitUIN"
                                             Description="{ex:Locale Key=UICode}"
+                                            IsCircle="True"
                                             NavigateUri="https://github.com/kitUIN"
                                             Thumb="ms-appx:///Assets/Authors/kitUIN.jpg" />
                                         <cols:AppAuthor
                                             Title="Shomnipotence"
                                             Description="UI"
+                                            IsCircle="True"
                                             NavigateUri="https://github.com/Shomnipotence"
                                             Thumb="ms-appx:///Assets/Authors/Shomnipotence.jpg" />
                                     </StackPanel>

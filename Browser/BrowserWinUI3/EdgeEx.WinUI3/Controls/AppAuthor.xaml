@@ -14,13 +14,20 @@
             VerticalAlignment="Center"
             Orientation="Horizontal"
             Spacing="10">
-            <Border
-                Width="64"
-                Height="64"
-                CornerRadius="5">
-                <Image Source="{x:Bind Thumb, Mode=OneWay}" />
-            </Border>
-
+            <Grid>
+                <PersonPicture
+                    Width="64"
+                    Height="64"
+                    ProfilePicture="{x:Bind Thumb, Mode=OneWay}"
+                    Visibility="{x:Bind IsCircle, Mode=OneWay}" />
+                <Border
+                    Width="64"
+                    Height="64"
+                    CornerRadius="5"
+                    Visibility="{x:Bind Not(IsCircle), Mode=OneWay}">
+                    <Image Source="{x:Bind Thumb, Mode=OneWay}" />
+                </Border>
+            </Grid>
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
