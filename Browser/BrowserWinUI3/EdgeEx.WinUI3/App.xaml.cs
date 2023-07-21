@@ -1,4 +1,5 @@
-﻿using EdgeEx.WinUI3.Helpers;
+﻿using CommunityToolkit.WinUI.UI.Helpers;
+using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Pages;
 using EdgeEx.WinUI3.Toolkits;
@@ -25,6 +26,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.ViewManagement;
 using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -41,6 +43,8 @@ namespace EdgeEx.WinUI3
         /// Database Path
         /// </summary>
         public static string DatabasePath { get; } = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "EdgeEx.WinUI3.sqlite");
+
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -51,7 +55,6 @@ namespace EdgeEx.WinUI3
             InitLogger();
             InitDatabase();
             this.InitializeComponent();
-            
         }
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
@@ -100,16 +103,18 @@ namespace EdgeEx.WinUI3
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            ThemeHelper.InitializeSetting();
             m_window = new MainWindow();
             WindowHelper.MainWindow = m_window;
-            WindowHelper.TrackWindow(m_window);
             Frame frame = new Frame();
             m_window.PersistenceId = Guid.NewGuid().ToString("N");
             frame.Navigate(typeof(MainPage), new Uri("EdgeEx://NewTab/"));
             m_window.Content = frame;
+            WindowHelper.TrackWindow(m_window);
             m_window.Activate();
+            ThemeHelper.Initialize();
         }
-
+        
         /// <summary>
         /// Init DataBase
         /// </summary>

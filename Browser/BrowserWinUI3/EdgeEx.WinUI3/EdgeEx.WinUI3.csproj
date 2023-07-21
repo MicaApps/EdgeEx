@@ -63,6 +63,7 @@
     <None Remove="Controls\AppAuthor.xaml" />
     <None Remove="Pages\HistroyPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
+    <None Remove="Pages\LabSettingsPage.xaml" />
     <None Remove="Pages\MainPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
     <None Remove="Pages\WebPage.xaml" />
@@ -127,6 +128,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\LabSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\WebPage.xaml">

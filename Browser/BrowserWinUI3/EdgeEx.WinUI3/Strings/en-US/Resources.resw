@@ -138,6 +138,12 @@
   <data name="FallbackColor" xml:space="preserve">
     <value>FallbackColor</value>
   </data>
+  <data name="Lab" xml:space="preserve">
+    <value>Laboratory</value>
+  </data>
+  <data name="LabDes" xml:space="preserve">
+    <value>Experimental Features</value>
+  </data>
   <data name="Log" xml:space="preserve">
     <value>Log</value>
   </data>
@@ -181,6 +187,27 @@
     <value>Window Backdrop</value>
   </data>
   <data name="WindowBackdropDescription" xml:space="preserve">
-    <value>Window Backdrop Description</value>
+    <value>Set Acrylic/Mica Window Backdrop</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="NewTab" xml:space="preserve">
+    <value>NewTab</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="WindowBackdropLab" xml:space="preserve">
+    <value>Window Backdrop(Custom)</value>
+  </data>
+  <data name="ThemeSettingsDes" xml:space="preserve">
+    <value>Set The Color Of The Application</value>
   </data>
 </root>

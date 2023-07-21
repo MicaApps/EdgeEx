@@ -4,6 +4,7 @@ namespace EdgeEx.WinUI3.Enums
     {
         AppTitle,
         WindowBackdrop,
+        WindowBackdropLab,
         ThemeSettings,
         WindowBackdropDescription,
         About,
@@ -25,5 +26,13 @@ namespace EdgeEx.WinUI3.Enums
         TintOpacity,
         FallbackColor,
         MicaKind,
+        Dark,
+        Light,
+        Lab,
+        LabDes,
+        Settings,
+        NewTab,
+        History,
+        ThemeSettingsDes,
     }
 }

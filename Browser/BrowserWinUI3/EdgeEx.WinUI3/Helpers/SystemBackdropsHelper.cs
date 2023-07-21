@@ -6,6 +6,7 @@ using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Serilog;
+using Windows.UI;
 using WinRT;
 using WinUIEx;
 
@@ -17,7 +18,12 @@ namespace EdgeEx.WinUI3.Helpers;
 public class SystemBackdropsHelper
 {
     private LocalSettingsToolkit localSettingsToolkit;
-
+    public readonly static Color LightDefaultTintColor = "#FFFFFFFF".ToColor();
+    public readonly static float LightDefaultTintOpacity = 0.8F;
+    public readonly static Color LightDefaultFallbackColor = "#FFF9F9F9".ToColor();
+    public readonly static Color DarkDefaultTintColor = "#FF1C1C1C".ToColor();
+    public readonly static float DarkDefaultTintOpacity = 0.8F;
+    public readonly static Color DarkDefaultFallbackColor = "#FF1F1F1F".ToColor();
     private WindowEx window;
     public WindowEx Window { get => window; }
     private WindowBackdrop currentBackdrop;
@@ -47,6 +53,12 @@ public class SystemBackdropsHelper
             // Default set Acrylic
             CurrentBackdrop = WindowBackdrop.Acrylic;
         }
+        Reload();
+
+
+    }
+    public void Reload()
+    {
         if (IsDefault)
         {
             // Default set
@@ -54,21 +66,34 @@ public class SystemBackdropsHelper
         }
         else
         {
-            if(CurrentBackdrop== WindowBackdrop.Acrylic)
+            if (CurrentBackdrop == WindowBackdrop.Acrylic)
             {
-                SetBackdrop(CurrentBackdrop, new DesktopAcrylicController()
+                LocalSettingsToolkit toolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
+                string savedTheme = toolkit.GetString(LocalSettingName.SelectedAppTheme);
+                if (savedTheme == "Dark")
                 {
-                    TintColor = localSettingsToolkit.GetString(LocalSettingName.AcrylicTintColor).ToColor(),
-                    TintOpacity = localSettingsToolkit.GetFloat(LocalSettingName.AcrylicTintOpacity),
-                    FallbackColor = localSettingsToolkit.GetString(LocalSettingName.AcrylicFallbackColor).ToColor(),
-                });
+                    SetBackdrop(CurrentBackdrop, new DesktopAcrylicController()
+                    {
+                        TintColor = localSettingsToolkit.GetString(LocalSettingName.DarkAcrylicTintColor).ToColor(),
+                        TintOpacity = localSettingsToolkit.GetFloat(LocalSettingName.DarkAcrylicTintOpacity),
+                        FallbackColor = localSettingsToolkit.GetString(LocalSettingName.DarkAcrylicFallbackColor).ToColor(),
+                    });
+                }
+                else
+                {
+                    SetBackdrop(CurrentBackdrop, new DesktopAcrylicController()
+                    {
+                        TintColor = localSettingsToolkit.GetString(LocalSettingName.LightAcrylicTintColor).ToColor(),
+                        TintOpacity = localSettingsToolkit.GetFloat(LocalSettingName.LightAcrylicTintOpacity),
+                        FallbackColor = localSettingsToolkit.GetString(LocalSettingName.LightAcrylicFallbackColor).ToColor(),
+                    });
+                }
             }
             else
             {
-                Log.Information(localSettingsToolkit.GetString(LocalSettingName.MicaKind));
                 SetBackdrop(CurrentBackdrop, new MicaController()
                 {
-                   Kind = EnumHelper.GetEnum<MicaKind>(localSettingsToolkit.GetString(LocalSettingName.MicaKind)),
+                    Kind = EnumHelper.GetEnum<MicaKind>(localSettingsToolkit.GetString(LocalSettingName.MicaKind)),
                 });
             }
         }
@@ -76,7 +101,19 @@ public class SystemBackdropsHelper
     }
     public bool IsDefault
     {
-        get => !(localSettingsToolkit.GetString(LocalSettingName.AcrylicTintColor) is string);
+        get
+        {
+            LocalSettingsToolkit toolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
+            string savedTheme = toolkit.GetString(LocalSettingName.SelectedAppTheme);
+            if (savedTheme == "Dark")
+            {
+                return !(localSettingsToolkit.GetString(LocalSettingName.DarkAcrylicTintColor) is string);
+            }
+            else
+            {
+                return !(localSettingsToolkit.GetString(LocalSettingName.LightAcrylicTintColor) is string);
+            }
+        }
     }
     public static WindowBackdrop IsMica { 
         get{
@@ -165,7 +202,6 @@ public class SystemBackdropsHelper
             SetConfigurationSourceTheme();
 
             m_micaController ??= new MicaController();
-            Log.Information("Set Mica WindowBackdrop:Kind={Kind}", m_micaController.Kind);
             // Enable the system backdrop.
             // Note: Be sure to have "using WinRT;" to support the Window.As<...>() call.
             m_micaController.AddSystemBackdropTarget(this.window.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>());
@@ -187,21 +223,30 @@ public class SystemBackdropsHelper
 
             // Initial configuration state.
             m_configurationSource.IsInputActive = true;
-            SetConfigurationSourceTheme();
-            AcrylicBrush defaultAcrylicBrush = Application.Current.Resources["DefaultEdgeExAcrylicBrush"] as AcrylicBrush;
+            SetConfigurationSourceTheme(); 
             if (m_acrylicController == null)
             {
-                m_acrylicController = new DesktopAcrylicController
+                LocalSettingsToolkit toolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
+                string savedTheme = toolkit.GetString(LocalSettingName.SelectedAppTheme);
+                if (savedTheme == "Dark")
                 {
-                    TintColor = defaultAcrylicBrush.TintColor,
-                    TintOpacity = (float)defaultAcrylicBrush.TintOpacity,
-                    FallbackColor = defaultAcrylicBrush.FallbackColor,
-                };
+                    m_acrylicController = new DesktopAcrylicController
+                    {
+                        TintColor = DarkDefaultTintColor,
+                        TintOpacity = DarkDefaultTintOpacity,
+                        FallbackColor = DarkDefaultFallbackColor,
+                    };
+                }
+                else
+                {
+                    m_acrylicController = new DesktopAcrylicController
+                    {
+                        TintColor = LightDefaultTintColor,
+                        TintOpacity = LightDefaultTintOpacity,
+                        FallbackColor = LightDefaultFallbackColor,
+                    };
+                }
             }
-            Log.Information("Set Acrylic WindowBackdrop:TintColor={TintColor},TintOpacity={TintOpacity},FallbackColor={FallbackColor}",
-                m_acrylicController.TintColor, 
-                m_acrylicController.TintOpacity,
-                m_acrylicController.FallbackColor);
             // Enable the system backdrop.
             // Note: Be sure to have "using WinRT;" to support the Window.As<...>() call.
             m_acrylicController.AddSystemBackdropTarget(this.window.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>());

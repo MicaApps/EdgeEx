@@ -1,29 +1,11 @@
 using EdgeEx.WinUI3.Enums;
-using EdgeEx.WinUI3.Helpers;
-using EdgeEx.WinUI3.Pages;
 using EdgeEx.WinUI3.Toolkits;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI;
-using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using WinRT.Interop;
+using Windows.UI.ViewManagement;
 using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -43,7 +25,7 @@ namespace EdgeEx.WinUI3
             ResourceToolkit resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             Title = resourceToolkit.GetString(ResourceKey.AppTitle);
             ExtendsContentIntoTitleBar = true;
-            
         }
+
     }
 }

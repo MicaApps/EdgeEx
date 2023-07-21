@@ -16,8 +16,8 @@
                 <ResourceDictionary>
                     <AcrylicBrush
                         x:Key="DefaultEdgeExAcrylicBrush"
-                        FallbackColor="#FF1F1F1F"
-                        TintColor="#FF1C1C1C"
+                        FallbackColor="#FFF9F9F9"
+                        TintColor="#FFFFFFFF"
                         TintOpacity="0.8" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

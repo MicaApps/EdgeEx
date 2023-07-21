@@ -3,6 +3,7 @@ using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Interfaces;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -51,9 +52,9 @@ namespace EdgeEx.WinUI3.Toolkits
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public void FrameOperate(object sender, string persistenceId, string tabItemName, FrameOperation operation, object source)
+        public void FrameOperate(object sender, string persistenceId, string tabItemName, FrameOperation operation)
         {
-            FrameOperationEvent?.Invoke(sender, new FrameOperationEventArg(persistenceId, tabItemName, operation, source));
+            FrameOperationEvent?.Invoke(sender, new FrameOperationEventArg(persistenceId, tabItemName, operation));
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace EdgeEx.WinUI3.Toolkits
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public void SendUriNavigatedMessage(object sender, string persistenceId, string tabItemName, Uri uri,string title, string icon)
+        public void SendUriNavigatedMessage(object sender, string persistenceId, string tabItemName, Uri uri,string title, IconSource icon)
         {
             UriNavigatedMessageEvent?.Invoke(sender, new UriNavigatedMessageEventArg(persistenceId, tabItemName, uri, title, icon));
         }

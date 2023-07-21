@@ -28,13 +28,24 @@ namespace EdgeEx.WinUI3.ViewModels
         }
         public DesktopAcrylicController InitDesktopAcrylicController(DesktopAcrylicController controller = null)
         {
-            AcrylicBrush defaultAcrylicBrush = Application.Current.Resources["DefaultEdgeExAcrylicBrush"] as AcrylicBrush;
-            controller ??= new DesktopAcrylicController
+            if (ThemeHelper.IsDarkTheme)
             {
-                TintColor = defaultAcrylicBrush.TintColor,
-                TintOpacity = (float)defaultAcrylicBrush.TintOpacity,
-                FallbackColor = defaultAcrylicBrush.FallbackColor,
-            };
+                controller ??= new DesktopAcrylicController
+                {
+                    TintColor = SystemBackdropsHelper.DarkDefaultTintColor,
+                    TintOpacity = SystemBackdropsHelper.DarkDefaultTintOpacity,
+                    FallbackColor = SystemBackdropsHelper.DarkDefaultFallbackColor,
+                };
+            }
+            else
+            {
+                controller ??= new DesktopAcrylicController
+                {
+                    TintColor = SystemBackdropsHelper.LightDefaultTintColor,
+                    TintOpacity = SystemBackdropsHelper.LightDefaultTintOpacity,
+                    FallbackColor = SystemBackdropsHelper.LightDefaultFallbackColor,
+                };
+            }
             AcrylicTintColor        = controller.TintColor;
             AcrylicTintOpacity      = controller.TintOpacity;
             AcrylicFallbackColor    = controller.FallbackColor;

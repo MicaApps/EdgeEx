@@ -47,25 +47,30 @@ namespace EdgeEx.WinUI3.Pages
             TopWebView.Source = args.NavigateUri;
             TabItemName = args.TabItemName;
         }
-
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
+            caller.SizeChangedEvent -= Caller_SizeChangedEvent;
+            caller.FrameOperationEvent -= Caller_FrameOperationEvent;
+        }
         private void Caller_FrameOperationEvent(object sender, FrameOperationEventArg e)
         {
-            switch (e.Operation)
+            if (TabItemName == e.TabItemName)
             {
-                case FrameOperation.Navigate:
-                    TopWebView.Source = e.Source as Uri;
-                    break; 
-                case FrameOperation.Refresh:
-                    TopWebView.Reload();
-                    break; 
-                case FrameOperation.GoBack:
-                    if(TopWebView.CanGoBack)
-                        TopWebView.GoBack();
-                    break;
-                case FrameOperation.GoForward:
-                    if (TopWebView.CanGoForward)
-                        TopWebView.GoForward();
-                    break;
+                switch (e.Operation)
+                {
+                    case FrameOperation.Refresh:
+                        TopWebView.Reload();
+                        break;
+                    case FrameOperation.GoBack:
+                        if (TopWebView.CanGoBack)
+                            TopWebView.GoBack();
+                        break;
+                    case FrameOperation.GoForward:
+                        if (TopWebView.CanGoForward)
+                            TopWebView.GoForward();
+                        break;
+                }
             }
         }
 
@@ -75,32 +80,34 @@ namespace EdgeEx.WinUI3.Pages
             TopWebView.Width = e.NewSize.Width;
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
-            caller.SizeChangedEvent -= Caller_SizeChangedEvent;
-        }
+        
          
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         { 
             Rect rect = WindowHelper.GetWindowForElement(this).Bounds;
-            TopWebView.Height = rect.Height - 48 - 48;
+            int titleBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExTitleBarHeight"]);
+            int commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
+            TopWebView.Height = rect.Height - titleBarHeight - commandBarHeight;
             TopWebView.Width = rect.Width;
+            InitPersistenceId();
+        }
+        private void InitPersistenceId()
+        {
             WindowEx window = WindowHelper.GetWindowForElement(this);
             PersistenceId = window.PersistenceId;
         }
-
         private async void TopWebView_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             if (args.IsSuccess && sender.Source.ToString() != "about:blank")
             {
-                TopWebView.Visibility = Visibility.Visible;
-                caller.SendUriNavigatedMessage(sender, PersistenceId, TabItemName,
-                    sender.Source, (await sender.CoreWebView2.ExecuteScriptAsync("document.title")).ToString(),
-                    $"https://{sender.Source.Host}/favicon.ico"
-                    );
-                
+                TopWebView.Visibility = Visibility.Visible; 
+                ImageIconSource icon = new ImageIconSource()
+                {
+                    ImageSource = new BitmapImage(new Uri($"https://{sender.Source.Host}/favicon.ico")),
+                };
+                caller.SendUriNavigatedMessage(sender, PersistenceId, TabItemName,sender.Source,
+                    (await sender.CoreWebView2.ExecuteScriptAsync("document.title")).ToString(), icon );
             }
             caller.FrameStatus(sender, PersistenceId, sender.CanGoBack, sender.CanGoForward, true);
         }

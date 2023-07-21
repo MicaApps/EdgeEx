@@ -2,6 +2,7 @@
 using EdgeEx.WinUI3.Enums;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,12 +52,12 @@ namespace EdgeEx.WinUI3.Interfaces
         /// <summary>
         /// Send NavigatedUri Message
         /// </summary>
-        void SendUriNavigatedMessage(object sender, string persistenceId, string tabItemName, Uri uri, string title,string icon);
+        void SendUriNavigatedMessage(object sender, string persistenceId, string tabItemName, Uri uri, string title, IconSource icon);
         /// <summary>
         /// Frame Status
         /// </summary>
         void FrameStatus(object sender,string persistenceId,bool canBack, bool canForward, bool canRefresh);
 
-        void FrameOperate(object sender, string persistenceId, string tabItemName, FrameOperation operation, object source);
+        void FrameOperate(object sender, string persistenceId, string tabItemName, FrameOperation operation);
     }
 }

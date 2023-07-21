@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,8 @@ namespace EdgeEx.WinUI3.Args
         public string TabItemName { get; set; }
         public Uri NavigatedUri { get; set; } 
         public string Title { get; set; }
-        public string Icon { get; set; }
-        public UriNavigatedMessageEventArg(string persistenceId, string tabItemName,  Uri uri, string title,string icon)
+        public IconSource Icon { get; set; }
+        public UriNavigatedMessageEventArg(string persistenceId, string tabItemName,  Uri uri, string title, IconSource icon)
         {
             NavigatedUri = uri;
             TabItemName = tabItemName;

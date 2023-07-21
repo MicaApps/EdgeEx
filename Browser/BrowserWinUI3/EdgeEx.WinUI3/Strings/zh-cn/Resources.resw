@@ -132,11 +132,23 @@
   <data name="BugRequest" xml:space="preserve">
     <value>🐛Bug反馈</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
   <data name="Dependencies" xml:space="preserve">
     <value>🔧依赖</value>
   </data>
   <data name="FallbackColor" xml:space="preserve">
     <value>未聚焦时颜色</value>
+  </data>
+  <data name="Lab" xml:space="preserve">
+    <value>实验室</value>
+  </data>
+  <data name="LabDes" xml:space="preserve">
+    <value>实验性功能</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>浅色</value>
   </data>
   <data name="Log" xml:space="preserve">
     <value>日志</value>
@@ -182,5 +194,20 @@
   </data>
   <data name="WindowBackdropDescription" xml:space="preserve">
     <value>设置窗体亚克力/云母背景</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="NewTab" xml:space="preserve">
+    <value>新标签页</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>历史记录</value>
+  </data>
+  <data name="WindowBackdropLab" xml:space="preserve">
+    <value>窗体背景(自定义)</value>
+  </data>
+  <data name="ThemeSettingsDes" xml:space="preserve">
+    <value>设置应用的颜色</value>
   </data>
 </root>

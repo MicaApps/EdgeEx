@@ -1,4 +1,8 @@
+using EdgeEx.WinUI3.Enums;
+using EdgeEx.WinUI3.Toolkits;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using Serilog;
 using WinUIEx;
 
 namespace EdgeEx.WinUI3.Helpers;
@@ -8,10 +12,6 @@ namespace EdgeEx.WinUI3.Helpers;
 /// </summary>
 public static class ThemeHelper
 {
-    private const string SelectedAppThemeKey = "SelectedAppTheme";
-
-    private static WindowEx CurrentApplicationWindow;
-
     /// <summary>
     /// Gets the current actual theme of the app based on the requested theme of the
     /// root element, or if that value is Default, the requested theme of the Application.
@@ -42,7 +42,7 @@ public static class ThemeHelper
     {
         get
         {
-            foreach (Window window in WindowHelper.ActiveWindows)
+            foreach (WindowEx window in WindowHelper.ActiveWindows)
             {
                 if (window.Content is FrameworkElement rootElement)
                 {
@@ -54,33 +54,49 @@ public static class ThemeHelper
         }
         set
         {
-            foreach (Window window in WindowHelper.ActiveWindows)
+            foreach (WindowEx window in WindowHelper.ActiveWindows)
             {
                 if (window.Content is FrameworkElement rootElement)
                 {
                     rootElement.RequestedTheme = value;
                 }
             }
-            //ConfigHelper.Set(SelectedAppThemeKey, value.ToString());
+            App.Current.Services.GetService<LocalSettingsToolkit>().Set(LocalSettingName.SelectedAppTheme, value.ToString());
         }
     }
 
-    public static void Initialize(WindowEx window)
+    public static void Initialize()
     {
-        CurrentApplicationWindow = window;
-        //string savedTheme = ConfigHelper.GetString(SelectedAppThemeKey);
-        //if (savedTheme != null)
-        //{
-        //    RootTheme = EnumHelper.GetEnum<ElementTheme>(savedTheme);
-        //}
-    }
-
-    public static bool IsDarkTheme()
-    {
-        if (RootTheme == ElementTheme.Default)
+        LocalSettingsToolkit toolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
+        string savedTheme = toolkit.GetString(LocalSettingName.SelectedAppTheme);
+        if (savedTheme != null)
         {
-            return Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            Log.Debug("Current Theme {savedTheme}", savedTheme);
+            RootTheme = EnumHelper.GetEnum<ElementTheme>(savedTheme);
         }
-        return RootTheme == ElementTheme.Dark;
+        else
+        {
+            toolkit.Set(LocalSettingName.SelectedAppTheme, IsDarkTheme ? "Dark" : "Light");
+        }
+    }
+    public static void InitializeSetting()
+    {
+        LocalSettingsToolkit toolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
+        string savedTheme = toolkit.GetString(LocalSettingName.SelectedAppTheme);
+        if (savedTheme == null)
+        {
+            toolkit.Set(LocalSettingName.SelectedAppTheme, IsDarkTheme ? "Dark" : "Light");
+        }
+    }
+    public static bool IsDarkTheme
+    {
+        get
+        {
+            if (RootTheme == ElementTheme.Default)
+            {
+                return Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            }
+            return RootTheme == ElementTheme.Dark;
+        }
     }
 }

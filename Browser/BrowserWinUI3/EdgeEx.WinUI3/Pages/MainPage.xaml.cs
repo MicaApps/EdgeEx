@@ -1,9 +1,11 @@
 using ABI.System;
 using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.UI.Helpers;
 using EdgeEx.WinUI3.Args;
 using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
+using EdgeEx.WinUI3.Toolkits;
 using EdgeEx.WinUI3.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -15,6 +17,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Win32;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -27,6 +30,7 @@ using System.Xml.Linq;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using WinUIEx;
 using Type = System.Type;
 using Uri = System.Uri;
@@ -42,18 +46,23 @@ namespace EdgeEx.WinUI3.Pages
     public sealed partial class MainPage : Page
     {
         private MainViewModel ViewModel { get; }
+        private ResourceToolkit resourceToolkit;
         private ICallerToolkit caller;
+        private int titleBarHeight;
+        private int commandBarHeight;
         private string PersistenceId { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
+            titleBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExTitleBarHeight"]);
+            commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
             ViewModel = App.Current.Services.GetService<MainViewModel>();
+            resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.UriNavigatedEvent += Caller_UriNavigatedEvent;
             caller.UriNavigatedMessageEvent += Caller_UriNavigatedMessageEvent;
             caller.FrameStatusEvent += Caller_FrameStatusEvent;
         }
-
         private void Caller_FrameStatusEvent(object sender, FrameStatusEventArg e)
         {
             if(e.PersistenceId == PersistenceId)
@@ -71,15 +80,9 @@ namespace EdgeEx.WinUI3.Pages
                 AddressBar.Text = e.NavigatedUri.ToString();
                 item.Tag = e.NavigatedUri;
                 item.Header = e.Title[1..^1];
-                if(e.Icon != null)
+                if(e.Icon != null && e.Icon!= item.IconSource)
                 {
-                    Uri uri = new Uri(e.Icon);
-                    if (item.IconSource is ImageIconSource iconSource && iconSource.ImageSource is BitmapImage bitmap && bitmap.UriSource == uri) return;
-                    ImageIconSource i = new ImageIconSource()
-                    {
-                        ImageSource = new BitmapImage(uri)
-                    };
-                    item.IconSource = i;
+                    item.IconSource = e.Icon;
                 }
             }
         }
@@ -93,13 +96,7 @@ namespace EdgeEx.WinUI3.Pages
             UriNavigate(e.NavigatedUri);
         }
 
-        /// <summary>
-        /// Add a new Tab to the TabView
-        /// </summary>
-        private void TabView_AddTabButtonClick(TabView sender, object args)
-        {
-            UriNavigate(new Uri("EdgeEx://NewTab/"),NavigateTabMode.NewTab);
-        }
+        
         /// <summary>
         /// Add a new Tab to the TabView
         /// </summary>
@@ -110,7 +107,7 @@ namespace EdgeEx.WinUI3.Pages
             {
                 Frame frame = new Frame()
                 {
-                    Margin = new Thickness(0, 48, 0, 0),
+                    Margin = new Thickness(0, titleBarHeight, 0, 0),
                 };
                 frame.Navigate(page, new NavigatePageArg(name, uri));
                 TabViewItem item = new TabViewItem
@@ -160,13 +157,13 @@ namespace EdgeEx.WinUI3.Pages
                 switch (uri.Host)
                 {
                     case "history":
-                        NewTab("history", uri, new FontIconSource() { Glyph = "\uE81C" }, typeof(HistroyPage), mode);
+                        NewTab(resourceToolkit.GetString(ResourceKey.History), uri, new FontIconSource() { Glyph = "\uE81C" }, typeof(HistroyPage), mode);
                         break;
                     case "settings":
-                        NewTab("settings", uri, new FontIconSource() { Glyph = "\uE713" }, typeof(SettingsPage), mode);
+                        NewTab(resourceToolkit.GetString(ResourceKey.Settings), uri, new FontIconSource() { Glyph = "\uE713" }, typeof(SettingsPage), mode);
                         break;
                     case "newtab":
-                        NewTab("newtab", uri, new FontIconSource() { Glyph = "\uE8A5" }, typeof(HomePage), mode);
+                        NewTab(resourceToolkit.GetString(ResourceKey.NewTab), uri, new FontIconSource() { Glyph = "\uE8A5" }, typeof(HomePage), mode);
                         break;
                     default: 
                         
@@ -179,19 +176,24 @@ namespace EdgeEx.WinUI3.Pages
             }
         }
 
+        private void TabView_AddTabButtonClick(TabView sender, object args)
+        {
+            UriNavigate(new Uri("EdgeEx://NewTab/"), NavigateTabMode.NewTab);
+        }
+
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            UriNavigate(new Uri("EdgeEx://History/"));
+            UriNavigate(new Uri("EdgeEx://History/"), NavigateTabMode.NewTab);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            UriNavigate(new Uri("EdgeEx://Settings/"));
+        { 
+            UriNavigate(new Uri("EdgeEx://Settings/"), NavigateTabMode.NewTab);
         }
 
         private void BookMarksButthon_Click(object sender, RoutedEventArgs e)
         {
-            UriNavigate(new Uri("EdgeEx://BookMarks/"));
+            UriNavigate(new Uri("EdgeEx://BookMarks/"), NavigateTabMode.NewTab);
         }
         private void DownloadButthon_Click(object sender, RoutedEventArgs e)
         {
@@ -254,6 +256,9 @@ namespace EdgeEx.WinUI3.Pages
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            
+            TransparentBorder.Margin = new Thickness(0, titleBarHeight + commandBarHeight, 0, 0);
+            CommandBar.Margin = new Thickness(8, titleBarHeight, 8, 0);
             WindowEx window = WindowHelper.GetWindowForElement(this);
             PersistenceId = window.PersistenceId;
             window.SetTitleBar(AppTitleBar);

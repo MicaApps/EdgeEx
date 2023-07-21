@@ -1,5 +1,6 @@
 using CommunityToolkit.Labs.WinUI;
 using CommunityToolkit.WinUI.Helpers;
+using EdgeEx.WinUI3.Args;
 using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Extensions;
 using EdgeEx.WinUI3.Helpers;
@@ -12,6 +13,7 @@ using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using Serilog;
 using System;
@@ -22,6 +24,8 @@ using Windows.Globalization.NumberFormatting;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI;
+using WinRT;
+using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,13 +38,26 @@ namespace EdgeEx.WinUI3.Pages
     public sealed partial class SettingsPage : Page
     {
         private SettingsViewModel ViewModel { get; }
-        private SystemBackdropsHelper helper;
+        private SystemBackdropsHelper BackdropsHelper { get; set; }
+        private string PersistenceId { get; set; }
+        private string TabItemName { get; set; }
+        private Uri NavigateUri { get; set; }
+        private ICallerToolkit caller;
         public SettingsPage()
         {
             this.InitializeComponent();
             ViewModel = App.Current.Services.GetService<SettingsViewModel>();
             Version.Text = string.Format("v{0}.{1}.{2}.{3}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
         }
+        private void InitPersistenceId()
+        {
+            WindowEx window = WindowHelper.GetWindowForElement(this);
+            PersistenceId = window.PersistenceId;
+        }
+
+        /// <summary>
+        /// Control tab page size(From Event)
+        /// </summary>
         private void Caller_SizeChangedEvent(object sender, SizeChangedEventArgs e)
         {
             Top.Height = e.NewSize.Height;
@@ -48,142 +65,147 @@ namespace EdgeEx.WinUI3.Pages
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
+            NavigatePageArg args = e.Parameter as NavigatePageArg;
+            TabItemName = args.TabItemName;
+            NavigateUri = args.NavigateUri;
+            caller = App.Current.Services.GetService<ICallerToolkit>();
+            caller.SizeChangedEvent += Caller_SizeChangedEvent;
+            caller.WindowBackdropChangedEvent += Caller_WindowBackdropChangedEvent;
+            caller.FrameOperationEvent += Caller_FrameOperationEvent; 
         }
+
+        private void Caller_FrameOperationEvent(object sender, FrameOperationEventArg e)
+        {
+            if (TabItemName == e.TabItemName)
+            {
+                switch (e.Operation)
+                {
+                    case FrameOperation.Refresh:
+
+                        break;
+                    case FrameOperation.GoBack:
+                        if (Frame.CanGoBack)
+                            Frame.GoBack();
+                        break;
+                    case FrameOperation.GoForward:
+                        if (Frame.CanGoForward)
+                            Frame.GoForward();
+                        break;
+                }
+            }
+        }
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
-            caller.WindowBackdropChangedEvent -= Caller_WindowBackdropChangedEvent;
             caller.SizeChangedEvent -= Caller_SizeChangedEvent;
+            caller.WindowBackdropChangedEvent -= Caller_WindowBackdropChangedEvent;
         }
         private void Caller_WindowBackdropChangedEvent(object sender, Args.WindowBackdropChangedEventArg e)
         {
-            helper ??= WindowHelper.GetWindowForXamlRoot(XamlRoot).GetSystemBackdropsHelper();
+            BackdropsHelper ??= WindowHelper.GetWindowForXamlRoot(XamlRoot).GetSystemBackdropsHelper();
             // Change Color / Opacity
-            if (e.NewMode == e.OldMode)
+            if (e.NewMode != e.OldMode)
             {
                 if (e.NewMode == WindowBackdrop.Acrylic)
                 {
-                    if (helper.WindowAcrylicController == null) return;
-                    if (helper.WindowAcrylicController.TintOpacity != e.TintOpacity)
-                    {
-                        helper.WindowAcrylicController.TintOpacity = e.TintOpacity;
-                        helper.WindowAcrylicController.FallbackColor = Color.FromArgb(1, e.FallbackColor.R, e.FallbackColor.G, e.FallbackColor.B);
-                        helper.WindowAcrylicController.FallbackColor = Color.FromArgb(2, e.FallbackColor.R, e.FallbackColor.G, e.FallbackColor.B);
-                    }
-                    helper.WindowAcrylicController.TintColor = e.TintColor;
-                    helper.WindowAcrylicController.FallbackColor = e.FallbackColor;
-                    Log.Information("Set Acrylic WindowBackdrop:TintColor={TintColor},TintOpacity={TintOpacity},FallbackColor={FallbackColor}",
-                                    helper.WindowAcrylicController.TintColor,
-                                    helper.WindowAcrylicController.TintOpacity,
-                                    helper.WindowAcrylicController.FallbackColor);
-                }
-                else
-                {
-                    if (helper.WindowMicaController == null) return;
-                    helper.WindowMicaController.Kind = e.Kind;
-                    Log.Information("Set Mica WindowBackdrop:Kind={Kind}", helper.WindowMicaController.Kind);
-                }
-            }
-            // Change WindowBackdrop
-            else
-            {
-                if (e.NewMode == WindowBackdrop.Acrylic)
-                {
-                    helper.SetBackdrop(WindowBackdrop.Acrylic, new DesktopAcrylicController
+                    BackdropsHelper.SetBackdrop(WindowBackdrop.Acrylic, new DesktopAcrylicController
                     {
                         TintColor = ViewModel.AcrylicTintColor,
                         FallbackColor = ViewModel.AcrylicFallbackColor,
                         TintOpacity = ViewModel.AcrylicTintOpacity,
                     });
-
                 }
                 else
                 {
-                    helper.SetBackdrop(WindowBackdrop.Mica, new MicaController
+                    BackdropsHelper.SetBackdrop(WindowBackdrop.Mica, new MicaController
                     {
                         Kind = ViewModel.Kind,
                     });
                 }
-            }
-            SetToLocalSettings();
+            } 
         }
+        private void Top_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitPersistenceId();
+            // Initialize Tab size
+            Rect rect = WindowHelper.GetWindowForElement(this).Bounds;
+            int titleBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExTitleBarHeight"]);
+            int commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
+            Top.Height = rect.Height - titleBarHeight - commandBarHeight;
+            Top.Width = rect.Width;
+            caller.FrameStatus(this, PersistenceId, Frame.CanGoBack, Frame.CanGoForward, false);
+            ResourceToolkit resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
+            caller.SendUriNavigatedMessage(this, PersistenceId, TabItemName,
+                        NavigateUri, $"\"{resourceToolkit.GetString(ResourceKey.Settings)}\"", new FontIconSource() { Glyph = "\uE713" });
 
-        private void WindowBackdropComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            WindowBackdrop backdrop = EnumHelper.GetEnum<WindowBackdrop>((WindowBackdropComboBox.SelectedItem as FrameworkElement).Tag.ToString());
-            ViewModel.WindowBackdrop = backdrop;
-            bool isAcrylic = backdrop == WindowBackdrop.Acrylic;
-            TintColorCard.Visibility = isAcrylic.ToVisibility();
-            TintOpacityCard.Visibility = isAcrylic.ToVisibility();
-            FallbackColorCard.Visibility = isAcrylic.ToVisibility();
-            MicaKindCard.Visibility = (!isAcrylic).ToVisibility();
         }
-        private void SetToLocalSettings()
-        {
-            LocalSettingsToolkit localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
-            if (helper.CurrentBackdrop == WindowBackdrop.Acrylic)
-            {
-                localSettingsToolkit.Set(LocalSettingName.AcrylicTintColor, ViewModel.AcrylicTintColor.ToHex());
-                localSettingsToolkit.Set(LocalSettingName.AcrylicFallbackColor, ViewModel.AcrylicFallbackColor.ToHex());
-                localSettingsToolkit.Set(LocalSettingName.AcrylicTintOpacity, ViewModel.AcrylicTintOpacity);
-            }
-            else
-            {
-                localSettingsToolkit.Set(LocalSettingName.MicaKind,ViewModel.Kind.ToString());
-            }
-        }
-        private void WindowBackdropComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            helper = WindowHelper.GetWindowForXamlRoot(XamlRoot).GetSystemBackdropsHelper();
-            ViewModel.InitDesktopAcrylicController(helper.WindowAcrylicController);
-            ViewModel.InitMicaController(helper.WindowMicaController);
-            ViewModel.WindowBackdrop = helper.CurrentBackdrop;
-            WindowBackdropComboBox.SelectedIndex = helper.CurrentBackdrop== WindowBackdrop.Acrylic ? 0 : 1;
-            ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
-            caller.WindowBackdropChangedEvent += Caller_WindowBackdropChangedEvent;
-            caller.SizeChangedEvent += Caller_SizeChangedEvent;
-        }
+        /// <summary>
+        /// Open Logs Folder
+        /// </summary>
         private async void LogButton_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
         }
-
+        /// <summary>
+        /// Authors Width Size
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SettingsExpander_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             AuthorScrollViewer.Width = (sender as SettingsExpander).ActualWidth - 115;
         }
+        /// <summary>
+        /// Launch Uri in Browser
+        /// </summary>
         private async void Uri_Click(object sender, RoutedEventArgs e)
         {
             var uri = new Uri((sender as SettingsCard).Tag.ToString());
             await Launcher.LaunchUriAsync(uri);
         }
-        private void FormattedNumberBox_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Go To Lab Settings Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabSettingCard_Click(object sender, RoutedEventArgs e)
         {
-            IncrementNumberRounder rounder = new IncrementNumberRounder();
-            rounder.Increment = 0.01;
-            rounder.RoundingAlgorithm = RoundingAlgorithm.RoundHalfUp;
-
-            DecimalFormatter formatter = new DecimalFormatter();
-            formatter.IntegerDigits = 1;
-            formatter.FractionDigits = 2;
-            formatter.NumberRounder = rounder;
-            AcrylicFormattedNumberBox.NumberFormatter = formatter;
-            Rect rect = WindowHelper.GetWindowForElement(this).Bounds;
-            Top.Height = rect.Height - 48 - 48;
-            Top.Width = rect.Width;
+            Frame.Navigate(typeof(LabSettingsPage),new NavigatePageArg(TabItemName,null),new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
-        private void ResetButton_Click(object sender, RoutedEventArgs e)
+
+        private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ViewModel.WindowBackdrop == WindowBackdrop.Acrylic)
-            { 
-                helper.SetBackdrop(WindowBackdrop.Acrylic, ViewModel.InitDesktopAcrylicController());
-            }
-            else
+            ElementTheme theme = EnumHelper.GetEnum<ElementTheme>(((sender as ComboBox).SelectedItem as FrameworkElement).Tag.ToString());
+            if(ThemeHelper.RootTheme != theme)
             {
-                helper.SetBackdrop(WindowBackdrop.Mica, ViewModel.InitMicaController());
+                ThemeHelper.RootTheme = theme;
+                Log.Debug("Change Theme To {theme}", theme.ToString());
+                BackdropsHelper ??= WindowHelper.GetWindowForXamlRoot(XamlRoot).GetSystemBackdropsHelper();
+                BackdropsHelper.Reload();
+                ViewModel.InitDesktopAcrylicController(BackdropsHelper.WindowAcrylicController);
+                ViewModel.InitMicaController(BackdropsHelper.WindowMicaController);
             }
-            SetToLocalSettings();
+        }
+
+        private void BackdropComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WindowBackdrop backdrop = EnumHelper.GetEnum<WindowBackdrop>(((sender as ComboBox).SelectedItem as FrameworkElement).Tag.ToString());
+            ViewModel.WindowBackdrop = backdrop;
+            Log.Debug("Change WindowBackdrop To {backdrop}", backdrop.ToString());
+        }
+
+        private void BackdropComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            BackdropsHelper = WindowHelper.GetWindowForXamlRoot(XamlRoot).GetSystemBackdropsHelper();
+            ViewModel.InitDesktopAcrylicController(BackdropsHelper.WindowAcrylicController);
+            ViewModel.InitMicaController(BackdropsHelper.WindowMicaController);
+            ViewModel.WindowBackdrop = BackdropsHelper.CurrentBackdrop;
+            (sender as ComboBox).SelectedIndex = BackdropsHelper.CurrentBackdrop == WindowBackdrop.Acrylic ? 0 : 1;
+        }
+
+        private void ThemeComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            (sender as ComboBox).SelectedIndex = ThemeHelper.IsDarkTheme ? 1 : 0;
         }
     }
 }

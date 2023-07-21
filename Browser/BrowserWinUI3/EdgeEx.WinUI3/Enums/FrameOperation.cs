@@ -11,6 +11,5 @@ namespace EdgeEx.WinUI3.Enums
         GoBack,
         GoForward,
         Refresh,
-        Navigate,
     }
 }
