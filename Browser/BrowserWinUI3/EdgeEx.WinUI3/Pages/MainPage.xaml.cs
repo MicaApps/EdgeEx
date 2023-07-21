@@ -237,6 +237,10 @@ namespace EdgeEx.WinUI3.Pages
         private void Tabs_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
             Tabs.TabItems.Remove(args.Tab);
+            if(Tabs.TabItems.Count == 0)
+            {
+                WindowHelper.GetWindowForElement(this)?.Close();
+            }
         } 
 
         private void AddressBar_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
@@ -262,6 +266,11 @@ namespace EdgeEx.WinUI3.Pages
             WindowEx window = WindowHelper.GetWindowForElement(this);
             PersistenceId = window.PersistenceId;
             window.SetTitleBar(AppTitleBar);
+        }
+        private void InitPersistenceId()
+        {
+            WindowEx window = WindowHelper.GetWindowForElement(this);
+            PersistenceId = window.PersistenceId;
         }
     }
 }
