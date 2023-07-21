@@ -13,14 +13,19 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Orientation="Horizontal"
-            Spacing="10">
+            Spacing="10"
+            Margin="-5 0 0 0">
             <Grid>
+                
                 <PersonPicture
                     Width="64"
                     Height="64"
+                    
                     ProfilePicture="{x:Bind Thumb, Mode=OneWay}"
                     Visibility="{x:Bind IsCircle, Mode=OneWay}" />
+                <Grid CornerRadius="50" BorderThickness="1" BorderBrush="#30000000" Width="64" Height="64"/>
                 <Border
+                    
                     Width="64"
                     Height="64"
                     CornerRadius="5"
@@ -41,8 +46,9 @@
                     FontWeight="SemiBold"
                     Text="{x:Bind Title, Mode=OneWay}" />
                 <TextBlock
+                    Margin="0 -5 0 0"
                     Grid.Row="1"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Text="{x:Bind Description, Mode=OneWay}" />
             </StackPanel>
