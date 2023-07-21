@@ -21,6 +21,7 @@ using EdgeEx.WinUI3.Args;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Media.Imaging;
 using EdgeEx.WinUI3.Enums;
+using Windows.UI.WebUI;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -39,17 +40,39 @@ namespace EdgeEx.WinUI3.Pages
             this.InitializeComponent();
             caller = App.Current.Services.GetService<ICallerToolkit>();
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             caller.SizeChangedEvent += Caller_SizeChangedEvent;
             caller.FrameOperationEvent += Caller_FrameOperationEvent;
             NavigatePageArg args = e.Parameter as NavigatePageArg;
             TopWebView.Source = args.NavigateUri;
             TabItemName = args.TabItemName;
+            await TopWebView.EnsureCoreWebView2Async();
+            TopWebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
         }
+
+        private async void CoreWebView2_NewWindowRequested(Microsoft.Web.WebView2.Core.CoreWebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NewWindowRequestedEventArgs args)
+        {
+            Deferral deferral = args.GetDeferral();
+            await TopWebView.EnsureCoreWebView2Async();
+            args.NewWindow = TopWebView.CoreWebView2;
+            deferral.Complete();
+            // TODO: New Tab
+            /*Uri uri = new Uri(args.Uri);
+            if (uri.Host == TopWebView.Source.Host)
+            {
+                
+            }
+            else
+            {
+                caller.NavigateUri(new Uri(args.Uri));
+                Deferral deferral = args.GetDeferral();
+                deferral.Complete();
+            }*/
+        }
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            ICallerToolkit caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.SizeChangedEvent -= Caller_SizeChangedEvent;
             caller.FrameOperationEvent -= Caller_FrameOperationEvent;
         }
