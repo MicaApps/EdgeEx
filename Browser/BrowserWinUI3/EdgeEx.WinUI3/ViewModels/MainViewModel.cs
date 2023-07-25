@@ -27,7 +27,7 @@ namespace EdgeEx.WinUI3.ViewModels
         public void CheckFavorite(Uri uri)
         {
             string url = uri.ToString();
-            IsFavorite = db.Queryable<BookMark>().First(x => x.Uri == url) is BookMark;
+            IsFavorite = db.Queryable<Bookmark>().First(x => x.Uri == url) is Bookmark;
         }
     }
 }

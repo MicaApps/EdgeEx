@@ -27,6 +27,14 @@ namespace EdgeEx.WinUI3.ViewModels
             db = sqlSugarClient;
             caller = callerToolkit;
         }
+        public void DeleteScreenshot(string screenshot)
+        {
+            if (System.IO.File.Exists(screenshot))
+            {
+                System.IO.File.Delete(screenshot);
+            }
+        }
+
         /// <summary>
         /// Add BookMark
         /// </summary>
@@ -34,7 +42,14 @@ namespace EdgeEx.WinUI3.ViewModels
         {
             if (Icon != null && Url != null)
             { 
-                db.Storageable(new BookMark()
+                if(db.Queryable<Bookmark>().First(x=>x.Uri==Url) is Bookmark bookmark)
+                {
+                    if(bookmark.Screenshot!=null)
+                    {
+                        DeleteScreenshot(bookmark.Screenshot);
+                    }
+                }
+                db.Storageable(new Bookmark()
                 {
                     Uri = Url,
                     Icon = Icon,
@@ -43,6 +58,7 @@ namespace EdgeEx.WinUI3.ViewModels
                     Screenshot = screenshot,
                     FolderId = folderId,
                     Description = "",
+                    IsFolder= false,
                 }).ExecuteCommand();
             }
         }
@@ -51,13 +67,10 @@ namespace EdgeEx.WinUI3.ViewModels
         /// </summary>
         public void DeleteBookMark()
         {
-            if (db.Queryable<BookMark>().First(x => x.Uri == Url) is BookMark bookMark)
+            if (db.Queryable<Bookmark>().First(x => x.Uri == Url) is Bookmark bookmark)
             {
-                if (System.IO.File.Exists(bookMark.Screenshot))
-                {
-                    System.IO.File.Delete(bookMark.Screenshot);
-                }
-                db.Deleteable<BookMark>(bookMark).ExecuteCommand();
+                DeleteScreenshot(bookmark.Screenshot);
+                db.Deleteable<Bookmark>(bookmark).ExecuteCommand();
             }
         }
         /// <summary>

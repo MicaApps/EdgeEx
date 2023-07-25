@@ -97,6 +97,7 @@ namespace EdgeEx.WinUI3
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddTransient<WebViewModel>();
+            services.AddTransient<BookmarkViewModel>();
             return services.BuildServiceProvider();
         }
         /// <summary>
@@ -123,8 +124,21 @@ namespace EdgeEx.WinUI3
         public static void InitDatabase()
         {
             ISqlSugarClient db = App.Current.Services.GetService<ISqlSugarClient>();
+            ResourceToolkit resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             db.DbMaintenance.CreateDatabase();
-            db.CodeFirst.InitTables<BookMark>();
+
+
+            // Init Bookmarks
+            db.CodeFirst.InitTables<Bookmark>();
+            StorageableResult<Bookmark> x = db.Storageable(new Bookmark()
+            {
+                Title = resourceToolkit.GetString(Enums.ResourceKey.DefaultFolder),
+                FolderId = "root",
+                Uri = "default",
+                IsFolder = true,
+                CreateTime = DateTime.Now,
+            }).ToStorage();
+            x.AsInsertable.ExecuteCommand();
         }
         /// <summary>
         /// Init Serilog Logger

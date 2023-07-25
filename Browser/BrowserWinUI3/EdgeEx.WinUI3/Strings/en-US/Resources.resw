@@ -243,4 +243,10 @@
   <data name="More" xml:space="preserve">
     <value>More</value>
   </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="DefaultFolder" xml:space="preserve">
+    <value>DefaultFolder</value>
+  </data>
 </root>

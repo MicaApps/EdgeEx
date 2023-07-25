@@ -5,16 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:EdgeEx.WinUI3.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Grid x:Name="Top" Loaded="Top_Loaded">
-        <GridView> 
+        <GridView>
             <GridView.ItemTemplate>
-                <DataTemplate>
-                    
-                </DataTemplate>
+                <DataTemplate />
             </GridView.ItemTemplate>
         </GridView>
     </Grid>

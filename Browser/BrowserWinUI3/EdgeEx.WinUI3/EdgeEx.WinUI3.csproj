@@ -62,6 +62,7 @@
     <None Remove="Assets\WindowIcon.ico" />
     <None Remove="Controls\AppAuthor.xaml" />
     <None Remove="Controls\LabIcon.xaml" />
+    <None Remove="Pages\BookMarkPage.xaml" />
     <None Remove="Pages\HistroyPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\LabSettingsPage.xaml" />
@@ -104,6 +105,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\BookMarkPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\SettingsPage.xaml">

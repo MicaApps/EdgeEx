@@ -45,5 +45,7 @@ namespace EdgeEx.WinUI3.Enums
         Confirm,
         Delete,
         More,
+        Bookmarks,
+        DefaultFolder,
     }
 }

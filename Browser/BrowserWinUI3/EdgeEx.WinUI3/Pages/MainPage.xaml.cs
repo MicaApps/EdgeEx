@@ -104,7 +104,6 @@ namespace EdgeEx.WinUI3.Pages
                     GoBackButton.IsEnabled = e.CanGoBack;
                     GoForwardButton.IsEnabled = e.CanGoForward;
                     RefreshButton.IsEnabled = e.CanRefresh;
-                    ViewModel.CheckFavorite(item.Tag as Uri);
                 }
             }
             else
@@ -202,6 +201,9 @@ namespace EdgeEx.WinUI3.Pages
                     case "newtab":
                         NewTab(resourceToolkit.GetString(ResourceKey.NewTab), uri, new FontIconSource() { Glyph = "\uE8A5" }, typeof(HomePage), mode);
                         break;
+                    case "bookmarks":
+                        NewTab(resourceToolkit.GetString(ResourceKey.Bookmarks), uri, new FontIconSource() { Glyph = "\uE728" }, typeof(BookMarkPage), mode);
+                        break;
                     default: 
                         
                         break;
@@ -243,6 +245,7 @@ namespace EdgeEx.WinUI3.Pages
             { 
                 Uri uri = item.Tag as Uri;
                 AddressBar.Text = uri.ToString();
+                ViewModel.CheckFavorite(uri);
             }
             
         }
@@ -399,7 +402,7 @@ namespace EdgeEx.WinUI3.Pages
             if(Tabs.TabItems.Cast<TabViewItem>().FirstOrDefault(x=>x.Name == (string)FavoriteName.Tag ) is TabViewItem item)
             {
                 caller.Favorite(sender, PersistenceId, item.Name,
-                    false, (item.Tag as Uri).ToString(), FavoriteName.Text, "root");
+                    false, (item.Tag as Uri).ToString(), FavoriteName.Text, "default");
                 ViewModel.IsFavorite = false;
                 FavoriteFlyout.Hide();
             }
@@ -410,7 +413,7 @@ namespace EdgeEx.WinUI3.Pages
             if (Tabs.TabItems.Cast<TabViewItem>().FirstOrDefault(x => x.Name == (string)FavoriteName.Tag) is TabViewItem item)
             {
                 caller.Favorite(sender, PersistenceId, item.Name,
-                    true, (item.Tag as Uri).ToString(), FavoriteName.Text, "root");
+                    true, (item.Tag as Uri).ToString(), FavoriteName.Text, "default");
                 ViewModel.IsFavorite = true;
                 FavoriteFlyout.Hide();
             }

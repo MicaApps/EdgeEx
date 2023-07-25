@@ -243,4 +243,10 @@
   <data name="More" xml:space="preserve">
     <value>更多</value>
   </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>书签</value>
+  </data>
+  <data name="DefaultFolder" xml:space="preserve">
+    <value>默认文件夹</value>
+  </data>
 </root>

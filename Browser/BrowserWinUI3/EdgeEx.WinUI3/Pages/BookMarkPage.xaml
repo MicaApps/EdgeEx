@@ -1,0 +1,217 @@
+<Page
+    x:Class="EdgeEx.WinUI3.Pages.BookMarkPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:local="using:EdgeEx.WinUI3.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:EdgeEx.WinUI3.Models"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="BookmarkThumbGridTemplate" x:DataType="models:Bookmark">
+            <Border Background="#FF141414" CornerRadius="{ThemeResource ControlCornerRadius}">
+                <Grid Width="180" Height="170">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Width="180"
+                        Source="{x:Bind Screenshot, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Padding="10,0"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        MaxLines="2"
+                        Text="{x:Bind Title, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Padding="10,0"
+                        Foreground="Gray"
+                        Text="{x:Bind Host, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="BookmarkThumbListTemplate" x:DataType="models:Bookmark">
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="{ThemeResource ControlCornerRadius}">
+                    <Image Grid.Column="0" Source="{x:Bind Screenshot, Mode=OneWay}" />
+                </Border>
+                <Grid
+                    Grid.Column="1"
+                    Height="44"
+                    Padding="30,0,10,0"
+                    VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Text="{x:Bind Title, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Foreground="Gray"
+                        Text="{x:Bind Host, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="BookmarkSimpleListTemplate" x:DataType="models:Bookmark">
+            <Grid Height="32">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="22" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Column="0"
+                    Width="22"
+                    Height="22"
+                    VerticalAlignment="Center"
+                    Source="{x:Bind Icon, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    Text="{x:Bind Title}"
+                    TextTrimming="CharacterEllipsis" />
+                <TextBlock
+                    Grid.Column="2"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Foreground="Gray"
+                    Text="{x:Bind Uri, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid x:Name="Top" Loaded="Top_Loaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TreeView
+            x:Name="BookmarksTreeView"
+            Grid.Column="0"
+            ItemInvoked="BookmarksTreeView_ItemInvoked"
+            ItemsSource="{x:Bind ViewModel.BookmarkFolders, Mode=OneWay}"
+            Loaded="BookmarksTreeView_Loaded">
+            <TreeView.ItemTemplate>
+                <DataTemplate x:DataType="models:Bookmark">
+                    <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Title, Mode=OneWay}">
+                        <TextBlock Text="{x:Bind Title, Mode=OneWay}" TextTrimming="CharacterEllipsis" />
+                    </TreeViewItem>
+                </DataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <Grid Grid.Column="1" Margin="0,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="220" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Height="48"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <labs:Segmented
+                        x:Name="StyleSelecter"
+                        Margin="0,0,10,0"
+                        SelectionChanged="Segmented_SelectionChanged">
+                        <labs:SegmentedItem Height="32" Tag="ThumbList">
+                            <labs:SegmentedItem.Icon>
+                                <FontIcon Glyph="&#xE71D;" />
+                            </labs:SegmentedItem.Icon>
+                        </labs:SegmentedItem>
+                        <labs:SegmentedItem Height="32" Tag="SimpleList">
+                            <labs:SegmentedItem.Icon>
+                                <FontIcon Glyph="&#xE8BC;" />
+                            </labs:SegmentedItem.Icon>
+                        </labs:SegmentedItem>
+                        <labs:SegmentedItem Height="32" Tag="ThumbGrid">
+                            <labs:SegmentedItem.Icon>
+                                <FontIcon Glyph="&#xE8A9;" />
+                            </labs:SegmentedItem.Icon>
+                        </labs:SegmentedItem>
+                    </labs:Segmented>
+                    <AppBarSeparator />
+                    <CommandBar
+                        Background="Transparent"
+                        DefaultLabelPosition="Right"
+                        IsOpen="False">
+                        <AppBarButton Label="Select">
+                            <AppBarButton.Icon>
+                                <FontIcon Glyph="&#xEA98;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                        <AppBarButton Label="Outport">
+                            <AppBarButton.Icon>
+                                <FontIcon Glyph="&#xE898;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                    </CommandBar>
+                </StackPanel>
+                <AutoSuggestBox
+                    Grid.Column="1"
+                    Height="32"
+                    MinWidth="200"
+                    Margin="10,0,0,0"
+                    PlaceholderText="Search"
+                    QueryIcon="Find" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <GridView
+                    x:Name="BookmarkGridView"
+                    IsItemClickEnabled="True"
+                    ItemTemplate="{StaticResource BookmarkThumbGridTemplate}"
+                    ItemsSource="{x:Bind ViewModel.CurrentBookmarks, Mode=OneWay}"
+                    SelectionMode="None"
+                    Visibility="Collapsed">
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="Margin" Value="5" />
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                </GridView>
+                <ListView
+                    x:Name="BookmarkListView"
+                    IsItemClickEnabled="True"
+                    ItemTemplate="{StaticResource BookmarkSimpleListTemplate}"
+                    ItemsSource="{x:Bind ViewModel.CurrentBookmarks, Mode=OneWay}"
+                    SelectionMode="None"
+                    Visibility="Collapsed">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="5" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
