@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:controls1="using:EdgeEx.WinUI3.Controls"
+    xmlns:converter="using:EdgeEx.WinUI3.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ex="using:EdgeEx.WinUI3.Extensions"
     xmlns:local="using:EdgeEx.WinUI3.Pages"
@@ -11,7 +13,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
+        <converter:FavoriteConverter x:Key="IsFavoriteConverter" />
         <Style x:Key="EdgeExTabViewItemStyle" TargetType="TabViewItem">
             <Setter Property="Template">
                 <Setter.Value>
@@ -491,12 +493,15 @@
                 QuerySubmitted="AddressBar_QuerySubmitted" />
 
             <StackPanel Grid.Column="3" Orientation="Horizontal">
+
+                <!--#region FavoriteButton-->
                 <AppBarButton
                     x:Name="FavoriteButton"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
+                    AllowFocusOnInteraction="True"
                     Click="FavoriteButton_Click">
                     <AppBarButton.Flyout>
-                        <Flyout Placement="BottomEdgeAlignedRight">
+                        <Flyout x:Name="FavoriteFlyout" Placement="BottomEdgeAlignedRight">
                             <Grid Width="250" Padding="5,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="32" />
@@ -519,6 +524,7 @@
                                         VerticalAlignment="Center"
                                         Text="{ex:Locale Key=Name}" />
                                     <TextBox
+                                        x:Name="FavoriteName"
                                         Grid.Column="1"
                                         Height="32"
                                         Margin="10,0"
@@ -557,15 +563,23 @@
                                         VerticalAlignment="Bottom"
                                         Orientation="Horizontal"
                                         Spacing="20">
-                                        <Button Content="{ex:Locale Key=Confirm}" />
-                                        <Button Content="{ex:Locale Key=Delete}" />
+                                        <Button
+                                            x:Name="FavoriteConfirmButton"
+                                            Click="FavoriteConfirmButton_Click"
+                                            Content="{ex:Locale Key=Confirm}" />
+                                        <Button
+                                            x:Name="FavoriteDeteleButton"
+                                            Click="FavoriteDeteleButton_Click"
+                                            Content="{ex:Locale Key=Delete}" />
                                     </StackPanel>
                                 </Grid>
                             </Grid>
                         </Flyout>
                     </AppBarButton.Flyout>
-                    <FontIcon Glyph="&#xE734;" />
+
+                    <FontIcon Glyph="{x:Bind ViewModel.IsFavorite, Converter={StaticResource IsFavoriteConverter}, Mode=OneWay}" />
                 </AppBarButton>
+                <!--#endregion-->
                 <AppBarSeparator />
                 <AppBarButton
                     x:Name="DownloadButthon"
@@ -587,7 +601,8 @@
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
-                            <TextBlock Text="hello" />
+                            <TextBox Text="hello" />
+
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>

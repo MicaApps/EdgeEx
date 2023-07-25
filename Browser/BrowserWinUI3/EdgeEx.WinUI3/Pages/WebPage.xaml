@@ -16,7 +16,9 @@
         <controls:WebView2
             x:Name="TopWebView"
             Grid.Row="0"
-            NavigationCompleted="TopWebView_NavigationCompleted"
+            CanGoBack="{x:Bind ViewModel.CanGoBack, Mode=TwoWay}"
+            CanGoForward="{x:Bind ViewModel.CanGoForward, Mode=TwoWay}"
+            NavigationCompleted="TopWebView_NavigationCompletedAsync"
             NavigationStarting="TopWebView_NavigationStarting"
             Visibility="Collapsed" />
     </Grid>

@@ -22,11 +22,15 @@ namespace EdgeEx.WinUI3.Interfaces
         /// <summary>
         /// Uri Navigated Event
         /// </summary>
-        event EventHandler<UriNavigatedEventArg> UriNavigatedEvent;
+        event EventHandler<UriNavigatedEventArg> AddressUriNavigatedEvent;
         /// <summary>
-        /// Uri Navigated Message Event
+        /// Uri Navigated Starting Event
         /// </summary>
-        event EventHandler<UriNavigatedMessageEventArg> UriNavigatedMessageEvent;
+        event EventHandler<UriNavigatedMessageEventArg> UriNavigatedStartingEvent;
+        /// <summary>
+        /// Uri Navigated Completed Event
+        /// </summary>
+        event EventHandler<UriNavigatedMessageEventArg> UriNavigationCompletedEvent;
         /// <summary>
         /// Size Changed Event
         /// </summary>
@@ -35,7 +39,14 @@ namespace EdgeEx.WinUI3.Interfaces
         /// Frame Status Event
         /// </summary>
         event EventHandler<FrameStatusEventArg> FrameStatusEvent;
+        /// <summary>
+        /// Frame Operation Event
+        /// </summary>
         event EventHandler<FrameOperationEventArg> FrameOperationEvent;
+        /// <summary>
+        /// Frame Favorite Event
+        /// </summary>
+        event EventHandler<FavoriteEventArg> FavoriteEvent;
         /// <summary>
         /// Change Window Backdrop  
         /// </summary>
@@ -50,14 +61,24 @@ namespace EdgeEx.WinUI3.Interfaces
         /// </summary>
         void SizeChanged(SizeChangedEventArgs args);
         /// <summary>
-        /// Send NavigatedUri Message
+        /// Send NavigatedUri Starting
         /// </summary>
-        void SendUriNavigatedMessage(object sender, string persistenceId, string tabItemName, Uri uri, string title, IconSource icon);
+        void UriNavigatedStarting(object sender, string persistenceId, string tabItemName, Uri uri);
+        /// <summary>
+        /// Send NavigatedUri Completed
+        /// </summary>
+        void UriNavigationCompleted(object sender, string persistenceId, string tabItemName, Uri uri, string title, IconSource icon);
         /// <summary>
         /// Frame Status
         /// </summary>
-        void FrameStatus(object sender,string persistenceId,bool canBack, bool canForward, bool canRefresh);
-
+        void FrameStatus(object sender,string persistenceId, string tabItemName, bool canBack, bool canForward, bool canRefresh);
+        /// <summary>
+        /// Frame Operate
+        /// </summary>
         void FrameOperate(object sender, string persistenceId, string tabItemName, FrameOperation operation);
+        /// <summary>
+        /// Frame Favorite
+        /// </summary>
+        void Favorite(object sender, string persistenceId, string tabItemName, bool isFavorite, string uri,string title,string folderId);
     }
 }

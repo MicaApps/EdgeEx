@@ -135,10 +135,10 @@ namespace EdgeEx.WinUI3.Pages
             int commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
             Top.Height = rect.Height - titleBarHeight - commandBarHeight;
             Top.Width = rect.Width;
-            caller.FrameStatus(this, PersistenceId, Frame.CanGoBack, Frame.CanGoForward, false);
+            caller.FrameStatus(this, PersistenceId,TabItemName, Frame.CanGoBack, Frame.CanGoForward, false);
             ResourceToolkit resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
-            caller.SendUriNavigatedMessage(this, PersistenceId, TabItemName,
-                        NavigateUri, $"\"{resourceToolkit.GetString(ResourceKey.Settings)}\"", new FontIconSource() { Glyph = "\uE713" });
+            caller.UriNavigationCompleted(this, PersistenceId, TabItemName,
+                        NavigateUri, resourceToolkit.GetString(ResourceKey.Settings), new FontIconSource() { Glyph = "\uE713" });
 
         }
         /// <summary>

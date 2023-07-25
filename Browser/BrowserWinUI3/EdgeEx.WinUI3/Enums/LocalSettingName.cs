@@ -12,13 +12,14 @@ namespace EdgeEx.WinUI3.Enums
         Backdrop,
         LightAcrylicTintColor,
         LightAcrylicTintOpacity,
-        LightAcrylicFallbackColor, 
+        LightAcrylicFallbackColor,
         DarkAcrylicTintColor,
         DarkAcrylicTintOpacity,
-        DarkAcrylicFallbackColor, 
+        DarkAcrylicFallbackColor,
         MicaKind,
         SelectedAppTheme,
         IsTabDragTo,
         IsTabDragOut,
-}
+        AppDataThumbsPath,
+    }
 }

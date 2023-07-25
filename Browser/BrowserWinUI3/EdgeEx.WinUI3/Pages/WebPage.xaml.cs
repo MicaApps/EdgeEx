@@ -22,6 +22,16 @@ using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Media.Imaging;
 using EdgeEx.WinUI3.Enums;
 using Windows.UI.WebUI;
+using Microsoft.Web.WebView2.Core;
+using Windows.Storage.Streams;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Microsoft.UI.Dispatching;
+using CommunityToolkit.WinUI;
+using EdgeEx.WinUI3.Toolkits;
+using EdgeEx.WinUI3.ViewModels;
+using SqlSugar;
+using EdgeEx.WinUI3.Models;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -33,22 +43,59 @@ namespace EdgeEx.WinUI3.Pages
     public sealed partial class WebPage : Page
     {
         private ICallerToolkit caller;
+        private SettingsViewModel settings;
+        private ISqlSugarClient db;
         private string PersistenceId { get; set; }
         private string TabItemName { get; set; }
+        private WebViewModel ViewModel { get; set; }
         public WebPage()
         {
             this.InitializeComponent();
+            ViewModel = App.Current.Services.GetService<WebViewModel>();
             caller = App.Current.Services.GetService<ICallerToolkit>();
+            settings = App.Current.Services.GetService<SettingsViewModel>();
+            db = App.Current.Services.GetService<ISqlSugarClient>();
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             caller.SizeChangedEvent += Caller_SizeChangedEvent;
             caller.FrameOperationEvent += Caller_FrameOperationEvent;
+            caller.FavoriteEvent += Caller_FavoriteEvent;
             NavigatePageArg args = e.Parameter as NavigatePageArg;
             TopWebView.Source = args.NavigateUri;
             TabItemName = args.TabItemName;
             await TopWebView.EnsureCoreWebView2Async();
             TopWebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            caller.SizeChangedEvent -= Caller_SizeChangedEvent;
+            caller.FrameOperationEvent -= Caller_FrameOperationEvent;
+            caller.FavoriteEvent -= Caller_FavoriteEvent;
+            TopWebView.CoreWebView2.NewWindowRequested -= CoreWebView2_NewWindowRequested;
+
+        }
+        private async void Caller_FavoriteEvent(object sender, FavoriteEventArg e)
+        {
+            if(e.PersistenceId == PersistenceId && e.TabItemName==TabItemName)
+            {
+                if(e.IsFavorite)
+                {
+                    if (!Directory.Exists(settings.AppDataThumbsPath))
+                    {
+                        Directory.CreateDirectory(settings.AppDataThumbsPath);
+                    }
+                    string screenshot = await CaptureScreenshotAsync(await StorageFolder.GetFolderFromPathAsync(settings.AppDataThumbsPath),
+                         $"{Guid.NewGuid().ToString("N")}.png");
+                    ViewModel.AddBookMark(screenshot,e.Title,e.FolderId);
+                }
+                else
+                {
+                    ViewModel.DeleteBookMark();
+                }
+            }
+            
         }
 
         private async void CoreWebView2_NewWindowRequested(Microsoft.Web.WebView2.Core.CoreWebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NewWindowRequestedEventArgs args)
@@ -71,10 +118,32 @@ namespace EdgeEx.WinUI3.Pages
             }*/
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        /// <summary>
+        /// Capture WebView Screenshot
+        /// </summary>
+        private async Task<string> CaptureScreenshotAsync(StorageFolder folder,string fileName)
         {
-            caller.SizeChangedEvent -= Caller_SizeChangedEvent;
-            caller.FrameOperationEvent -= Caller_FrameOperationEvent;
+            MemoryStream memoryStream = new MemoryStream();
+            IRandomAccessStream randomAccessStream = memoryStream.AsRandomAccessStream();
+            SoftwareBitmap softwareBitmap;
+            StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            await DispatcherQueue.EnqueueAsync(
+                async () =>
+                {
+                    await TopWebView.EnsureCoreWebView2Async();
+                    await TopWebView.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, randomAccessStream);
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(randomAccessStream);
+                    softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+                    using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                    {
+                        BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                        encoder.SetSoftwareBitmap(softwareBitmap);
+                        encoder.IsThumbnailGenerated = false;
+                        await encoder.FlushAsync();
+                    }
+                }
+                );
+            return file.Path;
         }
         private void Caller_FrameOperationEvent(object sender, FrameOperationEventArg e)
         {
@@ -102,10 +171,6 @@ namespace EdgeEx.WinUI3.Pages
             TopWebView.Height = e.NewSize.Height;
             TopWebView.Width = e.NewSize.Width;
         }
-
-        
-         
-
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         { 
             Rect rect = WindowHelper.GetWindowForElement(this).Bounds;
@@ -120,26 +185,24 @@ namespace EdgeEx.WinUI3.Pages
             WindowEx window = WindowHelper.GetWindowForElement(this);
             PersistenceId = window.PersistenceId;
         }
-        private async void TopWebView_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        private async void TopWebView_NavigationCompletedAsync(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             if (args.IsSuccess && sender.Source.ToString() != "about:blank")
             {
-                TopWebView.Visibility = Visibility.Visible; 
-                ImageIconSource icon = new ImageIconSource()
-                {
-                    ImageSource = new BitmapImage(new Uri($"https://{sender.Source.Host}/favicon.ico")),
-                };
-                caller.SendUriNavigatedMessage(sender, PersistenceId, TabItemName,sender.Source,
-                    (await sender.CoreWebView2.ExecuteScriptAsync("document.title")).ToString(), icon );
+                
+                TopWebView.Visibility = Visibility.Visible;
+                string title = (await sender.CoreWebView2.ExecuteScriptAsync("document.title")).ToString();
+                string iconUri = $"https://{sender.Source.Host}/favicon.ico";
+                ViewModel.CallUriNavigationCompleted(sender, PersistenceId,
+                    TabItemName, title, iconUri, sender.Source);
             }
-            caller.FrameStatus(sender, PersistenceId, sender.CanGoBack, sender.CanGoForward, true);
+            
         }
 
         private void TopWebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
             if (sender.Source.ToString() == "about:blank") return;
-            caller.SendUriNavigatedMessage(sender, PersistenceId,TabItemName, sender.Source, sender.Source.ToString(),null);
-            caller.FrameStatus(sender, PersistenceId, sender.CanGoBack, sender.CanGoForward, true);
+            ViewModel.CallUriNavigatedStarting(sender, PersistenceId, TabItemName, sender.Source);
         }
     }
 }

@@ -8,16 +8,20 @@ namespace EdgeEx.WinUI3.Args
 {
     public class FrameStatusEventArg
     {
+        public string PersistenceId { get; set; }
+        public string TabItemName { get; set; }
         public bool CanGoBack { get; set; }
         public bool CanGoForward { get; set; }
         public bool CanRefresh { get; set; }
-        public string PersistenceId { get; set; }
-        public FrameStatusEventArg(string persistenceId, bool canGoBack, bool canGoForward, bool canRefresh)
+        
+        public FrameStatusEventArg(string persistenceId, string tabItemName, bool canGoBack, bool canGoForward, bool canRefresh)
         {
             PersistenceId = persistenceId;
             CanGoBack = canGoBack;
             CanGoForward = canGoForward;
             CanRefresh = canRefresh;
+            TabItemName = tabItemName;
         }
+        public FrameStatusEventArg() { }
     }
 }

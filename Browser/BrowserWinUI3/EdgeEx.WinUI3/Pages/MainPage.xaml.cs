@@ -64,33 +64,57 @@ namespace EdgeEx.WinUI3.Pages
             resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
             caller = App.Current.Services.GetService<ICallerToolkit>();
-            caller.UriNavigatedEvent += Caller_UriNavigatedEvent;
-            caller.UriNavigatedMessageEvent += Caller_UriNavigatedMessageEvent;
+            caller.AddressUriNavigatedEvent += Caller_UriNavigatedEvent;
+            caller.UriNavigationCompletedEvent += Caller_UriNavigatedMessageEvent;
+            caller.UriNavigatedStartingEvent += Caller_UriNavigatedStartingEvent;
             caller.FrameStatusEvent += Caller_FrameStatusEvent;
         }
-        private void Caller_FrameStatusEvent(object sender, FrameStatusEventArg e)
+
+        private void Caller_UriNavigatedStartingEvent(object sender, UriNavigatedMessageEventArg e)
         {
-            if(e.PersistenceId == PersistenceId)
+            if (Tabs.SelectedItem is TabViewItem item && item.Name == e.TabItemName)
             {
-                GoBackButton.IsEnabled = e.CanGoBack;
-                GoForwardButton.IsEnabled = e.CanGoForward;
-                RefreshButton.IsEnabled = e.CanRefresh;
+                string uri = e.NavigatedUri.ToString();
+                AddressBar.Text = e.NavigatedUri.ToString();
+                item.Tag = e.NavigatedUri;
+                item.Header = uri;
             }
         }
-
         private void Caller_UriNavigatedMessageEvent(object sender, UriNavigatedMessageEventArg e)
         {
-            if (Tabs.SelectedItem is TabViewItem item&& item.Name == e.TabItemName)
+            if (Tabs.SelectedItem is TabViewItem item && item.Name == e.TabItemName)
             {
                 AddressBar.Text = e.NavigatedUri.ToString();
                 item.Tag = e.NavigatedUri;
-                item.Header = e.Title[1..^1];
-                if(e.Icon != null && e.Icon!= item.IconSource)
+                
+                item.Header = e.Title;
+                if (e.Icon != null && e.Icon != item.IconSource)
                 {
                     item.IconSource = e.Icon;
                 }
+                ViewModel.CheckFavorite(e.NavigatedUri);
             }
         }
+        private void Caller_FrameStatusEvent(object sender, FrameStatusEventArg e)
+        {
+            if (Tabs.SelectedItem is TabViewItem item)
+            {
+                if (e.PersistenceId == PersistenceId && e.TabItemName == item.Name) 
+                {
+                    GoBackButton.IsEnabled = e.CanGoBack;
+                    GoForwardButton.IsEnabled = e.CanGoForward;
+                    RefreshButton.IsEnabled = e.CanRefresh;
+                    ViewModel.CheckFavorite(item.Tag as Uri);
+                }
+            }
+            else
+            {
+                GoBackButton.IsEnabled = GoForwardButton.IsEnabled = RefreshButton.IsEnabled = false;
+            }
+                
+        }
+
+        
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -356,7 +380,40 @@ namespace EdgeEx.WinUI3.Pages
 
         private void FavoriteButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Tabs.SelectedItem is TabViewItem item)
+            {
+                FavoriteName.Tag = item.Name;
+                if (!ViewModel.IsFavorite)
+                {
+                    ViewModel.IsFavorite = !ViewModel.IsFavorite;
+                    string title = (string)item.Header;
+                    caller.Favorite(sender, PersistenceId,  item.Name, ViewModel.IsFavorite, (item.Tag as Uri).ToString(), title, "root");
+                    FavoriteName.Text = title;
+                }
+                
+            }
+        }
 
+        private void FavoriteDeteleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(Tabs.TabItems.Cast<TabViewItem>().FirstOrDefault(x=>x.Name == (string)FavoriteName.Tag ) is TabViewItem item)
+            {
+                caller.Favorite(sender, PersistenceId, item.Name,
+                    false, (item.Tag as Uri).ToString(), FavoriteName.Text, "root");
+                ViewModel.IsFavorite = false;
+                FavoriteFlyout.Hide();
+            }
+        }
+
+        private void FavoriteConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Tabs.TabItems.Cast<TabViewItem>().FirstOrDefault(x => x.Name == (string)FavoriteName.Tag) is TabViewItem item)
+            {
+                caller.Favorite(sender, PersistenceId, item.Name,
+                    true, (item.Tag as Uri).ToString(), FavoriteName.Text, "root");
+                ViewModel.IsFavorite = true;
+                FavoriteFlyout.Hide();
+            }
         }
     }
 }

@@ -96,6 +96,7 @@ namespace EdgeEx.WinUI3
             services.AddSingleton<ResourceToolkit>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<SettingsViewModel>();
+            services.AddTransient<WebViewModel>();
             return services.BuildServiceProvider();
         }
         /// <summary>
@@ -123,7 +124,7 @@ namespace EdgeEx.WinUI3
         {
             ISqlSugarClient db = App.Current.Services.GetService<ISqlSugarClient>();
             db.DbMaintenance.CreateDatabase();
-            db.CodeFirst.InitTables(typeof(BookMark));
+            db.CodeFirst.InitTables<BookMark>();
         }
         /// <summary>
         /// Init Serilog Logger

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI;
 
 namespace EdgeEx.WinUI3.ViewModels
@@ -40,6 +41,15 @@ namespace EdgeEx.WinUI3.ViewModels
             else
             {
                 IsTabDragTo = _localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragTo);
+            }
+            if (!_localSettingsToolkit.Contains(LocalSettingName.AppDataThumbsPath))
+            {
+                AppDataThumbsPath = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "Thumbs");
+                _localSettingsToolkit.Set(LocalSettingName.AppDataThumbsPath, AppDataThumbsPath);
+            }
+            else
+            {
+                AppDataThumbsPath = _localSettingsToolkit.GetString(LocalSettingName.AppDataThumbsPath);
             }
         }
         public DesktopAcrylicController InitDesktopAcrylicController(DesktopAcrylicController controller = null)
@@ -87,6 +97,15 @@ namespace EdgeEx.WinUI3.ViewModels
         private bool isTabDragTo;
         [ObservableProperty]
         private bool isTabDragOut;
+        [ObservableProperty]
+        private string appDataThumbsPath;
+        partial void OnAppDataThumbsPathChanged(string oldValue, string newValue)
+        {
+            if(oldValue != newValue)
+            {
+                _localSettingsToolkit.Set(LocalSettingName.AppDataThumbsPath, newValue);
+            }
+        }
         partial void OnIsTabDragOutChanged(bool oldValue, bool newValue)
         {
             _localSettingsToolkit.Set(LocalSettingName.IsTabDragOut, newValue);

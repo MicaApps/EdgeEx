@@ -50,9 +50,9 @@ namespace EdgeEx.WinUI3.Pages
             ViewModel.WindowBackdrop = BackdropsHelper.CurrentBackdrop;
             WindowBackdropComboBox.SelectedIndex = BackdropsHelper.CurrentBackdrop == WindowBackdrop.Acrylic ? 0 : 1;
             InitPersistenceId();
-            caller.FrameStatus(this, PersistenceId, Frame.CanGoBack, Frame.CanGoForward, false);
-            caller.SendUriNavigatedMessage(this, PersistenceId, TabItemName,
-                    NavigateUri, $"\"{resourceToolkit.GetString(ResourceKey.Lab)}\"",  new FontIconSource() { Glyph = "\uF158" });
+            caller.FrameStatus(this, PersistenceId, TabItemName, Frame.CanGoBack, Frame.CanGoForward, false);
+            caller.UriNavigationCompleted(this, PersistenceId, TabItemName,
+                    NavigateUri, resourceToolkit.GetString(ResourceKey.Lab),  new FontIconSource() { Glyph = "\uF158" });
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
