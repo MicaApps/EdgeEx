@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+
         <controls:WebView2
             x:Name="TopWebView"
             Grid.Row="0"
@@ -21,5 +22,10 @@
             NavigationCompleted="TopWebView_NavigationCompletedAsync"
             NavigationStarting="TopWebView_NavigationStarting"
             Visibility="Collapsed" />
+        <ProgressBar
+            x:Name="LoadingBar"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            IsIndeterminate="True" />
     </Grid>
 </Page>

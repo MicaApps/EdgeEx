@@ -130,6 +130,7 @@ namespace EdgeEx.WinUI3.Pages
         private void Caller_UriNavigatedEvent(object sender, UriNavigatedEventArg e)
         {
             UriNavigate(e.NavigatedUri);
+
         }
 
         
@@ -138,6 +139,7 @@ namespace EdgeEx.WinUI3.Pages
         /// </summary>
         private void NewTab(string title,Uri uri,IconSource icon,Type page, NavigateTabMode mode)
         {
+            AddressBar.Text = uri.ToString();
             string name = Guid.NewGuid().ToString("N");
             if (mode == NavigateTabMode.NewTab)
             {

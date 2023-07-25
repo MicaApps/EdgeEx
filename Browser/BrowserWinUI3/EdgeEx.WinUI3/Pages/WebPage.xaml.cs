@@ -170,6 +170,7 @@ namespace EdgeEx.WinUI3.Pages
         {
             TopWebView.Height = e.NewSize.Height;
             TopWebView.Width = e.NewSize.Width;
+            LoadingBar.Width = e.NewSize.Width;
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         { 
@@ -178,6 +179,7 @@ namespace EdgeEx.WinUI3.Pages
             int commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
             TopWebView.Height = rect.Height - titleBarHeight - commandBarHeight;
             TopWebView.Width = rect.Width;
+            LoadingBar.Width = rect.Width;
             InitPersistenceId();
         }
         private void InitPersistenceId()
@@ -189,7 +191,7 @@ namespace EdgeEx.WinUI3.Pages
         {
             if (args.IsSuccess && sender.Source.ToString() != "about:blank")
             {
-                
+                LoadingBar.Visibility = Visibility.Collapsed;
                 TopWebView.Visibility = Visibility.Visible;
                 string title = (await sender.CoreWebView2.ExecuteScriptAsync("document.title")).ToString();
                 string iconUri = $"https://{sender.Source.Host}/favicon.ico";
@@ -202,6 +204,7 @@ namespace EdgeEx.WinUI3.Pages
         private void TopWebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
             if (sender.Source.ToString() == "about:blank") return;
+            LoadingBar.Visibility = Visibility.Visible;
             ViewModel.CallUriNavigatedStarting(sender, PersistenceId, TabItemName, sender.Source);
         }
     }
