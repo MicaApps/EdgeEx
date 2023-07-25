@@ -467,19 +467,25 @@
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
                     Click="GoBackButton_Click"
                     Icon="Back"
-                    IsEnabled="{x:Bind ViewModel.CanGoBack, Mode=OneWay}" />
+                    IsEnabled="{x:Bind ViewModel.CanGoBack, Mode=OneWay}"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=GoBack}" />
                 <AppBarButton
                     x:Name="GoForwardButton"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
                     Click="GoForwardButton_Click"
                     Icon="Forward"
-                    IsEnabled="{x:Bind ViewModel.CanGoForward, Mode=OneWay}" />
+                    IsEnabled="{x:Bind ViewModel.CanGoForward, Mode=OneWay}"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=GoForward}" />
                 <AppBarButton
                     x:Name="RefreshButton"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
                     Click="RefreshButton_Click"
                     Icon="Refresh"
-                    IsEnabled="{x:Bind ViewModel.IsApp, Mode=OneWay}" />
+                    IsEnabled="{x:Bind ViewModel.IsApp, Mode=OneWay}"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=Refresh}" />
                 <AppBarSeparator />
             </StackPanel>
             <AutoSuggestBox
@@ -499,7 +505,9 @@
                     x:Name="FavoriteButton"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
                     AllowFocusOnInteraction="True"
-                    Click="FavoriteButton_Click">
+                    Click="FavoriteButton_Click"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=Favorite}">
                     <AppBarButton.Flyout>
                         <Flyout x:Name="FavoriteFlyout" Placement="BottomEdgeAlignedRight">
                             <Grid Width="250" Padding="5,0">
@@ -585,11 +593,15 @@
                     x:Name="DownloadButthon"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
                     Click="DownloadButthon_Click"
-                    Icon="Download" />
+                    Icon="Download"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=Download}" />
                 <AppBarButton
                     x:Name="BookMarksButthon"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
-                    Click="BookMarksButthon_Click">
+                    Click="BookMarksButthon_Click"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=BookMarks}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE728;" />
                     </AppBarButton.Icon>
@@ -609,7 +621,9 @@
                 <AppBarButton
                     x:Name="HistoryButton"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
-                    Click="HistoryButton_Click">
+                    Click="HistoryButton_Click"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=History}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE81C;" />
                     </AppBarButton.Icon>
@@ -618,11 +632,15 @@
                     x:Name="SettingsButton"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
                     Click="SettingsButton_Click"
-                    Icon="Setting" />
+                    Icon="Setting"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=Settings}" />
                 <AppBarButton
                     x:Name="MoreButton"
                     Width="{StaticResource EdgeExCommandBarButtonWidth}"
-                    Icon="More" />
+                    Icon="More"
+                    ToolTipService.Placement="Bottom"
+                    ToolTipService.ToolTip="{ex:Locale Key=More}" />
             </StackPanel>
         </Grid>
         <TeachingTip

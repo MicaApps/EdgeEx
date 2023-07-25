@@ -47,5 +47,12 @@ namespace EdgeEx.WinUI3.Enums
         More,
         Bookmarks,
         DefaultFolder,
+        GoBack,
+        GoForward,
+        Refresh,
+        Favorite,
+        UnFavorite,
+        Download,
+
     }
 }

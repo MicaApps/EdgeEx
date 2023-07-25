@@ -249,4 +249,22 @@
   <data name="DefaultFolder" xml:space="preserve">
     <value>DefaultFolder</value>
   </data>
+  <data name="GoForward" xml:space="preserve">
+    <value>GoForward</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>GoBack</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="UnFavorite" xml:space="preserve">
+    <value>UnFavorite</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
 </root>

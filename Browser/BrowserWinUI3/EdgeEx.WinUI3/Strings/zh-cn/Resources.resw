@@ -243,10 +243,28 @@
   <data name="More" xml:space="preserve">
     <value>更多</value>
   </data>
-  <data name="Bookmarks" xml:space="preserve">
-    <value>书签</value>
-  </data>
   <data name="DefaultFolder" xml:space="preserve">
     <value>默认文件夹</value>
+  </data>
+  <data name="GoForward" xml:space="preserve">
+    <value>前进</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>后退</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="UnFavorite" xml:space="preserve">
+    <value>取消收藏</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>收藏夹</value>
   </data>
 </root>
