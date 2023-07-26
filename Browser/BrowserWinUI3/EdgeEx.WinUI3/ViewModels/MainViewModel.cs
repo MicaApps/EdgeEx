@@ -20,6 +20,7 @@ namespace EdgeEx.WinUI3.ViewModels
         private bool isApp;
         [ObservableProperty]
         private bool isFavorite;
+        public ObservableCollection<TabViewItem> TabItems { get; set; } = new ObservableCollection<TabViewItem>();
         public MainViewModel(ISqlSugarClient sqlSugarClient)
         {
             db = sqlSugarClient;

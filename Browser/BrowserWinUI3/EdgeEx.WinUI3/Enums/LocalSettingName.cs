@@ -21,5 +21,6 @@ namespace EdgeEx.WinUI3.Enums
         IsTabDragTo,
         IsTabDragOut,
         AppDataThumbsPath,
+        BookmarkViewMode,
     }
 }

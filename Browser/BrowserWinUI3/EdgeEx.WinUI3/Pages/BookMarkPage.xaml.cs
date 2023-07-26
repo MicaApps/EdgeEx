@@ -110,7 +110,7 @@ namespace EdgeEx.WinUI3.Pages
             var resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             caller.FrameStatus(this, PersistenceId, TabItemName, Frame.CanGoBack, Frame.CanGoForward, false);
             caller.UriNavigationCompleted(this, PersistenceId, TabItemName,
-            new Uri("EdgeEx://Bookmarks/"),
+            NavigateUri,
             resourceToolkit.GetString(ResourceKey.Bookmarks),  new FontIconSource() { Glyph = "\uE728" });
         }
 
@@ -119,7 +119,7 @@ namespace EdgeEx.WinUI3.Pages
             if(args.InvokedItem is Bookmark bookmark)
             {
                 ViewModel.SetCurrentBookmarks(bookmark);
-                ViewModel.SetAddress(bookmark,PersistenceId, TabItemName);
+                NavigateUri = ViewModel.SetAddress(bookmark,PersistenceId, TabItemName);
             }
             
         }
@@ -127,11 +127,11 @@ namespace EdgeEx.WinUI3.Pages
         private void BookmarksTreeView_Loaded(object sender, RoutedEventArgs e)
         {
             Bookmark book = ViewModel.InitBookmarks(NavigateUri);
-            StyleSelecter.SelectedIndex = 1;
+            StyleSelecter.SelectedIndex = ViewModel.BookmarksViewMode;
             if (book != null)
             {
                 ViewModel.SetCurrentBookmarks(book);
-                ViewModel.SetAddress(book, PersistenceId, TabItemName);
+                NavigateUri = ViewModel.SetAddress(book, PersistenceId, TabItemName);
             } 
         }
 
@@ -155,6 +155,7 @@ namespace EdgeEx.WinUI3.Pages
                 BookmarkGridView.Visibility = Visibility.Visible;
                 BookmarkListView.Visibility = Visibility.Collapsed;
             }
+            ViewModel.BookmarksViewMode = StyleSelecter.SelectedIndex;
         }
          
         private async void ImportButton_Click(object sender, RoutedEventArgs e)

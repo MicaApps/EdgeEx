@@ -28,6 +28,10 @@ namespace EdgeEx.WinUI3.Toolkits
         {
             Set(settingName, (object)value);
         }
+        public  void Set(LocalSettingName settingName, int value)
+        {
+            Set(settingName, (object)value);
+        }
         public  void Set(LocalSettingName settingName, float value)
         {
             Set(settingName, (object)value);
@@ -55,6 +59,10 @@ namespace EdgeEx.WinUI3.Toolkits
         public  float GetFloat(LocalSettingName settingName)
         {
             return (float)Get(settingName);
+        }
+        public int GetInt32(LocalSettingName settingName)
+        {
+            return (int)Get(settingName);
         }
         public bool GetBoolean(LocalSettingName settingName)
         {

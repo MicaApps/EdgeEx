@@ -43,7 +43,7 @@ namespace EdgeEx.WinUI3.Pages
     public sealed partial class WebPage : Page
     {
         private ICallerToolkit caller;
-        private SettingsViewModel settings;
+        private LocalSettingsToolkit settings;
         private ISqlSugarClient db;
         private string PersistenceId { get; set; }
         private string TabItemName { get; set; }
@@ -53,7 +53,7 @@ namespace EdgeEx.WinUI3.Pages
             this.InitializeComponent();
             ViewModel = App.Current.Services.GetService<WebViewModel>();
             caller = App.Current.Services.GetService<ICallerToolkit>();
-            settings = App.Current.Services.GetService<SettingsViewModel>();
+            settings = App.Current.Services.GetService<LocalSettingsToolkit>();
             db = App.Current.Services.GetService<ISqlSugarClient>();
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -121,11 +121,12 @@ namespace EdgeEx.WinUI3.Pages
         {
             if(folder == null)
             {
-                if (!Directory.Exists(settings.AppDataThumbsPath))
+                string thumbPath = settings.GetString(LocalSettingName.AppDataThumbsPath);
+                if (!Directory.Exists(thumbPath))
                 {
-                    Directory.CreateDirectory(settings.AppDataThumbsPath);
+                    Directory.CreateDirectory(thumbPath);
                 }
-                folder = await StorageFolder.GetFolderFromPathAsync(settings.AppDataThumbsPath);
+                folder = await StorageFolder.GetFolderFromPathAsync(thumbPath);
             }
             fileName ??= $"{Guid.NewGuid()}.png";
             MemoryStream memoryStream = new MemoryStream();
@@ -194,10 +195,10 @@ namespace EdgeEx.WinUI3.Pages
         }
         private async void TopWebView_NavigationCompletedAsync(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
+            LoadingBar.Visibility = Visibility.Collapsed;
+            TopWebView.Visibility = Visibility.Visible;
             if (args.IsSuccess && sender.Source.ToString() != "about:blank")
             {
-                
-                TopWebView.Visibility = Visibility.Visible;
                 string title = (await sender.CoreWebView2.ExecuteScriptAsync("document.title")).ToString();
                 string iconUri = $"https://{sender.Source.Host}/favicon.ico";
                 ViewModel.CallUriNavigationCompleted(sender, PersistenceId,
@@ -207,7 +208,6 @@ namespace EdgeEx.WinUI3.Pages
                     ViewModel.UpdateScreenshot(await CaptureScreenshotAsync());
                 }
             }
-            LoadingBar.Visibility = Visibility.Collapsed;
         }
 
         private void TopWebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)

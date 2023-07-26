@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.WinUI.UI.Helpers;
+using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Models;
@@ -55,6 +56,7 @@ namespace EdgeEx.WinUI3
             Services = ConfigureServices();
             InitLogger();
             InitDatabase();
+            InitLocalSettings();
             this.InitializeComponent();
         }
         /// <summary>
@@ -152,6 +154,26 @@ namespace EdgeEx.WinUI3
                .MinimumLevel.Debug()
                .WriteTo.File(System.IO.Path.Combine(logPath, "EdgeEx.WinUI3.log"), outputTemplate: "{Timestamp:MM-dd HH:mm:ss.fff} [{Level:u4}] {SourceContext} | {Message:lj} {Exception}{NewLine}", rollingInterval: RollingInterval.Day, shared: true )
                .CreateLogger();
+        }
+        public static void InitLocalSettings()
+        {
+            LocalSettingsToolkit _localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
+            if (!_localSettingsToolkit.Contains(LocalSettingName.IsTabDragOut))
+            {
+                _localSettingsToolkit.Set(LocalSettingName.IsTabDragOut, false);
+            }
+            if (!_localSettingsToolkit.Contains(LocalSettingName.IsTabDragTo))
+            {
+                _localSettingsToolkit.Set(LocalSettingName.IsTabDragTo, false);
+            }
+            if (!_localSettingsToolkit.Contains(LocalSettingName.AppDataThumbsPath))
+            {
+                _localSettingsToolkit.Set(LocalSettingName.AppDataThumbsPath, System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "Thumbs"));
+            }
+            if (!_localSettingsToolkit.Contains(LocalSettingName.BookmarkViewMode))
+            {
+                _localSettingsToolkit.Set(LocalSettingName.BookmarkViewMode, 1);
+            }
         }
         private WindowEx m_window;
     }

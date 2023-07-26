@@ -1,5 +1,6 @@
 ﻿using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Models;
+using EdgeEx.WinUI3.Toolkits;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,14 @@ namespace EdgeEx.WinUI3.ViewModels
     {
         private ISqlSugarClient db;
         private ICallerToolkit caller;
+        private LocalSettingsToolkit localSettings;
         public ObservableCollection<Bookmark> BookmarkFolders { get; } = new ObservableCollection<Bookmark>();
         public ObservableCollection<Bookmark> CurrentBookmarks { get; } = new ObservableCollection<Bookmark>();
-        public BookmarkViewModel(ISqlSugarClient sqlSugarClient,ICallerToolkit callerToolkit)
+        public BookmarkViewModel(ISqlSugarClient _sqlSugarClient,ICallerToolkit _callerToolkit,LocalSettingsToolkit _localSettings)
         {
-            db = sqlSugarClient;
-            caller = callerToolkit;
+            db = _sqlSugarClient;
+            caller = _callerToolkit;
+            localSettings = _localSettings;
         }
         public Bookmark InitBookmarks(Uri navigateUri = null)
         {
@@ -72,7 +75,7 @@ namespace EdgeEx.WinUI3.ViewModels
             }
             
         }
-        public void SetAddress(Bookmark bookmark, string persistenceId, string tabItemName)
+        public Uri SetAddress(Bookmark bookmark, string persistenceId, string tabItemName)
         {  
             List<string> addresss = new List<string> { bookmark.Uri };
             while (bookmark!=null && bookmark?.FolderId != "root")
@@ -81,9 +84,16 @@ namespace EdgeEx.WinUI3.ViewModels
                 addresss.Add(bookmark.Uri);
             }
             addresss.Reverse();
+            Uri address = new Uri("EdgeEx://Bookmarks/" + String.Join('/', addresss));
             caller.UriNavigationCompleted(this, persistenceId, tabItemName,
-                   new Uri("EdgeEx://Bookmarks/" + String.Join('/', addresss)),
+                   address,
                    null, null);
+            return address;
+        }
+        public int BookmarksViewMode
+        {
+            get => localSettings.GetInt32(Enums.LocalSettingName.BookmarkViewMode);
+            set => localSettings.Set(Enums.LocalSettingName.BookmarkViewMode,value);
         }
     }
 }

@@ -433,7 +433,8 @@
             TabCloseRequested="Tabs_TabCloseRequested"
             TabDragCompleted="Tabs_TabDragCompleted"
             TabDragStarting="Tabs_TabDragStarting"
-            TabDroppedOutside="Tabs_TabDroppedOutside">
+            TabDroppedOutside="Tabs_TabDroppedOutside"
+            TabItemsSource="{x:Bind ViewModel.TabItems, Mode=TwoWay}">
 
             <TabView.TabStripHeader>
                 <StackPanel Height="{StaticResource EdgeExTitleBarHeight}" Orientation="Horizontal">

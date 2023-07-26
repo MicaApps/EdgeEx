@@ -125,7 +125,7 @@ namespace EdgeEx.WinUI3.Adapters
                     {
                         Title = node.TextContent,
                         IsFolder = true,
-                        Uri = Guid.NewGuid().ToString("N"),
+                        Uri = node.GetAttribute("add_date"),
                         FolderId = folderId,
                         CreateTime = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("add_date"))),
                         LastModified = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("last_modified"))),

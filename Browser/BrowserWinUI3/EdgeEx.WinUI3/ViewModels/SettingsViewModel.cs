@@ -26,31 +26,9 @@ namespace EdgeEx.WinUI3.ViewModels
             _localSettingsToolkit = localSettingsToolkit;
             _resourceToolkit = resourceToolkit;
             _callerToolkit = caller;
-            if (!_localSettingsToolkit.Contains(LocalSettingName.IsTabDragOut))
-            {
-                _localSettingsToolkit.Set(LocalSettingName.IsTabDragOut, false);
-            }
-            else
-            {
-                IsTabDragOut = _localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragOut);
-            }
-            if (!_localSettingsToolkit.Contains(LocalSettingName.IsTabDragTo))
-            {
-                _localSettingsToolkit.Set(LocalSettingName.IsTabDragTo, false);
-            }
-            else
-            {
-                IsTabDragTo = _localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragTo);
-            }
-            if (!_localSettingsToolkit.Contains(LocalSettingName.AppDataThumbsPath))
-            {
-                AppDataThumbsPath = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "Thumbs");
-                _localSettingsToolkit.Set(LocalSettingName.AppDataThumbsPath, AppDataThumbsPath);
-            }
-            else
-            {
-                AppDataThumbsPath = _localSettingsToolkit.GetString(LocalSettingName.AppDataThumbsPath);
-            }
+            IsTabDragOut = _localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragOut);
+            IsTabDragTo = _localSettingsToolkit.GetBoolean(LocalSettingName.IsTabDragTo);
+            AppDataThumbsPath = _localSettingsToolkit.GetString(LocalSettingName.AppDataThumbsPath);
         }
         public DesktopAcrylicController InitDesktopAcrylicController(DesktopAcrylicController controller = null)
         {

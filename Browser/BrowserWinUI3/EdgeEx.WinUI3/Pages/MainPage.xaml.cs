@@ -65,7 +65,7 @@ namespace EdgeEx.WinUI3.Pages
             localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
             caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.AddressUriNavigatedEvent += Caller_UriNavigatedEvent;
-            caller.UriNavigationCompletedEvent += Caller_UriNavigatedMessageEvent;
+            caller.UriNavigationCompletedEvent += Caller_UriNavigationCompletedEvent;
             caller.UriNavigatedStartingEvent += Caller_UriNavigatedStartingEvent;
             caller.FrameStatusEvent += Caller_FrameStatusEvent;
             caller.LoadingEvent += Caller_LoadingEvent;
@@ -93,17 +93,16 @@ namespace EdgeEx.WinUI3.Pages
                 item.Header = uri;
             }
         }
-        private void Caller_UriNavigatedMessageEvent(object sender, UriNavigatedMessageEventArg e)
+        private void Caller_UriNavigationCompletedEvent(object sender, UriNavigatedMessageEventArg e)
         {
-            if (Tabs.SelectedItem is TabViewItem item && item.Name == e.TabItemName)
-            {
+            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is TabViewItem item)
+            { 
                 AddressBar.Text = e.NavigatedUri.ToString();
                 item.Tag = e.NavigatedUri;
-                if(e.Title!=null)
+                if(e.Title != null)
                 {
                     item.Header = e.Title;
                 }
-                
                 if (e.Icon != null && e.Icon != item.IconSource)
                 {
                     item.IconSource = e.Icon;
@@ -138,7 +137,7 @@ namespace EdgeEx.WinUI3.Pages
                 UriNavigate(uri, NavigateTabMode.NewTab);
             }else if(e.Parameter is TabViewItem item)
             {
-                Tabs.TabItems.Add(item);
+                ViewModel.TabItems.Add(item);
                 Tabs.SelectedIndex = 0;
             }
             
@@ -172,14 +171,14 @@ namespace EdgeEx.WinUI3.Pages
                 };
                 item.Content = frame;
                 int index = Tabs.SelectedIndex + 1;
-                if(index == Tabs.TabItems.Count || Tabs.TabItems.Count == 0)
+                if(index == ViewModel.TabItems.Count || ViewModel.TabItems.Count == 0)
                 {
-                    Tabs.TabItems.Add(item);
+                    ViewModel.TabItems.Add(item);
                     Tabs.SelectedItem = item;
                 }
                 else
                 {
-                    Tabs.TabItems.Insert(index, item);
+                    ViewModel.TabItems.Insert(index, item);
                     Tabs.SelectedIndex = index;
                 }
             }
@@ -293,8 +292,8 @@ namespace EdgeEx.WinUI3.Pages
 
         private void Tabs_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
-            Tabs.TabItems.Remove(args.Tab);
-            if(Tabs.TabItems.Count == 0)
+            ViewModel.TabItems.Remove(args.Tab);
+            if(ViewModel.TabItems.Count == 0)
             {
                 WindowHelper.GetWindowForElement(this)?.Close();
             }
