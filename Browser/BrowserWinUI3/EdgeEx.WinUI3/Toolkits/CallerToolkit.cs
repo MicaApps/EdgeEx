@@ -52,6 +52,15 @@ namespace EdgeEx.WinUI3.Toolkits
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
+        public event EventHandler<LoadingEventArg> LoadingEvent;
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public event EventHandler<LoadingProgressEventArg> LoadingProgressEvent;
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public void ChangeWindowBackdrop(WindowBackdrop oldMode, WindowBackdrop newMode, Color tintColor, Color fallbackColor, float tintOpacity, MicaKind kind)
         {
             WindowBackdropChangedEvent?.Invoke(this, new WindowBackdropChangedEventArg(oldMode, newMode, tintColor, fallbackColor, tintOpacity, kind));
@@ -77,6 +86,17 @@ namespace EdgeEx.WinUI3.Toolkits
         {
             FrameStatusEvent?.Invoke(sender, new FrameStatusEventArg(persistenceId, tabItemName, canBack, canForward, canRefresh)); 
         }
+
+        public void Loading(object sender, bool isLoading, string title)
+        {
+            LoadingEvent?.Invoke(sender, new LoadingEventArg(isLoading, title));
+        }
+
+        public void LoadingProgress(object sender, double progress)
+        {
+            LoadingProgressEvent?.Invoke(sender,new LoadingProgressEventArg(progress));
+        }
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>

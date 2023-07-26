@@ -156,7 +156,10 @@ namespace EdgeEx.WinUI3.Pages
             StorageFile file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
-                adapter.ImportAsync(file);
+               if( await adapter.ImportAsync(file))
+                {
+                    ViewModel.InitBookmarks();
+                }
             }
         }
     }

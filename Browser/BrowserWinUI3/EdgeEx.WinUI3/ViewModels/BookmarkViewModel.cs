@@ -38,14 +38,8 @@ namespace EdgeEx.WinUI3.ViewModels
                 CurrentBookmarks.Clear();
                 foreach (Bookmark item in db.Queryable<Bookmark>().Where(x => !x.IsFolder && x.FolderId == bookmark.Uri).ToList())
                 {
-                    if(item.Icon == null)
-                    {
-                        item.Icon = "ms-appx:///Assets/DefaultIcon.png";
-                    }
-                    if(item.Screenshot == null)
-                    {
-                        item.Screenshot = "ms-appx:///Assets/DefaultScreenshot.png";
-                    }
+                    item.Icon ??= "ms-appx:///Assets/DefaultIcon.png";
+                    item.Screenshot ??= "ms-appx:///Assets/DefaultScreenshot.png";
                     CurrentBookmarks.Add(item);
                 }
             }

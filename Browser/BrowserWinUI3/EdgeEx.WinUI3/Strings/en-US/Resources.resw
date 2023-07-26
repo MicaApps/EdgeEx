@@ -273,4 +273,7 @@
   <data name="Outport" xml:space="preserve">
     <value>Outport</value>
   </data>
+  <data name="ImportBookmarks" xml:space="preserve">
+    <value>ImportBookmarks</value>
+  </data>
 </root>

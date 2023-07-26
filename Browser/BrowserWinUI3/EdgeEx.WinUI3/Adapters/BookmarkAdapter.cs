@@ -2,6 +2,7 @@
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using EdgeEx.WinUI3.Helpers;
+using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Models;
 using EdgeEx.WinUI3.Toolkits;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,38 +29,46 @@ namespace EdgeEx.WinUI3.Adapters
     {
         private LocalSettingsToolkit localSettingsToolkit;
         private ISqlSugarClient db;
+        private ICallerToolkit caller;
+        private ResourceToolkit resourceToolkit;
+        private double total;
+        private double current = 0 ;
         public BookmarkAdapter()
         {
             localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
             db = App.Current.Services.GetService<ISqlSugarClient>();
+            caller = App.Current.Services.GetService<ICallerToolkit>();
+            resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
         }
-        public async void ImportAsync(StorageFile file)
+        public async Task<bool> ImportAsync(StorageFile file)
         {
             string text = await FileIO.ReadTextAsync(file);
             HtmlParser parser = new HtmlParser();
             IHtmlDocument document = parser.ParseDocument(text);
             IElement items = document.QuerySelector(@"body > dl");
-            Bookmark root = db.Queryable<Bookmark>().First(x => x.Uri == "default");
-            int a = db.Queryable<Bookmark>().Count();
+            int all = document.GetElementsByTagName("A").Length;
+            caller.Loading(this, true, resourceToolkit.GetString(Enums.ResourceKey.ImportBookmarks) + "...");
+            total = db.Queryable<Bookmark>().Count();
             foreach (IElement item in items.Children)
             {
                 if (item.NodeName == "DT")
                 {
-                    await CheckNodeAsync(item, root);
+                    await CheckNodeAsync(item, "root");
                 }
             }
-            int b = db.Queryable<Bookmark>().Count();
-            Log.Information("{a},{b}", a, b);
+            double b = db.Queryable<Bookmark>().Count();
+            caller.Loading(this, false,"");
+            return total != b;
         }
         public static DateTime TimeStampToDateTime(long timeStamp, bool inMilli = false)
         {
             DateTimeOffset dateTimeOffset = inMilli ? DateTimeOffset.FromUnixTimeMilliseconds(timeStamp) : DateTimeOffset.FromUnixTimeSeconds(timeStamp);
             return dateTimeOffset.LocalDateTime;
         }
-        public async Task<string> SaveImageFromBase64Async(string base64String,   StorageFolder folder = null)
+        public async Task<string> SaveImageFromBase64Async(string base64String, StorageFolder folder = null)
         {
             if (folder == null)
-            {   
+            {
                 string appDataThumbsPath = localSettingsToolkit.GetString(Enums.LocalSettingName.AppDataThumbsPath);
                 if (!Directory.Exists(appDataThumbsPath))
                 {
@@ -68,7 +77,7 @@ namespace EdgeEx.WinUI3.Adapters
                 folder = await StorageFolder.GetFolderFromPathAsync(appDataThumbsPath);
             }
             if (base64String == null) return null;
-            byte[] bytes = Convert.FromBase64String(base64String.Replace("data:image/png;base64,",""));
+            byte[] bytes = Convert.FromBase64String(base64String.Replace("data:image/png;base64,", ""));
             string fileName = $"{EncryptingHelper.CreateMd5(bytes)}.png";
             string path = Path.Combine(folder.Path, fileName);
             if (File.Exists(path)) return path;
@@ -87,10 +96,9 @@ namespace EdgeEx.WinUI3.Adapters
                 }
                 return file.Path;
             }
-
         }
 
-        private async Task CheckNodeAsync(IElement element, Bookmark bookmark)
+        private async Task CheckNodeAsync(IElement element, string folderId)
         {
             IElement node = element?.FirstElementChild;
             if (element != null && node != null)
@@ -103,11 +111,13 @@ namespace EdgeEx.WinUI3.Adapters
                         Uri = node.GetAttribute("href"),
                         Title = node.TextContent,
                         IsFolder = false,
-                        FolderId = bookmark.Uri,
+                        FolderId = folderId,
                         Icon = await SaveImageFromBase64Async(node.GetAttribute("icon")),
                         CreateTime = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("add_date"))),
                     };
                     db.Storageable(book).ExecuteCommand();
+                    current++;
+                    caller.LoadingProgress(this, Math.Round(current / total, 2));
                 }
                 else if (node.NodeName == "H3")
                 {
@@ -116,7 +126,7 @@ namespace EdgeEx.WinUI3.Adapters
                         Title = node.TextContent,
                         IsFolder = true,
                         Uri = Guid.NewGuid().ToString("N"),
-                        FolderId = bookmark.Uri,
+                        FolderId = folderId,
                         CreateTime = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("add_date"))),
                         LastModified = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("last_modified"))),
                     };
@@ -129,7 +139,7 @@ namespace EdgeEx.WinUI3.Adapters
                             {
                                 if (item.NodeName == "DT")
                                 {
-                                    await CheckNodeAsync(item, bookmarkFolder);
+                                    await CheckNodeAsync(item, bookmarkFolder.Uri);
                                 }
                             }
                             db.Storageable(bookmarkFolder).ExecuteCommand();

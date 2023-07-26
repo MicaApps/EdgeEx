@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:controls1="using:EdgeEx.WinUI3.Controls"
+    xmlns:controls2="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:converter="using:EdgeEx.WinUI3.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ex="using:EdgeEx.WinUI3.Extensions"
@@ -666,5 +667,38 @@
                 </Grid>
             </Grid>
         </TeachingTip>
+        <controls2:Loading x:Name="LoadingControl">
+            <controls2:Loading.Background>
+                <AcrylicBrush TintColor="#6F1F1F1F" TintOpacity="0.8" />
+            </controls2:Loading.Background>
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical"
+                Spacing="20">
+                <TextBlock
+                    x:Name="LoadingTitle"
+                    MaxWidth="200"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="20" />
+                <ProgressBar
+                    x:Name="LoadingProgressBar"
+                    Width="200"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsIndeterminate="False"
+                    Maximum="100"
+                    Minimum="0" />
+                <StackPanel
+                    x:Name="LoadingProgressText"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <TextBlock Text="{x:Bind LoadingProgressBar.Value, Mode=OneWay}" />
+                    <TextBlock Text="%" />
+                </StackPanel>
+            </StackPanel>
+        </controls2:Loading>
     </Grid>
 </Page>

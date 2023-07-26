@@ -47,6 +47,8 @@ namespace EdgeEx.WinUI3.Interfaces
         /// Frame Favorite Event
         /// </summary>
         event EventHandler<FavoriteEventArg> FavoriteEvent;
+        event EventHandler<LoadingEventArg> LoadingEvent;
+        event EventHandler<LoadingProgressEventArg> LoadingProgressEvent;
         /// <summary>
         /// Change Window Backdrop  
         /// </summary>
@@ -80,5 +82,8 @@ namespace EdgeEx.WinUI3.Interfaces
         /// Frame Favorite
         /// </summary>
         void Favorite(object sender, string persistenceId, string tabItemName, bool isFavorite, string uri,string title,string folderId);
+
+        void Loading(object sender, bool isLoading,string title);
+        void LoadingProgress(object sender, double progress);
     }
 }

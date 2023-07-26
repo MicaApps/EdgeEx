@@ -68,6 +68,19 @@ namespace EdgeEx.WinUI3.Pages
             caller.UriNavigationCompletedEvent += Caller_UriNavigatedMessageEvent;
             caller.UriNavigatedStartingEvent += Caller_UriNavigatedStartingEvent;
             caller.FrameStatusEvent += Caller_FrameStatusEvent;
+            caller.LoadingEvent += Caller_LoadingEvent;
+            caller.LoadingProgressEvent += Caller_LoadingProgressEvent;
+        }
+
+        private void Caller_LoadingProgressEvent(object sender, LoadingProgressEventArg e)
+        {
+            LoadingProgressBar.Value = e.Progress;
+        }
+
+        private void Caller_LoadingEvent(object sender, LoadingEventArg e)
+        {
+            LoadingControl.IsLoading = e.IsLoading;
+            LoadingTitle.Text = e.Title;
         }
 
         private void Caller_UriNavigatedStartingEvent(object sender, UriNavigatedMessageEventArg e)

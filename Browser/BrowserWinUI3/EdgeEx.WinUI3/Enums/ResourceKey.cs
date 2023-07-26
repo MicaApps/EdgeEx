@@ -55,5 +55,6 @@ namespace EdgeEx.WinUI3.Enums
         Download,
         Import,
         Outport,
+        ImportBookmarks,
     }
 }

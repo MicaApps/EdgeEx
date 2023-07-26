@@ -273,4 +273,7 @@
   <data name="Outport" xml:space="preserve">
     <value>导出</value>
   </data>
+  <data name="ImportBookmarks" xml:space="preserve">
+    <value>导入书签</value>
+  </data>
 </root>
