@@ -100,9 +100,9 @@ namespace EdgeEx.WinUI3.Toolkits
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public void NavigateUri(Uri uri)
+        public void NavigateUri(object sender, Uri uri, NavigateTabMode mode)
         {
-            AddressUriNavigatedEvent?.Invoke(this, new UriNavigatedEventArg(uri));
+            AddressUriNavigatedEvent?.Invoke(sender, new UriNavigatedEventArg(uri, mode));
         }
         /// <summary>
         /// <inheritdoc/>

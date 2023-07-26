@@ -57,7 +57,7 @@ namespace EdgeEx.WinUI3.Interfaces
         /// <summary>
         /// Navigate By Uri
         /// </summary>
-        void NavigateUri(Uri uri);
+        void NavigateUri(object sender, Uri uri, NavigateTabMode mode);
         /// <summary>
         /// Size Changed
         /// </summary>

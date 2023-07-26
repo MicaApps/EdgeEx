@@ -82,12 +82,8 @@ namespace EdgeEx.WinUI3.Pages
             {
                 if(e.IsFavorite)
                 {
-                    if (!Directory.Exists(settings.AppDataThumbsPath))
-                    {
-                        Directory.CreateDirectory(settings.AppDataThumbsPath);
-                    }
-                    string screenshot = await CaptureScreenshotAsync(await StorageFolder.GetFolderFromPathAsync(settings.AppDataThumbsPath),
-                         $"{Guid.NewGuid().ToString("N")}.png");
+                    
+                    string screenshot = await CaptureScreenshotAsync();
                     ViewModel.AddBookMark(screenshot,e.Title,e.FolderId);
                 }
                 else
@@ -121,8 +117,17 @@ namespace EdgeEx.WinUI3.Pages
         /// <summary>
         /// Capture WebView Screenshot
         /// </summary>
-        private async Task<string> CaptureScreenshotAsync(StorageFolder folder,string fileName)
+        private async Task<string> CaptureScreenshotAsync(string fileName=null, StorageFolder folder=null)
         {
+            if(folder == null)
+            {
+                if (!Directory.Exists(settings.AppDataThumbsPath))
+                {
+                    Directory.CreateDirectory(settings.AppDataThumbsPath);
+                }
+                folder = await StorageFolder.GetFolderFromPathAsync(settings.AppDataThumbsPath);
+            }
+            fileName ??= $"{Guid.NewGuid()}.png";
             MemoryStream memoryStream = new MemoryStream();
             IRandomAccessStream randomAccessStream = memoryStream.AsRandomAccessStream();
             SoftwareBitmap softwareBitmap;
@@ -191,14 +196,18 @@ namespace EdgeEx.WinUI3.Pages
         {
             if (args.IsSuccess && sender.Source.ToString() != "about:blank")
             {
-                LoadingBar.Visibility = Visibility.Collapsed;
+                
                 TopWebView.Visibility = Visibility.Visible;
                 string title = (await sender.CoreWebView2.ExecuteScriptAsync("document.title")).ToString();
                 string iconUri = $"https://{sender.Source.Host}/favicon.ico";
                 ViewModel.CallUriNavigationCompleted(sender, PersistenceId,
                     TabItemName, title, iconUri, sender.Source);
+                if (ViewModel.CanUpdateScreenshot())
+                {
+                    ViewModel.UpdateScreenshot(await CaptureScreenshotAsync());
+                }
             }
-            
+            LoadingBar.Visibility = Visibility.Collapsed;
         }
 
         private void TopWebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)

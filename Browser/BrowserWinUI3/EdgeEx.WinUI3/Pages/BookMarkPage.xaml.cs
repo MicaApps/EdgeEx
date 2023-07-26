@@ -26,6 +26,7 @@ using Windows.Foundation.Collections;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using WinUIEx;
+using EdgeEx.WinUI3.Toolkits;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -69,6 +70,7 @@ namespace EdgeEx.WinUI3.Pages
             caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.SizeChangedEvent += Caller_SizeChangedEvent;
             caller.FrameOperationEvent += Caller_FrameOperationEvent;
+            
         }
 
         private void Caller_FrameOperationEvent(object sender, FrameOperationEventArg e)
@@ -105,21 +107,32 @@ namespace EdgeEx.WinUI3.Pages
             int commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
             Top.Height = rect.Height - titleBarHeight - commandBarHeight;
             Top.Width = rect.Width;
+            var resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
             caller.FrameStatus(this, PersistenceId, TabItemName, Frame.CanGoBack, Frame.CanGoForward, false);
-
+            caller.UriNavigationCompleted(this, PersistenceId, TabItemName,
+            new Uri("EdgeEx://Bookmarks/"),
+            resourceToolkit.GetString(ResourceKey.Bookmarks),  new FontIconSource() { Glyph = "\uE728" });
         }
 
         private void BookmarksTreeView_ItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
         {
-            ViewModel.SetCurrentBookmarks(args.InvokedItem as Bookmark);
-            /* caller.UriNavigationCompleted(sender, PersistenceId, TabItemName,
-                new System.Uri("EdgeEx://Bookmarks/"+), null , null);*/
+            if(args.InvokedItem is Bookmark bookmark)
+            {
+                ViewModel.SetCurrentBookmarks(bookmark);
+                ViewModel.SetAddress(bookmark,PersistenceId, TabItemName);
+            }
+            
         }
 
         private void BookmarksTreeView_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.InitBookmarks();
+            Bookmark book = ViewModel.InitBookmarks(NavigateUri);
             StyleSelecter.SelectedIndex = 1;
+            if (book != null)
+            {
+                ViewModel.SetCurrentBookmarks(book);
+                ViewModel.SetAddress(book, PersistenceId, TabItemName);
+            } 
         }
 
         private void Segmented_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,6 +173,14 @@ namespace EdgeEx.WinUI3.Pages
                 {
                     ViewModel.InitBookmarks();
                 }
+            }
+        }
+
+        private void BookmarkListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if(e.ClickedItem is Bookmark bookmark && !bookmark.IsFolder)
+            {
+                caller.NavigateUri(bookmark, new Uri(bookmark.Uri), NavigateTabMode.NewTab);
             }
         }
     }

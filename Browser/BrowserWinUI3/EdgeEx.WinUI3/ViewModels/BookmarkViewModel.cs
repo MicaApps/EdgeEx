@@ -1,4 +1,5 @@
-﻿using EdgeEx.WinUI3.Models;
+﻿using EdgeEx.WinUI3.Interfaces;
+using EdgeEx.WinUI3.Models;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,22 @@ namespace EdgeEx.WinUI3.ViewModels
     public partial class BookmarkViewModel
     {
         private ISqlSugarClient db;
+        private ICallerToolkit caller;
         public ObservableCollection<Bookmark> BookmarkFolders { get; } = new ObservableCollection<Bookmark>();
         public ObservableCollection<Bookmark> CurrentBookmarks { get; } = new ObservableCollection<Bookmark>();
-        public BookmarkViewModel(ISqlSugarClient sqlSugarClient)
+        public BookmarkViewModel(ISqlSugarClient sqlSugarClient,ICallerToolkit callerToolkit)
         {
             db = sqlSugarClient;
-            
+            caller = callerToolkit;
         }
-        public void InitBookmarks()
+        public Bookmark InitBookmarks(Uri navigateUri = null)
         {
+            string[] urls = null;
+            Bookmark selected = null;
+            if (navigateUri!=null)
+            {
+                urls = navigateUri.ToString().Replace("edgeex://bookmarks/","").Split("/");
+            }
             BookmarkFolders.Clear();
             object[] inIds = db.Queryable<Bookmark>()
                 .Where(it => it.IsFolder)
@@ -29,7 +37,26 @@ namespace EdgeEx.WinUI3.ViewModels
                 .ToTree(it => it.Children, it => it.FolderId, "root", inIds))
             {
                 BookmarkFolders.Add(bookmark);
+                if (urls!=null&& bookmark.Uri == urls[0])
+                {
+                    selected = bookmark;
+                }
+                
             }
+            if(selected != null)
+            {
+                int i = 1;
+                for (;i < urls.Length;i++)
+                {
+                    if (selected == null) break;
+                    selected = selected.Children.FirstOrDefault(x => x.Uri == urls[i]);
+                }
+                if(i == urls.Length)
+                {
+                   return selected;
+                }
+            }
+            return null;
         }
         public void SetCurrentBookmarks(Bookmark bookmark)
         {
@@ -44,6 +71,19 @@ namespace EdgeEx.WinUI3.ViewModels
                 }
             }
             
+        }
+        public void SetAddress(Bookmark bookmark, string persistenceId, string tabItemName)
+        {  
+            List<string> addresss = new List<string> { bookmark.Uri };
+            while (bookmark!=null && bookmark?.FolderId != "root")
+            {
+                bookmark = db.Queryable<Bookmark>().First(x => x.Uri == bookmark.FolderId);
+                addresss.Add(bookmark.Uri);
+            }
+            addresss.Reverse();
+            caller.UriNavigationCompleted(this, persistenceId, tabItemName,
+                   new Uri("EdgeEx://Bookmarks/" + String.Join('/', addresss)),
+                   null, null);
         }
     }
 }

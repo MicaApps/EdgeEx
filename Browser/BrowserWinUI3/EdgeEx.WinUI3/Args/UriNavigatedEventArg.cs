@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EdgeEx.WinUI3.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,11 @@ namespace EdgeEx.WinUI3.Args
     public class UriNavigatedEventArg
     {
         public Uri NavigatedUri { get; set; }
-        public UriNavigatedEventArg(Uri uri)
+        public NavigateTabMode Mode { get; set; }
+        public UriNavigatedEventArg(Uri uri, NavigateTabMode mode )
         {
             this.NavigatedUri = uri;
+            this.Mode = mode;
         }
         public UriNavigatedEventArg() { }
     }

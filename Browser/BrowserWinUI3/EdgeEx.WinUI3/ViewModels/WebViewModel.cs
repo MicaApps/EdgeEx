@@ -41,18 +41,16 @@ namespace EdgeEx.WinUI3.ViewModels
         public void AddBookMark(string screenshot, string title,string folderId)
         {
             if (Icon != null && Url != null)
-            { 
-                if(db.Queryable<Bookmark>().First(x=>x.Uri==Url) is Bookmark bookmark)
+            {
+                Bookmark bookmark = db.Queryable<Bookmark>().First(x => x.Uri == Url);
+                if (bookmark!=null&& bookmark.Screenshot != null)
                 {
-                    if(bookmark.Screenshot!=null)
-                    {
-                        DeleteScreenshot(bookmark.Screenshot);
-                    }
+                    DeleteScreenshot(bookmark.Screenshot);
                 }
                 db.Storageable(new Bookmark()
                 {
                     Uri = Url,
-                    Icon = Icon,
+                    Icon = bookmark?.Icon ?? Icon,
                     Title = title,
                     CreateTime = DateTime.Now,
                     Screenshot = screenshot,
@@ -107,6 +105,22 @@ namespace EdgeEx.WinUI3.ViewModels
                     ImageSource = new BitmapImage(new Uri(icon)),
                 }); 
             CallFrameStatus(sender, persistenceId, tabItemName);
+        }
+        public bool CanUpdateScreenshot()
+        {
+            if (db.Queryable<Bookmark>().First(x => x.Uri == Url) is Bookmark bookmark && bookmark.Screenshot == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void UpdateScreenshot(string screenshot)
+        {
+            if(db.Queryable<Bookmark>().First(x => x.Uri == Url) is Bookmark bookmark)
+            {
+                bookmark.Screenshot = screenshot;
+                db.Storageable(bookmark).ExecuteCommand();
+            }
         }
     }
 }

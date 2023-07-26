@@ -197,6 +197,7 @@
                 <GridView
                     x:Name="BookmarkGridView"
                     IsItemClickEnabled="True"
+                    ItemClick="BookmarkListView_ItemClick"
                     ItemTemplate="{StaticResource BookmarkThumbGridTemplate}"
                     ItemsSource="{x:Bind ViewModel.CurrentBookmarks, Mode=OneWay}"
                     SelectionMode="None"
@@ -210,6 +211,7 @@
                 <ListView
                     x:Name="BookmarkListView"
                     IsItemClickEnabled="True"
+                    ItemClick="BookmarkListView_ItemClick"
                     ItemTemplate="{StaticResource BookmarkSimpleListTemplate}"
                     ItemsSource="{x:Bind ViewModel.CurrentBookmarks, Mode=OneWay}"
                     SelectionMode="None"

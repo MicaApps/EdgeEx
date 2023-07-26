@@ -145,8 +145,7 @@ namespace EdgeEx.WinUI3.Pages
         }
         private void Caller_UriNavigatedEvent(object sender, UriNavigatedEventArg e)
         {
-            UriNavigate(e.NavigatedUri);
-
+            UriNavigate(e.NavigatedUri,e.Mode);
         }
 
         

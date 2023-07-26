@@ -150,7 +150,7 @@ namespace EdgeEx.WinUI3
             if (!Directory.Exists(logPath)) Directory.CreateDirectory(logPath);
             Log.Logger = new LoggerConfiguration()
                .MinimumLevel.Debug()
-               .WriteTo.File(System.IO.Path.Combine(logPath, "EdgeEx.WinUI3.log"), outputTemplate: "{Timestamp:MM-dd HH:mm:ss.fff} [{Level:u4}] {SourceContext} | {Message:lj} {Exception}{NewLine}", rollingInterval: RollingInterval.Day, shared: true)
+               .WriteTo.File(System.IO.Path.Combine(logPath, "EdgeEx.WinUI3.log"), outputTemplate: "{Timestamp:MM-dd HH:mm:ss.fff} [{Level:u4}] {SourceContext} | {Message:lj} {Exception}{NewLine}", rollingInterval: RollingInterval.Day, shared: true )
                .CreateLogger();
         }
         private WindowEx m_window;
