@@ -5,6 +5,7 @@ using EdgeEx.WinUI3.Args;
 using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
+using EdgeEx.WinUI3.Models;
 using EdgeEx.WinUI3.Toolkits;
 using EdgeEx.WinUI3.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -85,11 +86,11 @@ namespace EdgeEx.WinUI3.Pages
 
         private void Caller_UriNavigatedStartingEvent(object sender, UriNavigatedMessageEventArg e)
         {
-            if (Tabs.SelectedItem is TabViewItem item && item.Name == e.TabItemName)
+            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is TabViewItem item)
             {
                 string uri = e.NavigatedUri.ToString();
                 AddressBar.Text = e.NavigatedUri.ToString();
-                item.Tag = e.NavigatedUri;
+                (item.Tag as TabViewItemTag).NavigateUri = e.NavigatedUri;
                 item.Header = uri;
             }
         }
@@ -98,7 +99,7 @@ namespace EdgeEx.WinUI3.Pages
             if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is TabViewItem item)
             { 
                 AddressBar.Text = e.NavigatedUri.ToString();
-                item.Tag = e.NavigatedUri;
+                (item.Tag as TabViewItemTag).NavigateUri = e.NavigatedUri;
                 if(e.Title != null)
                 {
                     item.Header = e.Title;
@@ -112,20 +113,13 @@ namespace EdgeEx.WinUI3.Pages
         }
         private void Caller_FrameStatusEvent(object sender, FrameStatusEventArg e)
         {
-            if (Tabs.SelectedItem is TabViewItem item)
+            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is TabViewItem item)
             {
-                if (e.PersistenceId == PersistenceId && e.TabItemName == item.Name) 
-                {
-                    GoBackButton.IsEnabled = e.CanGoBack;
-                    GoForwardButton.IsEnabled = e.CanGoForward;
-                    RefreshButton.IsEnabled = e.CanRefresh;
-                }
+                TabViewItemTag tag = item.Tag as TabViewItemTag;
+                GoBackButton.IsEnabled = tag.CanGoBack = e.CanGoBack;
+                GoForwardButton.IsEnabled = tag.CanGoForward = e.CanGoForward;
+                RefreshButton.IsEnabled = tag.CanRefresh = e.CanRefresh;
             }
-            else
-            {
-                GoBackButton.IsEnabled = GoForwardButton.IsEnabled = RefreshButton.IsEnabled = false;
-            }
-                
         }
 
         
@@ -167,7 +161,7 @@ namespace EdgeEx.WinUI3.Pages
                     Name = name,
                     IconSource = icon,
                     Header = title,
-                    Tag = uri,
+                    Tag = new TabViewItemTag { NavigateUri = uri },
                 };
                 item.Content = frame;
                 int index = Tabs.SelectedIndex + 1;
@@ -186,9 +180,8 @@ namespace EdgeEx.WinUI3.Pages
             {
                 if(Tabs.SelectedItem is TabViewItem item)
                 {
-                    item.Name = name;
-                    item.Tag = uri;
-                    (item.Content as Frame).Navigate(page, new NavigatePageArg(name, uri));
+                    item.Tag = new TabViewItemTag { NavigateUri=uri};
+                    (item.Content as Frame).Navigate(page, new NavigatePageArg(item.Name, uri));
                 }
             }
         }
@@ -258,10 +251,13 @@ namespace EdgeEx.WinUI3.Pages
         private void Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Tabs.SelectedItem is TabViewItem item)
-            { 
-                Uri uri = item.Tag as Uri;
-                AddressBar.Text = uri.ToString();
-                ViewModel.CheckFavorite(uri);
+            {
+                TabViewItemTag tag = item.Tag as TabViewItemTag;
+                AddressBar.Text = tag.NavigateUri.ToString();
+                GoBackButton.IsEnabled = tag.CanGoBack;
+                GoForwardButton.IsEnabled = tag.CanGoForward;
+                RefreshButton.IsEnabled = tag.CanRefresh;
+                ViewModel.CheckFavorite(tag.NavigateUri);
             }
             
         }

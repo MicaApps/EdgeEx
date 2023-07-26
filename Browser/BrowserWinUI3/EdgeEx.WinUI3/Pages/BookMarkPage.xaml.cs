@@ -80,7 +80,7 @@ namespace EdgeEx.WinUI3.Pages
                 switch (e.Operation)
                 {
                     case FrameOperation.Refresh:
-
+                        BookmarksTreeView_Loaded(null, null);
                         break;
                     case FrameOperation.GoBack:
 
@@ -107,18 +107,13 @@ namespace EdgeEx.WinUI3.Pages
             int commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
             Top.Height = rect.Height - titleBarHeight - commandBarHeight;
             Top.Width = rect.Width;
-            var resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
-            caller.FrameStatus(this, PersistenceId, TabItemName, Frame.CanGoBack, Frame.CanGoForward, false);
-            caller.UriNavigationCompleted(this, PersistenceId, TabItemName,
-            NavigateUri,
-            resourceToolkit.GetString(ResourceKey.Bookmarks),  new FontIconSource() { Glyph = "\uE728" });
+            caller.FrameStatus(this, PersistenceId, TabItemName, Frame.CanGoBack, Frame.CanGoForward, true);
         }
 
         private void BookmarksTreeView_ItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
         {
             if(args.InvokedItem is Bookmark bookmark)
             {
-                ViewModel.SetCurrentBookmarks(bookmark);
                 NavigateUri = ViewModel.SetAddress(bookmark,PersistenceId, TabItemName);
             }
             
@@ -128,11 +123,7 @@ namespace EdgeEx.WinUI3.Pages
         {
             Bookmark book = ViewModel.InitBookmarks(NavigateUri);
             StyleSelecter.SelectedIndex = ViewModel.BookmarksViewMode;
-            if (book != null)
-            {
-                ViewModel.SetCurrentBookmarks(book);
-                NavigateUri = ViewModel.SetAddress(book, PersistenceId, TabItemName);
-            } 
+            NavigateUri = ViewModel.SetAddress(book, PersistenceId, TabItemName);
         }
 
         private void Segmented_SelectionChanged(object sender, SelectionChangedEventArgs e)

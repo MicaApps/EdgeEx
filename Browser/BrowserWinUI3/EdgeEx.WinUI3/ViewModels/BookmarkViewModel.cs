@@ -1,6 +1,8 @@
-﻿using EdgeEx.WinUI3.Interfaces;
+﻿using EdgeEx.WinUI3.Enums;
+using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Models;
 using EdgeEx.WinUI3.Toolkits;
+using Microsoft.UI.Xaml.Controls;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -16,13 +18,16 @@ namespace EdgeEx.WinUI3.ViewModels
         private ISqlSugarClient db;
         private ICallerToolkit caller;
         private LocalSettingsToolkit localSettings;
+        private ResourceToolkit resourceToolkit;
         public ObservableCollection<Bookmark> BookmarkFolders { get; } = new ObservableCollection<Bookmark>();
         public ObservableCollection<Bookmark> CurrentBookmarks { get; } = new ObservableCollection<Bookmark>();
-        public BookmarkViewModel(ISqlSugarClient _sqlSugarClient,ICallerToolkit _callerToolkit,LocalSettingsToolkit _localSettings)
+        public BookmarkViewModel(ISqlSugarClient _sqlSugarClient,ICallerToolkit _callerToolkit,
+            LocalSettingsToolkit _localSettings, ResourceToolkit _resourceToolkit)
         {
             db = _sqlSugarClient;
             caller = _callerToolkit;
             localSettings = _localSettings;
+            resourceToolkit = _resourceToolkit;
         }
         public Bookmark InitBookmarks(Uri navigateUri = null)
         {
@@ -76,18 +81,23 @@ namespace EdgeEx.WinUI3.ViewModels
             
         }
         public Uri SetAddress(Bookmark bookmark, string persistenceId, string tabItemName)
-        {  
-            List<string> addresss = new List<string> { bookmark.Uri };
-            while (bookmark!=null && bookmark?.FolderId != "root")
+        {
+            SetCurrentBookmarks(bookmark);
+            List<string> addresss = new List<string>();
+            if (bookmark != null)
             {
-                bookmark = db.Queryable<Bookmark>().First(x => x.Uri == bookmark.FolderId);
                 addresss.Add(bookmark.Uri);
+                while (bookmark != null && bookmark?.FolderId != "root")
+                {
+                    bookmark = db.Queryable<Bookmark>().First(x => x.Uri == bookmark.FolderId);
+                    addresss.Add(bookmark.Uri);
+                }
+                addresss.Reverse();
             }
-            addresss.Reverse();
             Uri address = new Uri("EdgeEx://Bookmarks/" + String.Join('/', addresss));
             caller.UriNavigationCompleted(this, persistenceId, tabItemName,
                    address,
-                   null, null);
+                   resourceToolkit.GetString(ResourceKey.Bookmarks), new FontIconSource() { Glyph = "\uE728" });
             return address;
         }
         public int BookmarksViewMode
