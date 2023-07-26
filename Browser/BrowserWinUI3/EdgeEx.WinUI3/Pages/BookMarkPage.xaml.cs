@@ -1,3 +1,4 @@
+using EdgeEx.WinUI3.Adapters;
 using EdgeEx.WinUI3.Args;
 using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
@@ -11,14 +12,19 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Pickers;
+using Windows.Storage;
 using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -59,6 +65,7 @@ namespace EdgeEx.WinUI3.Pages
             NavigatePageArg args = e.Parameter as NavigatePageArg;
             TabItemName = args.TabItemName;
             NavigateUri = args.NavigateUri;
+            
             caller = App.Current.Services.GetService<ICallerToolkit>();
             caller.SizeChangedEvent += Caller_SizeChangedEvent;
             caller.FrameOperationEvent += Caller_FrameOperationEvent;
@@ -105,12 +112,14 @@ namespace EdgeEx.WinUI3.Pages
         private void BookmarksTreeView_ItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
         {
             ViewModel.SetCurrentBookmarks(args.InvokedItem as Bookmark);
+            /* caller.UriNavigationCompleted(sender, PersistenceId, TabItemName,
+                new System.Uri("EdgeEx://Bookmarks/"+), null , null);*/
         }
 
         private void BookmarksTreeView_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.InitBookmarks();
-            StyleSelecter.SelectedIndex = 0;
+            StyleSelecter.SelectedIndex = 1;
         }
 
         private void Segmented_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -132,6 +141,22 @@ namespace EdgeEx.WinUI3.Pages
             {
                 BookmarkGridView.Visibility = Visibility.Visible;
                 BookmarkListView.Visibility = Visibility.Collapsed;
+            }
+        }
+         
+        private async void ImportButton_Click(object sender, RoutedEventArgs e)
+        {
+            BookmarkAdapter adapter = new BookmarkAdapter();
+            IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(WindowHelper.GetWindowForElement(this));
+            FileOpenPicker openPicker = new FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
+            openPicker.SuggestedStartLocation = PickerLocationId.Downloads;
+            openPicker.ViewMode = PickerViewMode.List;
+            openPicker.FileTypeFilter.Add(".html");
+            StorageFile file = await openPicker.PickSingleFileAsync();
+            if (file != null)
+            {
+                adapter.ImportAsync(file);
             }
         }
     }

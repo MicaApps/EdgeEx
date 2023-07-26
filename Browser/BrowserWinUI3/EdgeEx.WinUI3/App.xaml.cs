@@ -137,6 +137,7 @@ namespace EdgeEx.WinUI3
                 Uri = "default",
                 IsFolder = true,
                 CreateTime = DateTime.Now,
+                LastModified = DateTime.Now,
             }).ToStorage();
             x.AsInsertable.ExecuteCommand();
         }

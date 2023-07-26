@@ -33,11 +33,23 @@ namespace EdgeEx.WinUI3.ViewModels
         }
         public void SetCurrentBookmarks(Bookmark bookmark)
         {
-            CurrentBookmarks.Clear();
-            foreach (Bookmark item in db.Queryable<Bookmark>().Where(x => !x.IsFolder && x.FolderId == bookmark.Uri).ToList())
+            if (bookmark != null)
             {
-                CurrentBookmarks.Add(item);
+                CurrentBookmarks.Clear();
+                foreach (Bookmark item in db.Queryable<Bookmark>().Where(x => !x.IsFolder && x.FolderId == bookmark.Uri).ToList())
+                {
+                    if(item.Icon == null)
+                    {
+                        item.Icon = "ms-appx:///Assets/DefaultIcon.png";
+                    }
+                    if(item.Screenshot == null)
+                    {
+                        item.Screenshot = "ms-appx:///Assets/DefaultScreenshot.png";
+                    }
+                    CurrentBookmarks.Add(item);
+                }
             }
+            
         }
     }
 }

@@ -267,4 +267,10 @@
   <data name="Download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Outport" xml:space="preserve">
+    <value>Outport</value>
+  </data>
 </root>

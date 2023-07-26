@@ -53,6 +53,7 @@ namespace EdgeEx.WinUI3.Enums
         Favorite,
         UnFavorite,
         Download,
-
+        Import,
+        Outport,
     }
 }

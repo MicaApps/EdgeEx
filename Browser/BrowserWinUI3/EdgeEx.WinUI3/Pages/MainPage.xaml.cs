@@ -86,8 +86,11 @@ namespace EdgeEx.WinUI3.Pages
             {
                 AddressBar.Text = e.NavigatedUri.ToString();
                 item.Tag = e.NavigatedUri;
+                if(e.Title!=null)
+                {
+                    item.Header = e.Title;
+                }
                 
-                item.Header = e.Title;
                 if (e.Icon != null && e.Icon != item.IconSource)
                 {
                     item.IconSource = e.Icon;

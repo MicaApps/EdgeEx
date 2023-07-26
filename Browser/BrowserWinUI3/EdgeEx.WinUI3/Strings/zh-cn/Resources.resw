@@ -267,4 +267,10 @@
   <data name="Bookmarks" xml:space="preserve">
     <value>收藏夹</value>
   </data>
+  <data name="Import" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="Outport" xml:space="preserve">
+    <value>导出</value>
+  </data>
 </root>

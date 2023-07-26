@@ -20,6 +20,8 @@ namespace EdgeEx.WinUI3.Models
 
         public DateTime CreateTime { get;set; }
         [SugarColumn(IsNullable = true)]
+        public DateTime LastModified { get;set; }
+        [SugarColumn(IsNullable = true)]
         public string Screenshot { get; set; }
         [SugarColumn(DefaultValue = "default")]
         public string FolderId { get; set; }
