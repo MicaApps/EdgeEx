@@ -86,23 +86,23 @@ namespace EdgeEx.WinUI3.Pages
 
         private void Caller_UriNavigatedStartingEvent(object sender, UriNavigatedMessageEventArg e)
         {
-            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is TabViewItem item)
+            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is EdgeExTabItem item)
             {
                 string uri = e.NavigatedUri.ToString();
                 AddressBar.Text = e.NavigatedUri.ToString();
-                (item.Tag as TabViewItemTag).NavigateUri = e.NavigatedUri;
-                item.Header = uri;
+                item.Tag.NavigateUri = e.NavigatedUri;
+                item.Tag.Header = uri;
             }
         }
         private void Caller_UriNavigationCompletedEvent(object sender, UriNavigatedMessageEventArg e)
         {
-            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is TabViewItem item)
+            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is EdgeExTabItem item)
             { 
                 AddressBar.Text = e.NavigatedUri.ToString();
-                (item.Tag as TabViewItemTag).NavigateUri = e.NavigatedUri;
+                item.Tag.NavigateUri = e.NavigatedUri;
                 if(e.Title != null)
                 {
-                    item.Header = e.Title;
+                    item.Tag.Header = e.Title;
                 }
                 if (e.Icon != null && e.Icon != item.IconSource)
                 {
@@ -113,7 +113,7 @@ namespace EdgeEx.WinUI3.Pages
         }
         private void Caller_FrameStatusEvent(object sender, FrameStatusEventArg e)
         {
-            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is TabViewItem item)
+            if (e.PersistenceId == PersistenceId && ViewModel.TabItems.FirstOrDefault(x => x.Name == e.TabItemName) is EdgeExTabItem item)
             {
                 TabViewItemTag tag = item.Tag as TabViewItemTag;
                 GoBackButton.IsEnabled = tag.CanGoBack = e.CanGoBack;
@@ -129,7 +129,7 @@ namespace EdgeEx.WinUI3.Pages
             if(e.Parameter is Uri uri)
             {
                 UriNavigate(uri, NavigateTabMode.NewTab);
-            }else if(e.Parameter is TabViewItem item)
+            }else if(e.Parameter is EdgeExTabItem item)
             {
                 ViewModel.TabItems.Add(item);
                 Tabs.SelectedIndex = 0;
@@ -156,29 +156,19 @@ namespace EdgeEx.WinUI3.Pages
                     Margin = new Thickness(0, titleBarHeight, 0, 0),
                 };
                 frame.Navigate(page, new NavigatePageArg(name, uri));
-                TabViewItem item = new TabViewItem
+                EdgeExTabItem item = new EdgeExTabItem
                 {
                     Name = name,
                     IconSource = icon,
-                    Header = title,
-                    Tag = new TabViewItemTag { NavigateUri = uri },
+                    Tag = new TabViewItemTag { NavigateUri = uri, Header = title, Name=name },
                 };
                 item.Content = frame;
-                int index = Tabs.SelectedIndex + 1;
-                if(index == ViewModel.TabItems.Count || ViewModel.TabItems.Count == 0)
-                {
-                    ViewModel.TabItems.Add(item);
-                    Tabs.SelectedItem = item;
-                }
-                else
-                {
-                    ViewModel.TabItems.Insert(index, item);
-                    Tabs.SelectedIndex = index;
-                }
+                ViewModel.TabItems.Add(item);
+                ViewModel.SelectedItem = item;
             }
             else if (mode == NavigateTabMode.Current)
             {
-                if(Tabs.SelectedItem is TabViewItem item)
+                if(Tabs.SelectedItem is EdgeExTabItem item)
                 {
                     item.Tag = new TabViewItemTag { NavigateUri=uri};
                     (item.Content as Frame).Navigate(page, new NavigatePageArg(item.Name, uri));
@@ -264,7 +254,7 @@ namespace EdgeEx.WinUI3.Pages
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tabs.SelectedItem is TabViewItem item)
+            if (Tabs.SelectedItem is EdgeExTabItem item)
             {
                 caller.FrameOperate(sender, PersistenceId, item.Name, FrameOperation.GoBack);
             }
@@ -272,7 +262,7 @@ namespace EdgeEx.WinUI3.Pages
 
         private void GoForwardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tabs.SelectedItem is TabViewItem item)
+            if (Tabs.SelectedItem is EdgeExTabItem item)
             {
                 caller.FrameOperate(sender, PersistenceId, item.Name, FrameOperation.GoForward);
             }
@@ -280,7 +270,7 @@ namespace EdgeEx.WinUI3.Pages
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Tabs.SelectedItem is TabViewItem item)
+            if(Tabs.SelectedItem is EdgeExTabItem item)
             {
                 caller.FrameOperate(sender, PersistenceId, item.Name, FrameOperation.Refresh);
             }
@@ -288,7 +278,7 @@ namespace EdgeEx.WinUI3.Pages
 
         private void Tabs_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
-            ViewModel.TabItems.Remove(args.Tab);
+            ViewModel.TabItems.Remove((EdgeExTabItem)args.Item);
             if(ViewModel.TabItems.Count == 0)
             {
                 WindowHelper.GetWindowForElement(this)?.Close();
@@ -395,14 +385,14 @@ namespace EdgeEx.WinUI3.Pages
 
         private void FavoriteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tabs.SelectedItem is TabViewItem item)
+            if (Tabs.SelectedItem is EdgeExTabItem item)
             {
                 FavoriteName.Tag = item.Name;
                 if (!ViewModel.IsFavorite)
                 {
                     ViewModel.IsFavorite = !ViewModel.IsFavorite;
-                    string title = (string)item.Header;
-                    caller.Favorite(sender, PersistenceId,  item.Name, ViewModel.IsFavorite, (item.Tag as Uri).ToString(), title, "root");
+                    string title =  item.Tag.Header;
+                    caller.Favorite(sender, PersistenceId,  item.Name, ViewModel.IsFavorite, item.Tag.NavigateUri.ToString(), title, "root");
                     FavoriteName.Text = title;
                 }
                 
@@ -411,10 +401,10 @@ namespace EdgeEx.WinUI3.Pages
 
         private void FavoriteDeteleButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Tabs.TabItems.Cast<TabViewItem>().FirstOrDefault(x=>x.Name == (string)FavoriteName.Tag ) is TabViewItem item)
+            if(ViewModel.TabItems.FirstOrDefault(x=>x.Name == (string)FavoriteName.Tag ) is EdgeExTabItem item)
             {
                 caller.Favorite(sender, PersistenceId, item.Name,
-                    false, (item.Tag as Uri).ToString(), FavoriteName.Text, "default");
+                    false, item.Tag.NavigateUri.ToString(), FavoriteName.Text, "default");
                 ViewModel.IsFavorite = false;
                 FavoriteFlyout.Hide();
             }
@@ -422,12 +412,40 @@ namespace EdgeEx.WinUI3.Pages
 
         private void FavoriteConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tabs.TabItems.Cast<TabViewItem>().FirstOrDefault(x => x.Name == (string)FavoriteName.Tag) is TabViewItem item)
+            if (ViewModel.TabItems.FirstOrDefault(x => x.Name == (string)FavoriteName.Tag) is EdgeExTabItem item)
             {
                 caller.Favorite(sender, PersistenceId, item.Name,
-                    true, (item.Tag as Uri).ToString(), FavoriteName.Text, "default");
+                    true, item.Tag.NavigateUri.ToString(), FavoriteName.Text, "default");
                 ViewModel.IsFavorite = true;
                 FavoriteFlyout.Hide();
+            }
+        }
+        
+        private void TextBox_Tapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            if (ViewModel.CheckAddressTab())
+            {
+                var s = sender as Grid;
+                var tag = s.Tag as TabViewItemTag;
+                if (ViewModel.SelectedItem is EdgeExTabItem item && item.Name == tag.Name)
+                {
+                    s.Children[0].Visibility = Visibility.Collapsed;
+                    s.Children[1].Visibility = Visibility.Visible;
+                    s.Children[1].Focus(FocusState.Programmatic);
+
+                }
+            }
+            
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CheckAddressTab())
+            {
+                var ss = sender as TextBox;
+                var s = ss.Parent as Grid;
+                s.Children[0].Visibility = Visibility.Visible;
+                s.Children[1].Visibility = Visibility.Collapsed;
             }
         }
     }

@@ -56,5 +56,7 @@ namespace EdgeEx.WinUI3.Enums
         Import,
         Outport,
         ImportBookmarks,
+        AddressTabMode,
+        AddressTabModeDes,
     }
 }

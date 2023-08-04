@@ -3,6 +3,7 @@ using EdgeEx.WinUI3.Enums;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Toolkits;
+using EdgeEx.WinUI3.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -29,12 +30,14 @@ namespace EdgeEx.WinUI3.Pages
     public sealed partial class HomePage : Page
     {
         private ICallerToolkit caller;
+        private HomeViewModel ViewModel { get; }
         private string PersistenceId { get; set; }
         private string TabItemName { get; set; }
         private Uri NavigateUri { get; set; }
         public HomePage()
         {
             this.InitializeComponent();
+            ViewModel = App.Current.Services.GetService<HomeViewModel>();
         }
         private void InitPersistenceId()
         {
@@ -94,7 +97,7 @@ namespace EdgeEx.WinUI3.Pages
             Top.Height = rect.Height - titleBarHeight - commandBarHeight;
             Top.Width = rect.Width;
             caller.FrameStatus(this, PersistenceId,TabItemName, Frame.CanGoBack, Frame.CanGoForward, false);
-            
+            // ViewModel.Init();
         }
     }
 }

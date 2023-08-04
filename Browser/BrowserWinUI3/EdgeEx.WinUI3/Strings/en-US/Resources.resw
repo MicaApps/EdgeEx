@@ -276,4 +276,10 @@
   <data name="ImportBookmarks" xml:space="preserve">
     <value>ImportBookmarks</value>
   </data>
+  <data name="AddressTabMode" xml:space="preserve">
+    <value>AddressTab</value>
+  </data>
+  <data name="AddressTabModeDes" xml:space="preserve">
+    <value>Embed the address bar into the tab , double-click the tab to use the address bar</value>
+  </data>
 </root>

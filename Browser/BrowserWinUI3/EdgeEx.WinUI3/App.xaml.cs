@@ -100,6 +100,7 @@ namespace EdgeEx.WinUI3
             services.AddSingleton<SettingsViewModel>();
             services.AddTransient<WebViewModel>();
             services.AddTransient<BookmarkViewModel>();
+            services.AddTransient<HomeViewModel>();
             return services.BuildServiceProvider();
         }
         /// <summary>
@@ -173,6 +174,10 @@ namespace EdgeEx.WinUI3
             if (!_localSettingsToolkit.Contains(LocalSettingName.BookmarkViewMode))
             {
                 _localSettingsToolkit.Set(LocalSettingName.BookmarkViewMode, 1);
+            }
+            if (!_localSettingsToolkit.Contains(LocalSettingName.AddressTabMode))
+            {
+                _localSettingsToolkit.Set(LocalSettingName.AddressTabMode, false);
             }
         }
         private WindowEx m_window;

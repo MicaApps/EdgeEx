@@ -276,4 +276,10 @@
   <data name="ImportBookmarks" xml:space="preserve">
     <value>导入书签</value>
   </data>
+  <data name="AddressTabMode" xml:space="preserve">
+    <value>地址栏标签页</value>
+  </data>
+  <data name="AddressTabModeDes" xml:space="preserve">
+    <value>将地址栏嵌入标签页,双击标签使用地址栏</value>
+  </data>
 </root>

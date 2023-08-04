@@ -76,7 +76,16 @@ namespace EdgeEx.WinUI3.ViewModels
         [ObservableProperty]
         private bool isTabDragOut;
         [ObservableProperty]
+        private bool addressTabMode;
+        [ObservableProperty]
         private string appDataThumbsPath;
+        partial void OnAddressTabModeChanged(bool oldValue, bool newValue)
+        {
+            if (oldValue != newValue)
+            {
+                _localSettingsToolkit.Set(LocalSettingName.AddressTabMode, newValue);
+            }
+        }
         partial void OnAppDataThumbsPathChanged(string oldValue, string newValue)
         {
             if(oldValue != newValue)

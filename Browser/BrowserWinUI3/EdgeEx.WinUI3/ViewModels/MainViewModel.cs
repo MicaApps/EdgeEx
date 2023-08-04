@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using EdgeEx.WinUI3.Models;
+using EdgeEx.WinUI3.Toolkits;
 using Microsoft.UI.Xaml.Controls;
 using SqlSugar;
 using System;
@@ -12,6 +13,7 @@ namespace EdgeEx.WinUI3.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         private ISqlSugarClient db;
+        private LocalSettingsToolkit _localSettingsToolkit;
         [ObservableProperty]
         private bool canGoBack;
         [ObservableProperty]
@@ -20,10 +22,19 @@ namespace EdgeEx.WinUI3.ViewModels
         private bool isApp;
         [ObservableProperty]
         private bool isFavorite;
-        public ObservableCollection<TabViewItem> TabItems { get; set; } = new ObservableCollection<TabViewItem>();
-        public MainViewModel(ISqlSugarClient sqlSugarClient)
+        [ObservableProperty]
+        private EdgeExTabItem selectedItem;
+        [ObservableProperty]
+        private int selectedIndex;
+        public ObservableCollection<EdgeExTabItem> TabItems { get; set; } = new ObservableCollection<EdgeExTabItem>();
+        public MainViewModel(LocalSettingsToolkit localSettingsToolkit, ISqlSugarClient sqlSugarClient)
         {
             db = sqlSugarClient;
+            _localSettingsToolkit = localSettingsToolkit;
+        }
+        public bool CheckAddressTab()
+        {
+            return _localSettingsToolkit.GetBoolean(Enums.LocalSettingName.AddressTabMode);
         }
         public void CheckFavorite(Uri uri)
         {

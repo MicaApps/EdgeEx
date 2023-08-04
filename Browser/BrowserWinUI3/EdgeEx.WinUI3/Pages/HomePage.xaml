@@ -5,14 +5,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:EdgeEx.WinUI3.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:EdgeEx.WinUI3.Models"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Grid x:Name="Top" Loaded="Top_Loaded">
-        <GridView>
-            <GridView.ItemTemplate>
-                <DataTemplate />
-            </GridView.ItemTemplate>
-        </GridView>
+        <ScrollViewer>
+            <GridView
+                x:Name="MainGridView"
+                MaxWidth="1000"
+                ItemsSource="{x:Bind ViewModel.Bookmarks, Mode=OneWay}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Bookmark">
+                        <Image
+                            Width="75"
+                            Height="75"
+                            Source="{x:Bind Icon, Mode=OneWay}" />
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="Margin" Value="25" />
+                    </Style>
+                </GridView.ItemContainerStyle>
+            </GridView>
+        </ScrollViewer>
     </Grid>
 </Page>

@@ -132,6 +132,18 @@
                         <controls:LabIcon />
                     </StackPanel>
                 </labs:SettingsCard>
+                <labs:SettingsCard
+                    x:Name="AddressTabModeCard"
+                    Description="{ex:Locale Key=AddressTabModeDes}"
+                    Header="{ex:Locale Key=AddressTabMode}">
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE78B;" />
+                    </labs:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AddressTabMode, Mode=TwoWay}" />
+                        <controls:LabIcon />
+                    </StackPanel>
+                </labs:SettingsCard>
             </StackPanel>
         </ScrollViewer>
     </Grid>
