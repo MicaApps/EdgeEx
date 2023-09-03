@@ -576,11 +576,12 @@
                                         Grid.Column="0"
                                         VerticalAlignment="Center"
                                         Text="{ex:Locale Key=Folder}" />
-                                    <TextBox
-                                        Grid.Column="1"
-                                        Height="32"
-                                        Margin="10,0"
-                                        VerticalAlignment="Center" />
+                                    <ComboBox Grid.Column="1" PlaceholderText="Pick a color" Width="100">
+                                        <x:String>Blue</x:String>
+                                        <x:String>Green</x:String>
+                                        <x:String>Red</x:String>
+                                        <x:String>Yellow</x:String>
+                                    </ComboBox>
                                 </Grid>
                                 <Grid Grid.Row="3">
                                     <Grid.ColumnDefinitions>
@@ -603,7 +604,8 @@
                                         <Button
                                             x:Name="FavoriteConfirmButton"
                                             Click="FavoriteConfirmButton_Click"
-                                            Content="{ex:Locale Key=Confirm}" />
+                                            Content="{ex:Locale Key=Confirm}" 
+                                            Style="{StaticResource AccentButtonStyle}"/>
                                         <Button
                                             x:Name="FavoriteDeteleButton"
                                             Click="FavoriteDeteleButton_Click"
