@@ -13,7 +13,6 @@ namespace EdgeEx.WinUI3.Extensions
     [MarkupExtensionReturnType(ReturnType = typeof(string))]
     internal sealed class LocaleExtension : MarkupExtension
     {
-        
         /// <summary>
         /// Key
         /// </summary>

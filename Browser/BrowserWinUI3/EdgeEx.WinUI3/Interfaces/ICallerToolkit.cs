@@ -13,6 +13,9 @@ using WinUIEx;
 
 namespace EdgeEx.WinUI3.Interfaces
 {
+    /// <summary>
+    /// Toolkit that send event
+    /// </summary>
     public interface ICallerToolkit
     {
         /// <summary>
@@ -50,7 +53,7 @@ namespace EdgeEx.WinUI3.Interfaces
         event EventHandler<LoadingEventArg> LoadingEvent;
         event EventHandler<LoadingProgressEventArg> LoadingProgressEvent;
         /// <summary>
-        /// Change Window Backdrop  
+        /// Change Window Backdrop
         /// </summary>
         void ChangeWindowBackdrop(WindowBackdrop oldMode, WindowBackdrop newMode, Color tintColor, Color fallbackColor, float tintOpacity, MicaKind kind);
 

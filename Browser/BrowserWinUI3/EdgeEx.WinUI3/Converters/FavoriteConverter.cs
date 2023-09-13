@@ -15,7 +15,6 @@ namespace EdgeEx.WinUI3.Converters
              bool isFavorite = (bool) value;
              return isFavorite ? "\uE735" : "\uE734";
          }
- 
          public object ConvertBack(object value, Type targetType, object parameter, string language)
          {
              throw new NotImplementedException();

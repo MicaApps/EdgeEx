@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using SqlSugar;
 namespace EdgeEx.WinUI3.Models
 {
+    /// <summary>
+    /// Bookmark Orm
+    /// </summary>
     public class Bookmark
     {
         public Bookmark() { }
@@ -17,7 +20,6 @@ namespace EdgeEx.WinUI3.Models
         public string Description { get;set; }
         [SugarColumn(IsPrimaryKey = true)]
         public string Uri { get;set; }
-
         public DateTime CreateTime { get;set; }
         [SugarColumn(IsNullable = true)]
         public DateTime LastModified { get;set; }
@@ -25,9 +27,9 @@ namespace EdgeEx.WinUI3.Models
         public string Screenshot { get; set; }
         [SugarColumn(DefaultValue = "default")]
         public string FolderId { get; set; }
-        [SqlSugar.SugarColumn(IsIgnore = true)]
+        [SugarColumn(IsIgnore = true)]
         public List<Bookmark> Children { get; set; }
-        [SqlSugar.SugarColumn(IsIgnore = true)]
+        [SugarColumn(IsIgnore = true)]
         public string Host { 
             get
             {

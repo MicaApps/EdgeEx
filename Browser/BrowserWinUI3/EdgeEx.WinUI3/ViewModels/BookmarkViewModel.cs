@@ -49,7 +49,6 @@ namespace EdgeEx.WinUI3.ViewModels
                 {
                     selected = bookmark;
                 }
-                
             }
             if(selected != null)
             {
@@ -78,7 +77,6 @@ namespace EdgeEx.WinUI3.ViewModels
                     CurrentBookmarks.Add(item);
                 }
             }
-            
         }
         public Uri SetAddress(Bookmark bookmark, string persistenceId, string tabItemName)
         {

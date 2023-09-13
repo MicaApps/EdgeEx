@@ -12,6 +12,9 @@ using WinUIEx;
 namespace EdgeEx.WinUI3.Extensions;
 public static class WindowExExtension
 {
+    /// <summary>
+    /// get SystemBackdropsHelper by window
+    /// </summary>
     public static SystemBackdropsHelper GetSystemBackdropsHelper(this WindowEx window)
     {
         foreach (var item in WindowHelper.SystemBackdropsHelpers)

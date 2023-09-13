@@ -1,6 +1,7 @@
 ﻿using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
+using EdgeEx.WinUI3.Extensions;
 using EdgeEx.WinUI3.Helpers;
 using EdgeEx.WinUI3.Interfaces;
 using EdgeEx.WinUI3.Models;
@@ -60,11 +61,6 @@ namespace EdgeEx.WinUI3.Adapters
             caller.Loading(this, false,"");
             return total != b;
         }
-        public static DateTime TimeStampToDateTime(long timeStamp, bool inMilli = false)
-        {
-            DateTimeOffset dateTimeOffset = inMilli ? DateTimeOffset.FromUnixTimeMilliseconds(timeStamp) : DateTimeOffset.FromUnixTimeSeconds(timeStamp);
-            return dateTimeOffset.LocalDateTime;
-        }
         public async Task<string> SaveImageFromBase64Async(string base64String, StorageFolder folder = null)
         {
             if (folder == null)
@@ -82,20 +78,17 @@ namespace EdgeEx.WinUI3.Adapters
             string path = Path.Combine(folder.Path, fileName);
             if (File.Exists(path)) return path;
             StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-            using (MemoryStream ms = new MemoryStream(bytes))
+            using MemoryStream ms = new MemoryStream(bytes);
+            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(ms.AsRandomAccessStream());
+            SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+            using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
             {
-                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(ms.AsRandomAccessStream());
-                SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-
-                using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
-                {
-                    BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
-                    encoder.SetSoftwareBitmap(softwareBitmap);
-                    encoder.IsThumbnailGenerated = false;
-                    await encoder.FlushAsync();
-                }
-                return file.Path;
+                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                encoder.SetSoftwareBitmap(softwareBitmap);
+                encoder.IsThumbnailGenerated = false;
+                await encoder.FlushAsync();
             }
+            return file.Path;
         }
 
         private async Task CheckNodeAsync(IElement element, string folderId)
@@ -106,14 +99,14 @@ namespace EdgeEx.WinUI3.Adapters
                 // is not Folder
                 if (node.NodeName == "A")
                 {
-                    Bookmark book = new Bookmark()
+                    Bookmark book = new()
                     {
                         Uri = node.GetAttribute("href"),
                         Title = node.TextContent,
                         IsFolder = false,
                         FolderId = folderId,
                         Icon = await SaveImageFromBase64Async(node.GetAttribute("icon")),
-                        CreateTime = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("add_date"))),
+                        CreateTime = Convert.ToInt64(node.GetAttribute("add_date")).ToDateTime(),
                     };
                     db.Storageable(book).ExecuteCommand();
                     current++;
@@ -121,14 +114,14 @@ namespace EdgeEx.WinUI3.Adapters
                 }
                 else if (node.NodeName == "H3")
                 {
-                    Bookmark bookmarkFolder = new Bookmark()
+                    Bookmark bookmarkFolder = new()
                     {
                         Title = node.TextContent,
                         IsFolder = true,
                         Uri = node.GetAttribute("add_date"),
                         FolderId = folderId,
-                        CreateTime = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("add_date"))),
-                        LastModified = TimeStampToDateTime(Convert.ToInt64(node.GetAttribute("last_modified"))),
+                        CreateTime = Convert.ToInt64(node.GetAttribute("add_date")).ToDateTime(),
+                        LastModified = Convert.ToInt64(node.GetAttribute("last_modified")).ToDateTime(),
                     };
                     if (element.ChildElementCount > 1)
                     {

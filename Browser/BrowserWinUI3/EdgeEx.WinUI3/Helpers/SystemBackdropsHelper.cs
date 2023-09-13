@@ -43,7 +43,6 @@ public class SystemBackdropsHelper
     {
         this.window = window;
         localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
-        
         if (localSettingsToolkit.GetString(LocalSettingName.Backdrop) is string backdrop && backdrop == WindowBackdrop.Mica.ToString())
         {
             CurrentBackdrop = WindowBackdrop.Mica;
@@ -54,7 +53,6 @@ public class SystemBackdropsHelper
             CurrentBackdrop = WindowBackdrop.Acrylic;
         }
         Reload();
-
 
     }
     public void Reload()
@@ -97,7 +95,6 @@ public class SystemBackdropsHelper
                 });
             }
         }
-        
     }
     public bool IsDefault
     {
@@ -117,7 +114,6 @@ public class SystemBackdropsHelper
     }
     public static WindowBackdrop IsMica { 
         get{
-            
             LocalSettingsToolkit localSettingsToolkit = App.Current.Services.GetService<LocalSettingsToolkit>();
             if (localSettingsToolkit.GetString(LocalSettingName.Backdrop) is string backdrop && backdrop == WindowBackdrop.Mica.ToString())
             {
@@ -128,9 +124,9 @@ public class SystemBackdropsHelper
                 localSettingsToolkit.Set(LocalSettingName.Backdrop, WindowBackdrop.Acrylic.ToString());
                 return WindowBackdrop.Acrylic;
             }
-        } 
+        }
     }
-    
+
     /// <summary>
     /// Reset to default color. If the requested type is supported, we'll update to that.
     /// Note: This completely removes any previous controller to reset to the default state.

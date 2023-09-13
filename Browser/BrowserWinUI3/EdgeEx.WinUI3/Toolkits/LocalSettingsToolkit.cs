@@ -8,7 +8,9 @@ using Windows.Storage;
 
 namespace EdgeEx.WinUI3.Toolkits
 {
-
+    /// <summary>
+    /// Toolkit that control the settings of app
+    /// </summary>
     public class LocalSettingsToolkit
     {
         /// <summary>

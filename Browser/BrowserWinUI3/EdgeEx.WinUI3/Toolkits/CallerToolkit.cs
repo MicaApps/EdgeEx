@@ -15,6 +15,9 @@ using WinUIEx;
 
 namespace EdgeEx.WinUI3.Toolkits
 {
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public class CallerToolkit : ICallerToolkit
     {
         /// <summary>
