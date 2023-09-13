@@ -27,6 +27,9 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using WinUIEx;
 using EdgeEx.WinUI3.Toolkits;
+using System.Diagnostics;
+using CommunityToolkit.Common.Parsers.Markdown.Inlines;
+using EdgeEx.WinUI3.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -36,44 +39,22 @@ namespace EdgeEx.WinUI3.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BookMarkPage : Page
+    public sealed partial class BookMarkPage : PageEx
     {
-        private ICallerToolkit caller;
-        private string PersistenceId { get; set; }
-        private string TabItemName { get; set; }
-        private Uri NavigateUri { get; set; }
-        private BookmarkViewModel ViewModel { get; set; }
+        private BookmarkViewModel ViewModel { get; set; } = App.Current.Services.GetService<BookmarkViewModel>();
         public BookMarkPage()
         {
             this.InitializeComponent();
-            ViewModel = App.Current.Services.GetService<BookmarkViewModel>();
-        }
-        private void InitPersistenceId()
-        {
-            WindowEx window = WindowHelper.GetWindowForElement(this);
-            PersistenceId = window.PersistenceId;
         }
         /// <summary>
         /// Control tab page size(From Event)
         /// </summary>
-        private void Caller_SizeChangedEvent(object sender, SizeChangedEventArgs e)
+        protected override void Caller_SizeChangedEvent(object sender, SizeChangedEventArgs e)
         {
             Top.Height = e.NewSize.Height;
             Top.Width = e.NewSize.Width;
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            NavigatePageArg args = e.Parameter as NavigatePageArg;
-            TabItemName = args.TabItemName;
-            NavigateUri = args.NavigateUri;
-            
-            caller = App.Current.Services.GetService<ICallerToolkit>();
-            caller.SizeChangedEvent += Caller_SizeChangedEvent;
-            caller.FrameOperationEvent += Caller_FrameOperationEvent;
-            
-        }
-
-        private void Caller_FrameOperationEvent(object sender, FrameOperationEventArg e)
+        protected override void Caller_FrameOperationEvent(object sender, FrameOperationEventArg e)
         {
             if (TabItemName == e.TabItemName)
             {
@@ -92,17 +73,10 @@ namespace EdgeEx.WinUI3.Pages
             }
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            caller.SizeChangedEvent -= Caller_SizeChangedEvent;
-            caller.FrameOperationEvent -= Caller_FrameOperationEvent;
-        }
-
         private void Top_Loaded(object sender, RoutedEventArgs e)
         {
-            InitPersistenceId();
             // Initialize Tab size
-            Rect rect = WindowHelper.GetWindowForElement(this).Bounds;
+            var rect = WindowHelper.GetWindowForElement(this).Bounds;
             int titleBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExTitleBarHeight"]);
             int commandBarHeight = Convert.ToInt32(Application.Current.Resources["EdgeExCommandBarHeight"]);
             Top.Height = rect.Height - titleBarHeight - commandBarHeight;
@@ -116,12 +90,11 @@ namespace EdgeEx.WinUI3.Pages
             {
                 NavigateUri = ViewModel.SetAddress(bookmark,PersistenceId, TabItemName);
             }
-            
         }
 
         private void BookmarksTreeView_Loaded(object sender, RoutedEventArgs e)
         {
-            Bookmark book = ViewModel.InitBookmarks(NavigateUri);
+            var book = ViewModel.InitBookmarks(NavigateUri);
             StyleSelecter.SelectedIndex = ViewModel.BookmarksViewMode;
             NavigateUri = ViewModel.SetAddress(book, PersistenceId, TabItemName);
         }
@@ -148,23 +121,23 @@ namespace EdgeEx.WinUI3.Pages
             }
             ViewModel.BookmarksViewMode = StyleSelecter.SelectedIndex;
         }
-         
+
         private async void ImportButton_Click(object sender, RoutedEventArgs e)
         {
-            BookmarkAdapter adapter = new BookmarkAdapter();
-            IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(WindowHelper.GetWindowForElement(this));
-            FileOpenPicker openPicker = new FileOpenPicker();
+            var adapter = new BookmarkAdapter();
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(WindowHelper.GetWindowForElement(this));
+            var openPicker = new FileOpenPicker();
             WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
             openPicker.SuggestedStartLocation = PickerLocationId.Downloads;
             openPicker.ViewMode = PickerViewMode.List;
             openPicker.FileTypeFilter.Add(".html");
-            StorageFile file = await openPicker.PickSingleFileAsync();
+            var file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
-               if( await adapter.ImportAsync(file))
-                {
+               if(await adapter.ImportAsync(file))
+               {
                     ViewModel.InitBookmarks();
-                }
+               }
             }
         }
 

@@ -41,15 +41,17 @@ namespace EdgeEx.WinUI3.Adapters
             caller = App.Current.Services.GetService<ICallerToolkit>();
             resourceToolkit = App.Current.Services.GetService<ResourceToolkit>();
         }
+        /// <summary>
+        /// Import bookmarks from File
+        /// </summary>
         public async Task<bool> ImportAsync(StorageFile file)
         {
-            string text = await FileIO.ReadTextAsync(file);
-            HtmlParser parser = new HtmlParser();
-            IHtmlDocument document = parser.ParseDocument(text);
-            IElement items = document.QuerySelector(@"body > dl");
-            int all = document.GetElementsByTagName("A").Length;
+            var parser = new HtmlParser();
+            var document = parser.ParseDocument(await FileIO.ReadTextAsync(file));
+            var items = document.QuerySelector(@"body > dl");
+            total = document.GetElementsByTagName("A").Length;
             caller.Loading(this, true, resourceToolkit.GetString(Enums.ResourceKey.ImportBookmarks) + "...");
-            total = db.Queryable<Bookmark>().Count();
+            int all = db.Queryable<Bookmark>().Count();
             foreach (IElement item in items.Children)
             {
                 if (item.NodeName == "DT")
@@ -57,49 +59,55 @@ namespace EdgeEx.WinUI3.Adapters
                     await CheckNodeAsync(item, "root");
                 }
             }
-            double b = db.Queryable<Bookmark>().Count();
+            var b = db.Queryable<Bookmark>().Count();
             caller.Loading(this, false,"");
-            return total != b;
+            Log.Information("Import Bookmarks {Count} from {File} Success", total, file.DisplayName);
+            return all != b;
         }
+        /// <summary>
+        /// Save the bookmark icon
+        /// </summary>
         public async Task<string> SaveImageFromBase64Async(string base64String, StorageFolder folder = null)
         {
-            if (folder == null)
+            if (folder is null)
             {
-                string appDataThumbsPath = localSettingsToolkit.GetString(Enums.LocalSettingName.AppDataThumbsPath);
+                var appDataThumbsPath = localSettingsToolkit.GetString(Enums.LocalSettingName.AppDataThumbsPath);
                 if (!Directory.Exists(appDataThumbsPath))
                 {
                     Directory.CreateDirectory(appDataThumbsPath);
                 }
                 folder = await StorageFolder.GetFolderFromPathAsync(appDataThumbsPath);
             }
-            if (base64String == null) return null;
-            byte[] bytes = Convert.FromBase64String(base64String.Replace("data:image/png;base64,", ""));
-            string fileName = $"{EncryptingHelper.CreateMd5(bytes)}.png";
-            string path = Path.Combine(folder.Path, fileName);
+            if (base64String is null) return null;
+            var bytes = Convert.FromBase64String(base64String.Replace("data:image/png;base64,", ""));
+            var fileName = $"{EncryptingHelper.CreateMd5(bytes)}.png";
+            var path = Path.Combine(folder.Path, fileName);
             if (File.Exists(path)) return path;
-            StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-            using MemoryStream ms = new MemoryStream(bytes);
-            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(ms.AsRandomAccessStream());
-            SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-            using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+            var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            using var ms = new MemoryStream(bytes);
+            var decoder = await BitmapDecoder.CreateAsync(ms.AsRandomAccessStream());
+            var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+            using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
             {
-                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
                 encoder.SetSoftwareBitmap(softwareBitmap);
                 encoder.IsThumbnailGenerated = false;
                 await encoder.FlushAsync();
             }
             return file.Path;
         }
-
+        /// <summary>
+        /// Check bookmark node
+        /// </summary>
         private async Task CheckNodeAsync(IElement element, string folderId)
         {
-            IElement node = element?.FirstElementChild;
+            var node = element?.FirstElementChild;
             if (element != null && node != null)
             {
                 // is not Folder
                 if (node.NodeName == "A")
                 {
-                    Bookmark book = new()
+                    db.Storageable(new Bookmark()
                     {
                         Uri = node.GetAttribute("href"),
                         Title = node.TextContent,
@@ -107,14 +115,13 @@ namespace EdgeEx.WinUI3.Adapters
                         FolderId = folderId,
                         Icon = await SaveImageFromBase64Async(node.GetAttribute("icon")),
                         CreateTime = Convert.ToInt64(node.GetAttribute("add_date")).ToDateTime(),
-                    };
-                    db.Storageable(book).ExecuteCommand();
+                    }).ExecuteCommand();
                     current++;
                     caller.LoadingProgress(this, Math.Round(current / total, 2));
                 }
                 else if (node.NodeName == "H3")
                 {
-                    Bookmark bookmarkFolder = new()
+                    var bookmarkFolder = new Bookmark()
                     {
                         Title = node.TextContent,
                         IsFolder = true,
@@ -125,7 +132,7 @@ namespace EdgeEx.WinUI3.Adapters
                     };
                     if (element.ChildElementCount > 1)
                     {
-                        IElement dl = element.Children[1];
+                        var dl = element.Children[1];
                         if (dl?.NodeName == "DL")
                         {
                             foreach (var item in dl.Children)

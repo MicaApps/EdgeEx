@@ -122,8 +122,6 @@ namespace EdgeEx.WinUI3.Pages
             }
         }
 
-        
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if(e.Parameter is Uri uri)
@@ -141,7 +139,6 @@ namespace EdgeEx.WinUI3.Pages
             UriNavigate(e.NavigatedUri,e.Mode);
         }
 
-        
         /// <summary>
         /// Add a new Tab to the TabView
         /// </summary>
@@ -175,7 +172,6 @@ namespace EdgeEx.WinUI3.Pages
                 }
             }
         }
-
 
         private void UriNavigate(string uri, NavigateTabMode mode = NavigateTabMode.Current)
         {
@@ -302,7 +298,6 @@ namespace EdgeEx.WinUI3.Pages
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            
             TransparentBorder.Margin = new Thickness(0, titleBarHeight + commandBarHeight, 0, 0);
             CommandBar.Margin = new Thickness(8, titleBarHeight, 8, 0);
             WindowEx window = WindowHelper.GetWindowForElement(this);

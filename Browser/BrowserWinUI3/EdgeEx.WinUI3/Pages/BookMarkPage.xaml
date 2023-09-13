@@ -1,7 +1,8 @@
-<Page
+<controls:PageEx
     x:Class="EdgeEx.WinUI3.Pages.BookMarkPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:EdgeEx.WinUI3.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ex="using:EdgeEx.WinUI3.Extensions"
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
@@ -225,4 +226,4 @@
             </Grid>
         </Grid>
     </Grid>
-</Page>
+</controls:PageEx>
