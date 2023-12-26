@@ -26,3 +26,6 @@ x64/
 /Cef/WinUI3CefView/Winui3Cef/vk_swiftshader.dll
 /Cef/WinUI3CefView/Winui3Cef/vk_swiftshader_icd.json
 /Cef/WinUI3CefView/Winui3Cef/vulkan-1.dll
+cef_source
+*.tar
+*.gz

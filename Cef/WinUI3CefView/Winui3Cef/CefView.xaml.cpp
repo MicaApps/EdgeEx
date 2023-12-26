@@ -91,7 +91,7 @@ namespace winrt::Winui3Cef::implementation
     winrt::Windows::Foundation::Uri CefView::Source()
     {
         auto source = m_client->m_frame->GetURL();
-        return winrt::Windows::Foundation::Uri{ source.c_str() };
+        return winrt::Windows::Foundation::Uri{ source.ToWString()};
     }
 
     void CefView::Source(winrt::Windows::Foundation::Uri value)

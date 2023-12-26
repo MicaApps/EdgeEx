@@ -3,10 +3,14 @@
 #include "../Winui3Cef/CefAppBase.hpp"
 #include "WinuiCefRenderApp.h"
 #include "WinuiCefOtherApp.h"
+#include <include/cef_version.h>
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
+#if CEF_VERSION_MAJOR <= 110
+	//see this commit:https://bitbucket.org/chromiumembedded/cef/commits/f3b570cf8e3a633f585f5a9cd19c6f7fff42266e
 	CefEnableHighDPISupport();
+#endif
 
 	CefMainArgs mainArgs{ hInstance };
 	
@@ -17,7 +21,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	{
 		case WinUICefAppBase::ProcessType::Renderer: app = new WinuiCefRenderApp();	break;
 		case WinUICefAppBase::ProcessType::Other:	app = new WinuiCefOtherApp();	break;
-		default: throw std::runtime_error{ "Unknown process" };
+		default: exit(-1);
 	}
 	return CefExecuteProcess(mainArgs, app, nullptr);
 }
